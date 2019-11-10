@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis Foundation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis Foundation">
+  <meta name="author" content="Ma Ming">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../libraries/frameworks/io2012/js/slides" 
+    src="../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../assets/img/logo.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis Foundation</h1>
+    <h2>A case-based approach</h2>
+    <p>Ma Ming<br/>Big Data Platform Architect and Data Scientist.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Question 1 ?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Martin在三年的数学学习中，共参加了10次考试，成绩如下：<br>
+ {95，96，100，98，100，97，99，100，96，90}  </p>
+
+<ul class = "build incremental">
+<li>我们应该如何描述他的成绩？<br></li>
+<li>试着预测他下次的成绩。<br></li>
+<li>第二个96改成69，再尝试回答上两个问题。 </li>
+<li>可以用更直观的方式描述他的成绩吗?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Story 1 :  Airquality Dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>Martin毕业到环境保护组织成为了一名数据分析师。
+AirQuality Dataset</p>
+
+<table><thead>
+<tr>
+<th align="right">Ozone</th>
+<th align="right">Solar.R</th>
+<th align="right">Wind</th>
+<th align="right">Temp</th>
+<th align="right">Month</th>
+<th align="right">Day</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">41</td>
+<td align="right">190</td>
+<td align="right">7.4</td>
+<td align="right">67</td>
+<td align="right">5</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">36</td>
+<td align="right">118</td>
+<td align="right">8.0</td>
+<td align="right">72</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td align="right">149</td>
+<td align="right">12.6</td>
+<td align="right">74</td>
+<td align="right">5</td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td align="right">18</td>
+<td align="right">313</td>
+<td align="right">11.5</td>
+<td align="right">62</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">14.3</td>
+<td align="right">56</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">28</td>
+<td align="right">NA</td>
+<td align="right">14.9</td>
+<td align="right">66</td>
+<td align="right">5</td>
+<td align="right">6</td>
+</tr>
+</tbody></table>
+
+<ul class = "build incremental">
+<li>领导对他说：“我们应该了解一下臭氧污染的情况呀“.</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> histogram
+<img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>第二天...</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>有没有更细化一些的<br></li>
+<li>Histogram plus KDE<br>
+<img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>第三天...</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>能不能有实际的数字呀，最好也有风速、温度之类的  </p></li>
+<li><p>Five Number  </p></li>
+</ul>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="left">Ozone</th>
+<th align="left">Solar.R</th>
+<th align="left">Wind</th>
+<th align="left">Temp</th>
+<th align="left">Month</th>
+<th align="left">Day</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left"></td>
+<td align="left">Min.   :  1.00</td>
+<td align="left">Min.   :  7.0</td>
+<td align="left">Min.   : 1.700</td>
+<td align="left">Min.   :56.00</td>
+<td align="left">Min.   :5.000</td>
+<td align="left">Min.   : 1.0</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">1st Qu.: 18.00</td>
+<td align="left">1st Qu.:115.8</td>
+<td align="left">1st Qu.: 7.400</td>
+<td align="left">1st Qu.:72.00</td>
+<td align="left">1st Qu.:6.000</td>
+<td align="left">1st Qu.: 8.0</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">Median : 31.50</td>
+<td align="left">Median :205.0</td>
+<td align="left">Median : 9.700</td>
+<td align="left">Median :79.00</td>
+<td align="left">Median :7.000</td>
+<td align="left">Median :16.0</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">Mean   : 42.13</td>
+<td align="left">Mean   :185.9</td>
+<td align="left">Mean   : 9.958</td>
+<td align="left">Mean   :77.88</td>
+<td align="left">Mean   :6.993</td>
+<td align="left">Mean   :15.8</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">3rd Qu.: 63.25</td>
+<td align="left">3rd Qu.:258.8</td>
+<td align="left">3rd Qu.:11.500</td>
+<td align="left">3rd Qu.:85.00</td>
+<td align="left">3rd Qu.:8.000</td>
+<td align="left">3rd Qu.:23.0</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">Max.   :168.00</td>
+<td align="left">Max.   :334.0</td>
+<td align="left">Max.   :20.700</td>
+<td align="left">Max.   :97.00</td>
+<td align="left">Max.   :9.000</td>
+<td align="left">Max.   :31.0</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">NA&#39;s   :37</td>
+<td align="left">NA&#39;s   :7</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>第四天</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>臭氧和季节有什么关系吗  </p>
+
+<ul class = "build incremental">
+<li>BarPlot<br>
+<img src="assets/fig/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>臭氧和温度有什么关系吗<br></li>
+<li>ScatterPlot
+<img src="assets/fig/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p>可否展示所有数值变量之间的关系呢？ </p>
+
+<ul class = "build incremental">
+<li>Pairplot<br>
+<img src="assets/fig/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Story 2 : What&#39;s the problem?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="FDR.png" width="800px" height="500px" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>为什么认为Lanton会赢得大选？</h3>
+  </hgroup>
+  <article data-timings="">
+    <ol class = "build incremental">
+<li><p>回顾事件：
+Literary Digest调查其1M读者，统计得到有43%的人支持罗斯福，所以Literary Digest得出结论：罗斯福会以大约43%的支持度而败选。而实际结果是罗斯福以62%的选票胜出。Literary Digest因为此事失去信用度，在很短的时间内就被迫停业了。  </p></li>
+<li><p>审查统计推断过程  </p>
+
+<ul>
+<li>总体是美国选民，样本是1M读者，\(n=1M\)<br></li>
+<li>这里我们关心的随机变量是美国选民支持罗斯福比例，记为 $p$。</li>
+<li>参数估计 \(p\) ：Point Estimate \(\hat{p}\) 和 Confidence Interval<br></li>
+<li>Question 1 ? : \(p\) 是什么分布呢？<br></li>
+<li>Question 2 ? : 抽样分布是什么分布呢。</li>
+</ul></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>继续</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Answer 1 : \(p\) 是二项式分布</li>
+<li>Answer 2 : 根据CLT，抽样分布是正态分布</li>
+<li>给定置信水平为0.95，\(\hat{p}=0.43\)<br>
+\(CI = \hat{p} \pm Z^* \times \sqrt{\frac{p(1-p)}{n}}\)</li>
+<li>Wald Interval : \(Margin\ errors <1/\sqrt{n}=0.001\)<br>
+得到 \(CI = (0.429,0.431)\)</li>
+<li>显然置信区间不包括50%。也就是说从数据上看，我们95%相信罗斯福的支持率在42.9%到43.1%之间。 </li>
+<li>即使把置信水平提高到99%，我们也会得出几乎一样的结论。</li>
+<li>那么意味着从统计推断来看没有问题，竞选结果说明我们遇到了第一类错误，一个非常小概率的事情发生了。 </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>结论</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>最后，我们需要审查数据收集过程。  </p>
+
+<ul class = "build incremental">
+<li>仔细分析后，不难发现抽样过程存在问题。</li>
+<li>Literary Digest采样的是它的读者，不是从所有美国选民中随机采样。事实上，该杂志读者相对收入和地位较高。所以问题出在采样偏差上。 </li>
+<li>我们从中学到了什么: 数据收集过程至关重要！！！</li>
+<li>Garbage in Garbage out.<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Story 3 : 泰坦尼克号上获救的人是否完全随机呢？</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Titanic DataSet  </p>
+
+<table><thead>
+<tr>
+<th align="right">X</th>
+<th align="left">Name</th>
+<th align="left">PClass</th>
+<th align="right">Age</th>
+<th align="left">Sex</th>
+<th align="right">Survived</th>
+<th align="right">SexCode</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">1</td>
+<td align="left">Allen, Miss Elisabeth Walton</td>
+<td align="left">1st</td>
+<td align="right">29.00</td>
+<td align="left">female</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">Allison, Miss Helen Loraine</td>
+<td align="left">1st</td>
+<td align="right">2.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">Allison, Mr Hudson Joshua Creighton</td>
+<td align="left">1st</td>
+<td align="right">30.00</td>
+<td align="left">male</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">Allison, Mrs Hudson JC (Bessie Waldo Daniels)</td>
+<td align="left">1st</td>
+<td align="right">25.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="left">Allison, Master Hudson Trevor</td>
+<td align="left">1st</td>
+<td align="right">0.92</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="left">Anderson, Mr Harry</td>
+<td align="left">1st</td>
+<td align="right">47.00</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="left">Andrews, Miss Kornelia Theodosia</td>
+<td align="left">1st</td>
+<td align="right">63.00</td>
+<td align="left">female</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="left">Andrews, Mr Thomas, jr</td>
+<td align="left">1st</td>
+<td align="right">39.00</td>
+<td align="left">male</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="left">Appleton, Mrs Edward Dale (Charlotte Lamson)</td>
+<td align="left">1st</td>
+<td align="right">58.00</td>
+<td align="left">female</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td align="left">Artagaveytia, Mr Ramon</td>
+<td align="left">1st</td>
+<td align="right">71.00</td>
+<td align="left">male</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h3>舱位等级与年龄</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>年龄和舱位等级有关系吗
+<img src="assets/fig/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>获救的人和年龄或者舱位等级有关系吗？ 
+<img src="assets/fig/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>获救的人和性别有关系吗？</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>多个变量的关系</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Z-test for class</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\(H_0\) : 不同舱位等级，其获救率无显著性区别<br>
+\(H_1\) : 头等舱有更大的机会获救    </p>
+
+<p>总体有34.37%的人获救。
+头等舱共322人，有59.94%的人获救。 </p>
+
+<ul class = "build incremental">
+<li>\(Z^*=\frac{0.5994-0.3437}{\sqrt{0.3437\times(1-0.3437)/322}}=9.66\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Chi-Square Test between Survived Sex</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## Chi-Square test for Survived and Sex
+</code></pre>
+
+<pre><code>##    
+##     female male
+##   0    154  709
+##   1    308  142
+</code></pre>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  titan$Survived and titan$Sex
+## X-squared = 329.84, df = 1, p-value &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h1>Chi-Square Test between Survived and Pclass</h1>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## Chi-Square test for Survived and Pclass
+</code></pre>
+
+<pre><code>##    
+##       * 1st 2nd 3rd
+##   0   1 129 160 573
+##   1   0 193 119 138
+</code></pre>
+
+<pre><code>## Number of cases in table: 1313 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 173.1, df = 3, p-value = 2.72e-37
+##  Chi-squared approximation may be incorrect
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Case for Anova</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>一个教育学者比较学生在不同教育组织在线学习的效率，她分别调查了World Campus,University Park 和CommonWealth campus共327个学生。  </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th>level</th>
+<th>N</th>
+<th>mean</th>
+<th>StDev</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Commonwealth Campus</td>
+<td>170</td>
+<td>100.44</td>
+<td>16.90</td>
+</tr>
+<tr>
+<td>University Park</td>
+<td>69</td>
+<td>103.72</td>
+<td>14.77</td>
+</tr>
+<tr>
+<td>World Campus</td>
+<td>88</td>
+<td>113.09</td>
+<td>13.34</td>
+</tr>
+</tbody></table>
+
+<ul class = "build incremental">
+<li>学习效率分数成近似正态分布<br></li>
+<li>\(H_0 : \mu_{CC} = \mu_{UP} = \mu_{WC}\)<br>
+\(H_1\) : Not all \(\mu\) are equal<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <table><thead>
+<tr>
+<th>source</th>
+<th>df</th>
+<th>SS</th>
+<th>MS</th>
+<th>F</th>
+<th>P</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Campus</td>
+<td>2</td>
+<td>9345</td>
+<td>4672</td>
+<td>19.27</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>324</td>
+<td>78569</td>
+<td>242</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Total</td>
+<td>326</td>
+<td>87914</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<ul class = "build incremental">
+<li>p &lt; 0.001<br></li>
+<li>我们认为其均值不全相同。 </li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Case for 回归问题 (Regression Analysis)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>问题：已知钻石的重量，如何预测钻石的价格？<br>
+<img src="assets/fig/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16"></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>回归系数<br>
+    \(\hat \beta_0 = \bar Y - \hat \beta_1 \bar X\)<br>
+    \(\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}\)<br>
+    \(\sigma_{\hat \beta_1}^2 = Var(\hat \beta_1) = \sigma^2 / \sum_{i=1}^n (X_i - \bar X)^2\)<br>
+    \(\sigma_{\hat \beta_0}^2 = Var(\hat \beta_0)  = \left(\frac{1}{n} + \frac{\bar X^2}{\sum_{i=1}^n (X_i - \bar X)^2 }\right)\sigma^2\)<br>
+    \(\frac{\hat \beta_j - \beta_j}{\hat \sigma_{\hat \beta_j}}\sim t(n-2)\)</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>回归系数讨论</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -259.6259   17.31886 -14.99094 2.523271e-19
+## x           3721.0249   81.78588  45.49715 6.751260e-40
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>结果</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="assets/fig/fig.width==5-1.png" alt="plot of chunk fig.width==5"></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2} = 0.978
+\]</p>
+
+<pre><code>  Residual Variation  
+</code></pre>
+
+<p>\[
+  \hat \sigma^2 = \frac{1}{n-2}\sum_{i=1}^n e_i^2.
+\]  </p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>残差(residuals)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>Residuals  </p>
+
+<p><img src="assets/fig/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18"></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Residuals versus X  </p>
+
+<p><img src="assets/fig/unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19"></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Story 6 : Paul,the psychic octopus</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="Paul_the_Octopus_picks_Spain_over_Germany_in_2010_World_Cup_semi-final_3.jpg" width="800px" height="500px" />  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-24" style="background:;">
+  <article data-timings="">
+    <ul>
+<li>章鱼保罗曾经连续正确预测世界杯比赛胜负8次。</li>
+<li>你认为它具备某种神奇的预测能力吗？</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-25" style="background:;">
+  <article data-timings="">
+    <pre><code>## Single proportion -- success: yes 
+## Summary statistics:
+</code></pre>
+
+<pre><code>## p_hat = 1 ;  n = 8 
+## H0: p = 0.5 
+## HA: p &gt; 0.5
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20"></p>
+
+<pre><code>## p-value =  0.0033
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Question 1 ?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Story 1 :  Airquality Dataset'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='第二天...'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='第三天...'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='第四天'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='NA'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Story 2 : What&#39;s the problem?'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='为什么认为Lanton会赢得大选？'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='继续'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='结论'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Story 3 : 泰坦尼克号上获救的人是否完全随机呢？'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='舱位等级与年龄'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='获救的人和性别有关系吗？'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='多个变量的关系'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Z-test for class'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Chi-Square Test between Survived Sex'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Chi-Square Test between Survived and Pclass'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Case for Anova'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Case for 回归问题 (Regression Analysis)'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='回归系数讨论'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='结果'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='残差(residuals)'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Story 6 : Paul,the psychic octopus'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='NA'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='NA'>
+         25
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

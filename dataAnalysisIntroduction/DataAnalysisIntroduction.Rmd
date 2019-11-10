@@ -1,0 +1,396 @@
+---
+title       : "Data Analysis Foundation"
+subtitle    : "A case-based approach"
+author      : "Ma Ming"
+job         : "Big Data Platform Architect and Data Scientist."
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : mathjax            # {mathjax, quiz, bootstrap}
+url:
+  assets: ../assets
+  lib: ../libraries
+mode        : selfcontained # {standalone, draft}
+logo        : logo.png
+knit        : slidify::knit2slides
+---
+
+## Question 1 ?  
+Martin在三年的数学学习中，共参加了10次考试，成绩如下：  
+ {95，96，100，98，100，97，99，100，96，90}  
+> - 我们应该如何描述他的成绩？  
+> - 试着预测他下次的成绩。  
+> - 第二个96改成69，再尝试回答上两个问题。 
+> - 可以用更直观的方式描述他的成绩吗?  
+
+--- &twocol  
+## Story 1 :  Airquality Dataset  
+*** =left  
+Martin毕业到环境保护组织成为了一名数据分析师。
+AirQuality Dataset
+```{r echo=F}
+library('knitr')
+kable(head(airquality), format = "markdown")
+```  
+> - 领导对他说：“我们应该了解一下臭氧污染的情况呀“.
+*** =right  
+> -  histogram
+```{r echo=F,warning=F,message=F}
+ozone = airquality$Ozone
+hist(ozone, breaks = 15,xlab = 'Ozone (ppb)', ylab = 'Probability', main = 'Histogram of Ozone Pollution')
+```  
+
+--- .class #id 
+## 第二天...  
+> - 有没有更细化一些的  
+> - Histogram plus KDE    
+```{r echo=F,warning=F,message=F}
+max.ozone = max(ozone, na.rm = T)
+hist(ozone, breaks = 15, freq = F, xlab = 'Ozone (ppb)', ylab = 'Probability', main = 'Histogram of Ozone Pollution')
+lines(density(ozone, na.rm = T, from = 0, to = max.ozone),col="red")
+```  
+
+--- .class #id
+## 第三天...  
+- 能不能有实际的数字呀，最好也有风速、温度之类的  
+  
+  
+- Five Number  
+  
+```{r echo=F,warning=F,message=F}
+kable(summary(airquality),format="markdown")
+```  
+
+--- &twocol
+##  第四天  
+*** =left  
+
+臭氧和季节有什么关系吗  
+> - BarPlot  
+```{r echo=F,warning=F,message=F}
+library(sqldf)
+month_Ozone = sqldf("select month,avg(ozone) as mo from airquality group by month")
+barplot(month_Ozone$mo,names.arg=month_Ozone$Month,xlab="Month",ylab="Mean of Ozone",col="lightblue")
+```  
+
+*** =right  
+
+> - 臭氧和温度有什么关系吗  
+> - ScatterPlot
+```{r echo=F,warning=F,message=F}
+plot(airquality$Temp, airquality$Ozone, main="Scatterplot",xlab="Temp ",ylab="Ozone",pch=19)
+abline(lm(airquality$Ozone~airquality$Temp), col="red")
+#lines(lowess(airquality$Temp,airquality$Ozone), col="blue")
+```  
+
+--- .class #id
+可否展示所有数值变量之间的关系呢？ 
+> - Pairplot  
+```{r echo=F,warning=F,message=F}
+pairs(~Ozone+Temp+Wind+Solar.R,data=airquality,
+   main="Simple Scatterplot Matrix")
+```  
+
+--- .class #id
+## Story 2 : What's the problem?  
+<img src="FDR.png" width="800px" height="500px" />
+
+--- .class #id
+### 为什么认为Lanton会赢得大选？  
+> 1. 回顾事件：
+    Literary Digest调查其1M读者，统计得到有43%的人支持罗斯福，所以Literary Digest得出结论：罗斯福会以大约43%的支持度而败选。而实际结果是罗斯福以62%的选票胜出。Literary Digest因为此事失去信用度，在很短的时间内就被迫停业了。  
+
+> 2. 审查统计推断过程  
+    - 总体是美国选民，样本是1M读者，$n=1M$  
+    - 这里我们关心的随机变量是美国选民支持罗斯福比例，记为 $p$。
+    - 参数估计 $p$ ：Point Estimate $\hat{p}$ 和 Confidence Interval  
+    - Question 1 ? : $p$ 是什么分布呢？  
+    - Question 2 ? : 抽样分布是什么分布呢。
+    
+
+--- .class #id
+### 继续  
+> - Answer 1 : $p$ 是二项式分布
+> - Answer 2 : 根据CLT，抽样分布是正态分布
+> - 给定置信水平为0.95，$\hat{p}=0.43$  
+    $CI = \hat{p} \pm Z^* \times \sqrt{\frac{p(1-p)}{n}}$
+> - Wald Interval : $Margin\ errors <1/\sqrt{n}=0.001$  
+    得到 $CI = (0.429,0.431)$
+> - 显然置信区间不包括50%。也就是说从数据上看，我们95%相信罗斯福的支持率在42.9%到43.1%之间。 
+> - 即使把置信水平提高到99%，我们也会得出几乎一样的结论。
+> - 那么意味着从统计推断来看没有问题，竞选结果说明我们遇到了第一类错误，一个非常小概率的事情发生了。 
+
+--- .class #id
+## 结论  
+最后，我们需要审查数据收集过程。  
+> - 仔细分析后，不难发现抽样过程存在问题。
+> - Literary Digest采样的是它的读者，不是从所有美国选民中随机采样。事实上，该杂志读者相对收入和地位较高。所以问题出在采样偏差上。 
+> - 我们从中学到了什么: 数据收集过程至关重要！！！
+> - Garbage in Garbage out.  
+
+--- .class
+## Story 3 : 泰坦尼克号上获救的人是否完全随机呢？
+  
+Titanic DataSet  
+  
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+titan <- read.csv("../Titanic.csv",header=TRUE)
+library('knitr')
+kable(head(titan,10), format = "markdown")
+```
+
+--- &twocol
+### 舱位等级与年龄    
+
+*** =left  
+
+> - 年龄和舱位等级有关系吗
+```{r echo=FALSE}
+boxplot(titan$Age ~ titan$PClass, xlab = "Class", ylab = "Age", col = c("red"))
+```  
+  
+*** =right  
+  
+> - 获救的人和年龄或者舱位等级有关系吗？ 
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(ggplot2)
+ggplot(titan,aes(x=Age,y=PClass,colour=factor(Survived))) +
+  geom_point() + ggtitle(label =  "Titanic Age by Pclass")
+```  
+
+--- .class #id
+### 获救的人和性别有关系吗？
+  
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(sqldf)
+new_data <- sqldf("select Sex,Survived,count(*) as cnt from titan group by Sex,Survived")
+p <-ggplot(new_data, aes(Sex, cnt))
+p +geom_bar(stat = "identity", aes(fill = factor(Survived)))
+```  
+
+--- .class #id
+### 多个变量的关系   
+```{r echo=F,warning=F,message=F,fig.height=8, fig.width=12}
+#ftable(Titanic)  
+library(vcd)  
+mosaic(Titanic,shade=TRUE,legend=TRUE) 
+```  
+
+--- .class #id
+## Z-test for class   
+
+$H_0$ : 不同舱位等级，其获救率无显著性区别  
+$H_1$ : 头等舱有更大的机会获救    
+
+```{r echo=FALSE}
+#calculate z test
+#create a new data frame for upper class passengers
+new_data <- subset(titan, titan$PClass == '1st')
+#function for z test
+z.test2 = function(a, b, n){
+ sample_mean = mean(a)
+ pop_mean = mean(b)
+ c = nrow(n)
+ var_b = var(b)
+ zeta = (sample_mean - pop_mean) / (sqrt(var_b/c))
+ return(c(sample_mean,pop_mean,c,var_b,zeta))
+}
+#call function
+#zt <- z.test2(new_data$Survived, titan$Survived,new_data)
+#zt
+```  
+
+总体有34.37%的人获救。
+头等舱共322人，有59.94%的人获救。 
+  
+  
+> - $Z^*=\frac{0.5994-0.3437}{\sqrt{0.3437\times(1-0.3437)/322}}=9.66$
+
+
+--- .class #id  
+
+## Chi-Square Test between Survived Sex
+```{r echo=FALSE}
+#chi-square test between Survived, Sex, Pclass
+cat("Chi-Square test for Survived and Sex\n")
+table(titan$Survived, titan$Sex)
+chisq.test(titan$Survived, titan$Sex) 
+```  
+
+--- .class #id
+# Chi-Square Test between Survived and Pclass
+```{r echo=FALSE}
+cat("Chi-Square test for Survived and Pclass\n")
+table(titan$Survived,titan$PClass)
+summary(table(titan$Survived,titan$PClass))
+```  
+
+--- &twocol
+## Case for Anova   
+一个教育学者比较学生在不同教育组织在线学习的效率，她分别调查了World Campus,University Park 和CommonWealth campus共327个学生。  
+
+*** =left  
+  
+level|N|mean|StDev
+---|---|---|---
+Commonwealth Campus|170|100.44|16.90
+University Park|69|103.72|14.77
+World Campus|88|113.09|13.34  
+  
+> - 学习效率分数成近似正态分布  
+> - $H_0 : \mu_{CC} = \mu_{UP} = \mu_{WC}$  
+    $H_1$ : Not all $\mu$ are equal  
+
+*** =right  
+  
+source|df|SS|MS|F|P
+---|---|---|---|---|---
+Campus|2|9345|4672|19.27|0.000
+Error|324|78569|242
+Total|326|87914  
+  
+> - p < 0.001  
+> - 我们认为其均值不全相同。 
+
+--- &twocol  
+## Case for 回归问题 (Regression Analysis)
+*** =left
+> - 问题：已知钻石的重量，如何预测钻石的价格？  
+```{r echo=F,message=F,warning=F}
+library(UsingR); data(diamond)
+g = ggplot(diamond, aes(x = carat, y = price))
+g = g + xlab("Mass (carats)")
+g = g + ylab("Price (SIN $)")
+g = g + geom_point(size = 7, colour = "black", alpha=0.5)
+g = g + geom_point(size = 5, colour = "blue", alpha=0.2)
+#g = g + geom_smooth(method = "lm", colour = "black")
+g
+```  
+
+*** =right  
+> - 回归系数  
+        $\hat \beta_0 = \bar Y - \hat \beta_1 \bar X$  
+        $\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}$  
+        $\sigma_{\hat \beta_1}^2 = Var(\hat \beta_1) = \sigma^2 / \sum_{i=1}^n (X_i - \bar X)^2$  
+        $\sigma_{\hat \beta_0}^2 = Var(\hat \beta_0)  = \left(\frac{1}{n} + \frac{\bar X^2}{\sum_{i=1}^n (X_i - \bar X)^2 }\right)\sigma^2$  
+        $\frac{\hat \beta_j - \beta_j}{\hat \sigma_{\hat \beta_j}}\sim t(n-2)$
+
+
+--- .class #id
+## 回归系数讨论    
+
+  
+  
+```{r echo=F,warning=F}
+y <- diamond$price; x <- diamond$carat; n <- length(y)
+beta1 <- cor(y, x) * sd(y) / sd(x)
+beta0 <- mean(y) - beta1 * mean(x)
+e <- y - beta0 - beta1 * x
+sigma <- sqrt(sum(e^2) / (n-2)) 
+ssx <- sum((x - mean(x))^2)
+seBeta0 <- (1 / n + mean(x) ^ 2 / ssx) ^ .5 * sigma 
+seBeta1 <- sigma / sqrt(ssx)
+tBeta0 <- beta0 / seBeta0; tBeta1 <- beta1 / seBeta1
+pBeta0 <- 2 * pt(abs(tBeta0), df = n - 2, lower.tail = FALSE)
+pBeta1 <- 2 * pt(abs(tBeta1), df = n - 2, lower.tail = FALSE)
+coefTable <- rbind(c(beta0, seBeta0, tBeta0, pBeta0), c(beta1, seBeta1, tBeta1, pBeta1))
+colnames(coefTable) <- c("Estimate", "Std. Error", "t value", "P(>|t|)")
+rownames(coefTable) <- c("(Intercept)", "x")
+
+#coefTable
+fit <- lm(y ~ x); 
+summary(fit)$coefficients
+```  
+
+--- &twocol
+## 结果
+  
+*** =left  
+
+```{r, fig.height=5, fig.width==5, echo = FALSE, results='hide'}
+library(ggplot2)
+newx = data.frame(x = seq(min(x), max(x), length = 100))
+p1 = data.frame(predict(fit, newdata= newx,interval = ("confidence")))
+p2 = data.frame(predict(fit, newdata = newx,interval = ("prediction")))
+p1$interval = "confidence"
+p2$interval = "prediction"
+p1$x = newx$x
+p2$x = newx$x
+dat = rbind(p1, p2)
+names(dat)[1] = "y"
+
+g = ggplot(dat, aes(x = x, y = y))
+g = g + geom_ribbon(aes(ymin = lwr, ymax = upr, fill = interval), alpha = 0.2) 
+g = g + geom_line()
+g = g + geom_point(data = data.frame(x = x, y=y), aes(x = x, y = y), size = 4)
+g
+```  
+
+*** =right  
+
+$$
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2} = 0.978
+$$
+  
+      Residual Variation  
+$$
+  \hat \sigma^2 = \frac{1}{n-2}\sum_{i=1}^n e_i^2.
+$$  
+
+--- &twocol
+## 残差(residuals)  
+*** =left  
+  
+Residuals  
+
+```{r, echo = FALSE, fig.height=5, fig.width=5}
+yhat <- predict(fit)
+plot(diamond$carat, diamond$price,  
+     xlab = "Mass (carats)", 
+     ylab = "Price (SIN $)", 
+     bg = "lightblue", 
+     col = "black", cex = 2, pch = 21,frame = FALSE)
+abline(fit, lwd = 2)
+for (i in 1 : n) 
+  lines(c(x[i], x[i]), c(y[i], yhat[i]), col = "red" , lwd = 2)
+```
+
+*** =right  
+  
+Residuals versus X  
+
+```{r, echo = FALSE, fig.height=5, fig.width=5}
+plot(x, e,  
+     xlab = "Mass (carats)", 
+     ylab = "Residuals (SIN $)", 
+     bg = "lightblue", 
+     col = "black", cex = 2, pch = 21,frame = FALSE)
+abline(h = 0, lwd = 2)
+for (i in 1 : n) 
+  lines(c(x[i], x[i]), c(e[i], 0), col = "red" , lwd = 2)
+```  
+
+--- .class
+## Story 6 : Paul,the psychic octopus 
+<img src="Paul_the_Octopus_picks_Spain_over_Germany_in_2010_World_Cup_semi-final_3.jpg" width="800px" height="500px" />  
+
+--- .class  
+## 
+- 章鱼保罗曾经连续正确预测世界杯比赛胜负8次。
+- 你认为它具备某种神奇的预测能力吗？
+
+--- .class
+##  
+```{r echo=F,warning=F,message=F,fig.height=4,fig.width=8}
+source("daisy_inference.R")
+paul = factor(c(rep("yes", 8), rep("no", 0)), levels = c("yes","no"))
+inference(paul, est = "proportion", type = "ht", method = "simulation",
+           success = "yes", null = 0.5, alternative = "greater")
+```
+
+
+
+
+
+
+
