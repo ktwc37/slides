@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis Foundation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis Foundation">
+  <meta name="author" content="Ma Ming">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../libraries/frameworks/io2012/js/slides" 
+    src="../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../assets/img/logo.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis Foundation</h1>
+    <h2>Descriptive Statistics and Probability Bacis Theory</h2>
+    <p>Ma Ming<br/>Big Data Platform Architect and Data Scientist.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Course Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>概率论基础知识
+
+<ul>
+<li>随机事件&amp;随机变量</li>
+<li>独立事件&amp;相关事件</li>
+<li>联合概率和条件概率</li>
+<li>加法法则和乘法法则</li>
+<li>全概率定理和贝叶斯公式</li>
+</ul></li>
+<li>总体和样本(Population and Sample)<br></li>
+<li>描述性统计(Descriptive Statistics)<br></li>
+<li>可视化(Visualization) </li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>概率分布(Probability distribution)<br>
+
+<ul>
+<li>Normal Distribution</li>
+<li>Binomial Distribution<br></li>
+<li>Possion Distribution<br></li>
+</ul></li>
+<li>最大似然估计(MLE)</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Prelimitary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Data Basics<br>
+
+<ul>
+<li>Observations,Variables and data matrics or data frame<br></li>
+<li>Type of Variables<br></li>
+</ul></li>
+<li>Random Variables<br></li>
+<li>Relationships between Variables<br></li>
+<li>PMF,PDF,CDF,SF</li>
+</ul>
+
+<p>mtcars dataset  </p>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Type of Variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Numerical (Quantitative)<br>
+
+<ul>
+<li>Continous<br></li>
+<li>Discrete<br></li>
+</ul></li>
+<li>Categorical (Qualitative)
+
+<ul>
+<li>Nominal<br></li>
+<li>Ordinal<br></li>
+</ul></li>
+</ul>
+
+<p>Airquality Dataset  </p>
+
+<table><thead>
+<tr>
+<th align="right">Ozone</th>
+<th align="right">Solar.R</th>
+<th align="right">Wind</th>
+<th align="right">Temp</th>
+<th align="right">Month</th>
+<th align="right">Day</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">41</td>
+<td align="right">190</td>
+<td align="right">7.4</td>
+<td align="right">67</td>
+<td align="right">5</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">36</td>
+<td align="right">118</td>
+<td align="right">8.0</td>
+<td align="right">72</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td align="right">149</td>
+<td align="right">12.6</td>
+<td align="right">74</td>
+<td align="right">5</td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td align="right">18</td>
+<td align="right">313</td>
+<td align="right">11.5</td>
+<td align="right">62</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">14.3</td>
+<td align="right">56</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">28</td>
+<td align="right">NA</td>
+<td align="right">14.9</td>
+<td align="right">66</td>
+<td align="right">5</td>
+<td align="right">6</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>概率基础</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>随机事件是在随机试验中,可能出现也可能不出现,而在大量重复试验中具有某种规律性的事件叫做随机事件(简称事件)。</li>
+<li>随机事件所有可能的结果的集合称为样本空间。</li>
+<li>随机事件A或者B发生的概率:
+\[P(A \cup B) = P(A)+P(B)-P(A \cap B)\]</li>
+<li>随机事件A和B同时发生的概率，即联合概率，记为$P(A,B)$或\(P(AB)\)</li>
+<li>给定随机事件B已发生的情况下，随机事件A发生的概率，为A以B为条件的概率，记为\(P(A|B)\).
+\[P(A|B)=\frac{P(AB)}{P(B)}\]</li>
+<li>全概率公式
+\[P(A)=\sum_b P(AB)=\sum_b P(A|B=b)P(B=b)\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>贝叶斯公式</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[P(A|D)=\frac{P(D|A)P(A)}{P(D)}\]
+其中，
+$P(A|D)$称为事件A的后验概率.<br>
+$P(A)$称为先验概率。<br>
+$P(D|A)$称为似然性。</p>
+
+<ul class = "build incremental">
+<li>随机事件A,B相互独立，则满足<br>
+\[P(AB)=P(A)P(B)\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>例题1.</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>根据以往的临床记录，某种癌症诊断事件的效果如下：如果病人患有癌症，则实验诊断为阳性的概率为95%。现在对自然人均进行筛查，已知自然人群中患癌症的概率为0.005, 问：该诊断试验结果为阳性的话，接受试验的人患有癌症的概率。</li>
+<li>解：设试验结果为阳性的概率为P(A),被诊断者患有癌症的概率为P(C)<br>
+  已知\(P(A|C) = 0.95，P(A|\bar{C})=0.05,P(C)=0.005,P(\bar{C})=0.995\)<br>
+  \[P(C|A) =\frac{P(A|C)P(C)}{P(A|C)P(C)+P(A|\bar{C})P(\bar{C})}=0.087\] </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>例题2.</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>标签问题<br>
+将15名新生平均分配到三个班级共有多少种分配方案?<br></li>
+<li>\[\binom{15}{5}\binom{10}{5}\binom{5}{5}=\frac{15!}{5!5!5!}\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Random variables （随机变量）</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>一个 <strong>random variable</strong> 是一个实验或观察结果的数字形式输出.<br></li>
+<li>Random Variable有两种形式,<br>
+<strong>discrete</strong> or <strong>continuous</strong>.<br></li>
+<li>离散型random variable ： 有限的可能性.<br>
+\(P(X = k)\)<br></li>
+<li>连续型random variable接受一个实数范围.<br>
+\(P(X \in A)\)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>可以被考虑为是随机变量的例子</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>扔硬币的输出数字化\((0-1)\)<br></li>
+<li>扔骰子的输出<br></li>
+<li>某天某网站的访问量<br></li>
+<li>点击广告的人数<br></li>
+<li>Question? : How to describe the distribution of a random variable?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example 1 : Titanic dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th align="right">X</th>
+<th align="left">Name</th>
+<th align="left">PClass</th>
+<th align="right">Age</th>
+<th align="left">Sex</th>
+<th align="right">Survived</th>
+<th align="right">SexCode</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">1</td>
+<td align="left">Allen, Miss Elisabeth Walton</td>
+<td align="left">1st</td>
+<td align="right">29.00</td>
+<td align="left">female</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">Allison, Miss Helen Loraine</td>
+<td align="left">1st</td>
+<td align="right">2.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">Allison, Mr Hudson Joshua Creighton</td>
+<td align="left">1st</td>
+<td align="right">30.00</td>
+<td align="left">male</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">Allison, Mrs Hudson JC (Bessie Waldo Daniels)</td>
+<td align="left">1st</td>
+<td align="right">25.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="left">Allison, Master Hudson Trevor</td>
+<td align="left">1st</td>
+<td align="right">0.92</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="left">Anderson, Mr Harry</td>
+<td align="left">1st</td>
+<td align="right">47.00</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example 2 : iris dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">5.4</td>
+<td align="right">3.9</td>
+<td align="right">1.7</td>
+<td align="right">0.4</td>
+<td align="left">setosa</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example 3 : mtcars dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Relation between variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Correlation<br>
+
+<ul>
+<li>Explanatory Variable and Response Variable<br></li>
+<li>Positive and Negative<br></li>
+<li>Strong and Weak<br></li>
+</ul></li>
+<li><img src="var.png" width="600px" height="350px" /><br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="correlation.png" alt=""></p>
+
+<ul class = "build incremental">
+<li>Correlation DONOT imply Causation!!!<br></li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Example again</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li><p>某调查机构调查2379个9~19岁女生显示大部分吃早餐的女生都比较苗条，如果我们由此得出结论：  吃早餐可以使女士苗条。<br>
+你认为正确吗？  </p></li>
+<li><p>Correlation DONOT imply Causation!!!   </p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>PMF (Probability Mass Function)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>概率质量函数的值是随机变量取该值的概率:\(p\)   </p>
+
+<ol>
+<li>\(p(x) \geq 0\) for all \(x\)</li>
+<li>\(\sum_{x} p(x) = 1\)</li>
+</ol>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Example for PMF  </p>
+
+<p>令 \(X\) 代表抛硬币的结果，这里 \(X=0\) 代表反面而 \(X = 1\) 代表正面。<br>
+\[
+p(x) = (1/2)^{x} (1/2)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]
+假如我们不知道硬币是否均匀; \(\theta\) 表示正面出现的概率(在 0 和 1 之间).
+\[
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]</p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>PDF (Probability Density Function)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>概率密度函数描述连续型随机变量的概率特征。<br>
+  <em>pdf下的面积代表了该随机变量在相应范围出现的概率</em></p>
+
+<p>pdf = \(f\) 必须满足  </p>
+
+<ol>
+<li><p>\(f(x) \geq 0\) for all \(x\)</p></li>
+<li><p>The area under \(f(x)\) is one.</p></li>
+</ol>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Example of PDF</p>
+
+<p>思考从求助热线打入的求救电话，其中得到解决的比例<br>
+\[
+f(x) = \left\{\begin{array}{ll}
+    2 x & \mbox{ for } 1 > x > 0 \\
+    0                 & \mbox{ otherwise} 
+\end{array} \right. 
+\]</p>
+
+<p>这是一个有效的概率密度函数吗？  </p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>CDF and Survival function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>一个随机变量的累积分布函数<strong>cumulative distribution function</strong> (CDF) \(X\) 定义为<br>
+\[
+F(x) = P(X \leq x)
+\]</li>
+<li>适用于连续型和离散型随机变量<br></li>
+<li>留存函数<strong>survival function</strong> 定义为
+\[
+S(x) = P(X > x)
+\]</li>
+<li>注意 \(S(x) = 1 - F(x)\)</li>
+<li>对连续型随机变量来说，PDF 是 CDF 的导数<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>回想前面热线电话的例子，其CDF和SF:  </p>
+
+<p>For \(1 \geq x \geq 0\)
+\[
+F(x) = P(X \leq x) = \frac{1}{2} Base \times Height = \frac{1}{2} (x) \times (2 x) = x^2
+\]</p>
+
+<p>\[
+S(x) = 1 - x^2
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Sampling &amp; Sources of bias</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Population vs Sample<br></li>
+<li>Sources of Bias<br>
+
+<ul>
+<li>Convenience Sample<br></li>
+<li>No Response<br></li>
+<li>Voluntary Respone<br></li>
+</ul></li>
+<li>Sampling methods<br>
+
+<ul>
+<li>Simple random sampling (SRS)<br></li>
+<li>Stratified sample<br></li>
+<li>Cluster sample<br></li>
+<li>Multistage sample<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Simple Random Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./src.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Stratified Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./stratum_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Cluster Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./cluster_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Multistage Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./multis_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Descriptive Statistics</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Shape<br></li>
+<li>Center<br>
+
+<ul>
+<li>Mean<br></li>
+<li>Median<br></li>
+<li>Mode<br></li>
+</ul></li>
+<li>Spread 
+
+<ul>
+<li>Range </li>
+<li>Variance </li>
+<li>IQR (Inter Quarter Range)</li>
+</ul></li>
+<li>Fivenum : \(( Min,Q_1,Median,Q_3,Max)\)</li>
+<li>Visualization<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Measure of Shape</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./shape.png" alt="">  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Measure of Center</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./center.png" width="800" height="500" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>Measure of Spread</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Range : ( Max - Min )</li>
+<li>Variance : \(S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}\)</li>
+<li>Standart Deviation : \(\sqrt{Var(x)}\)</li>
+<li>IQR ( Inter Quartile Range) : \(Q_3-Q_1\) </li>
+<li>Robust Statistics : Median，IQR<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>The population mean(总体均值)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>随机变量<strong>期望值 (expected value)</strong> 或者 <strong>均值</strong> 被认为是随机变量的分布的中心点<br></li>
+<li>对于离散型随机变量 \(X\) ，其 PMF 为 \(p(x)\) 均值定义为<br>
+\[
+E[X] = \sum_x xp(x).
+\]
+这里的和是包括所有可能的 \(x\)</li>
+<li>对于连续型随机变量 \(X\), 其 PDF 为 \(f(x)\) 均值定义为<br>
+\[
+E[X] = \int_{-\infty}^{\infty}xf(x)dx
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>The sample mean(样本均值)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>样本均值用来估算总体均值<br></li>
+<li>经验均值 (empirical mean)
+\[
+\bar X = \sum_{i=1}^n x_i p(x_i)
+\]
+where \(p(x_i) = 1/n\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>The population variance(总体方差)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>方差描述了一个随机变量的 <em>spread</em>(散布程度)<br></li>
+<li>\(X\) 是一个随机变量， 均值为 \(\mu\), 其方差定义为：<br></li>
+</ul>
+
+<p>\[
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+\] 
+标准差(The standart deviation)： \(\sigma=\sqrt{Var}\)  </p>
+
+<ul>
+<li>到均值的期望距离</li>
+<li>高方差意味着较大的散步程度或强波动性。</li>
+<li>方差的平方根称为标准差 <strong>standard deviation</strong></li>
+<li>标准差与 \(X\) 有同样的单位<br></li>
+<li>Question: 为什么我们要对到均值距离平方来计算方差? </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>样本方差(The sample variance)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample variance is 
+\[
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+\]</li>
+<li>也是一个随机变量<br></li>
+<li>其平方根是样本标准差( sample standard deviation )<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Histogram (直方图)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>直方图是对数值型数据分布的一种图形化表示。 </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th align="right">a</th>
+<th align="right">b</th>
+<th align="right">c</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">-0.8144389</td>
+<td align="right">20.15591</td>
+<td align="right">-18.74085</td>
+</tr>
+<tr>
+<td align="right">2.0293409</td>
+<td align="right">20.46536</td>
+<td align="right">-23.47586</td>
+</tr>
+<tr>
+<td align="right">-17.0712437</td>
+<td align="right">25.57696</td>
+<td align="right">-20.05391</td>
+</tr>
+<tr>
+<td align="right">7.1894407</td>
+<td align="right">20.29878</td>
+<td align="right">-20.90740</td>
+</tr>
+<tr>
+<td align="right">-4.0322328</td>
+<td align="right">16.42866</td>
+<td align="right">-22.47748</td>
+</tr>
+<tr>
+<td align="right">-10.8482131</td>
+<td align="right">19.77109</td>
+<td align="right">-21.36590</td>
+</tr>
+<tr>
+<td align="right">22.1244600</td>
+<td align="right">20.00176</td>
+<td align="right">-22.03549</td>
+</tr>
+<tr>
+<td align="right">-15.3665127</td>
+<td align="right">19.42893</td>
+<td align="right">-19.86470</td>
+</tr>
+<tr>
+<td align="right">-5.4004777</td>
+<td align="right">24.76773</td>
+<td align="right">-19.85656</td>
+</tr>
+<tr>
+<td align="right">13.6166368</td>
+<td align="right">21.88623</td>
+<td align="right">-15.77181</td>
+</tr>
+<tr>
+<td align="right">20.7127988</td>
+<td align="right">19.78566</td>
+<td align="right">-18.56210</td>
+</tr>
+<tr>
+<td align="right">-19.8631438</td>
+<td align="right">21.98955</td>
+<td align="right">-18.24464</td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Parameters of Histogram</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Number of bins : \(k\)</li>
+<li>Or bin width : \(h\)<br></li>
+<li>How to choose \(k\)<br>
+
+<ul>
+<li>Square-root choice : \(k=\sqrt{n}\)</li>
+<li>Sturges&#39; formula : \(k=\log_2 n + 1\)<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>BarPlot (条形图)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>条形图是用矩形条来展现分组数据，矩形条的长度和分组数据的值是成比例的。</li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <p>mtcars counting for gear  </p>
+
+<table><thead>
+<tr>
+<th>Gears#</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>counts</td>
+<td>15</td>
+<td>12</td>
+<td>5</td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>Stacked Barplot</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th>Gears#</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>vs=0</td>
+<td>12</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>vs=1</td>
+<td>3</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>DotPlot</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>The dot plot as a representation of a distribution consists of group of data points plotted on a simple scale. Dot plots are used for continuous, quantitative, univariate data.<br></li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li> 
+(2,2,3,5,13,20,1,4,3,5,7,8,8,8,10,10,8,8,4,10,15,5,12,    12,14,14,16,16,17,19,19,4,6,9,7,12,13,11,11,17,18,18,<br>
+18,18,18,18,18,12,12,12,12,12,12,12,12,12,12,12,<br>
+12,20,20,20,20,20,20,1,1,1,20)<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Bubble Plot</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>The Crime Dataset  </p>
+
+<table><thead>
+<tr>
+<th align="left">state</th>
+<th align="right">murder</th>
+<th align="right">Forcible_rate</th>
+<th align="right">Robbery</th>
+<th align="right">aggravated_assult</th>
+<th align="right">burglary</th>
+<th align="right">larceny_theft</th>
+<th align="right">motor_vehicle_theft</th>
+<th align="right">population</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Alabama</td>
+<td align="right">8.2</td>
+<td align="right">34.3</td>
+<td align="right">141.4</td>
+<td align="right">247.8</td>
+<td align="right">953.8</td>
+<td align="right">2650.0</td>
+<td align="right">288.3</td>
+<td align="right">4627851</td>
+</tr>
+<tr>
+<td align="left">Alaska</td>
+<td align="right">4.8</td>
+<td align="right">81.1</td>
+<td align="right">80.9</td>
+<td align="right">465.1</td>
+<td align="right">622.5</td>
+<td align="right">2599.1</td>
+<td align="right">391.0</td>
+<td align="right">686293</td>
+</tr>
+<tr>
+<td align="left">Arizona</td>
+<td align="right">7.5</td>
+<td align="right">33.8</td>
+<td align="right">144.4</td>
+<td align="right">327.4</td>
+<td align="right">948.4</td>
+<td align="right">2965.2</td>
+<td align="right">924.4</td>
+<td align="right">6500180</td>
+</tr>
+<tr>
+<td align="left">Arkansas</td>
+<td align="right">6.7</td>
+<td align="right">42.9</td>
+<td align="right">91.1</td>
+<td align="right">386.8</td>
+<td align="right">1084.6</td>
+<td align="right">2711.2</td>
+<td align="right">262.1</td>
+<td align="right">2855390</td>
+</tr>
+<tr>
+<td align="left">California</td>
+<td align="right">6.9</td>
+<td align="right">26.0</td>
+<td align="right">176.1</td>
+<td align="right">317.3</td>
+<td align="right">693.3</td>
+<td align="right">1916.5</td>
+<td align="right">712.8</td>
+<td align="right">36756666</td>
+</tr>
+<tr>
+<td align="left">Colorado</td>
+<td align="right">3.7</td>
+<td align="right">43.4</td>
+<td align="right">84.6</td>
+<td align="right">264.7</td>
+<td align="right">744.8</td>
+<td align="right">2735.2</td>
+<td align="right">559.5</td>
+<td align="right">4861515</td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>Rose Plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## Hadley broke my code
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Mosaic Plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Mosaic plot常常用来展示多个Categorical data(分类数据)<br>
+<img src="assets/fig/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>The Bernoulli distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><strong>伯努利分布(Bernoulli distribution)</strong> 是一个两值输出。 </li>
+<li>伯努利随机变量只输出1或者0，对应概率为 \(p\) and \(1-p\) 。</li>
+<li>伯努利随机变量 \(X\) ,其PMF \[P(X = x) =  p^x (1 - p)^{1 - x}\]</li>
+<li>伯努利随机变量均值为 \(p\) ，方差为 \(p(1 - p)\)</li>
+<li>我们一般把 \(X=1\) 认为是 &quot;success&quot; ，而 \(X=0\) 认为是 &quot;failure&quot;<br></li>
+<li>记为 \(X \sim Ber(p)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>二项式分布(Binomial distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul>
+<li><em>二项随机变量(binomial random variables)</em> 是由独立不相关(iid)的伯努利变量的和得到的。 </li>
+<li>令 \(X_1,\ldots,X_n\) 为 \(iid\ Bernoulli(p)\); 那么 \(X = \sum_{i=1}^n X_i\) 是二项随机变量。 </li>
+<li>The binomial mass function is
+\[
+P(X = x) = 
+\left(
+\begin{array}{c}
+n \\ x
+\end{array}
+\right)
+p^x(1 - p)^{n-x}
+\]
+对于 \(x=0,\ldots,n\) </li>
+<li>记为 \(X\sim Bin(n,p)\)</li>
+<li>\(\mu=p,\sigma^2=p(1-p)\)</li>
+<li>考虑扔十次硬币，出现正面的次数<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="450px-Binomial_distribution_pmf.svg.png" alt=""></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-44" style="background:;">
+  <hgroup>
+    <h2>正态分布(The normal distribution)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>一个 <strong>正态(normal)</strong> 或者 <strong>高斯(Gaussian)</strong> 分布随机变量均值为 \(\mu\) ,方差为 \(\sigma^2\) ，其 概率密度函数:
+\[
+f(x)=(2\pi \sigma^2)^{-1/2}e^{-(x - \mu)^2/2\sigma^2}
+\]
+如果 \(X\) 是符合此密度函数的随机变量，那么 \(E[X] = \mu\) 且 \(Var(X) = \sigma^2\)<br></li>
+<li>记为 \(X\sim \mbox{N}(\mu, \sigma^2)\)</li>
+<li>当 \(\mu = 0\) 且\(\sigma = 1\) ，称为 <strong>标准正态分布(the standard normal distribution)</strong></li>
+<li>标准正态分布经常用 \(Z\) 来表示 </li>
+<li>设 \(X \sim Z\), 若 \(Z_\alpha\) 满足条件 \(P\{X>z_\alpha \} = \alpha\)
+则称 \(z_\alpha\) 为标准正态分布上的 \(\alpha\) 分位点<br>
+\(z_{0.05} = 1.645,\ z_{0.025} = 1.96,\ z_{0.005}=2.57,\ z_{0.001}=3.10\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-45" style="background:;">
+  <hgroup>
+    <h2>Normal Distribution 特性</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>在自然现象和社会现象中，大量随机变量都符合正态分布或近似正态分布。  </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17"></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li><img src="330px-Boxplot_vs_PDF_svg.png" alt=""><br></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example for Norm and ScatterPlot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18"></p>
+
+<p><a href="https://gallery.shinyapps.io/dist_calc/"></a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-47" style="background:;">
+  <hgroup>
+    <h2>泊松分布(The Poisson distribution)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul>
+<li>用来对次数进行建模<br></li>
+<li>Poisson PMF<br>
+\[
+P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}
+\]
+对于 \(x=0,1,\ldots\)</li>
+<li>均值 \(\lambda\)</li>
+<li>方差也为 \(\lambda\)</li>
+<li>注意这里 \(x\) 取值范围是从 \(0\) 到 \(\infty\)<br></li>
+<li>记为 \(X\sim \pi(\lambda)\)<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="Poisson_pmf.svg.png" alt=""></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-48" style="background:;">
+  <hgroup>
+    <h2>Example Poisson distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Modeling count data<br></li>
+<li>Modeling event-time or survival data</li>
+<li>Modeling contingency tables</li>
+<li>Approximating binomials when \(n\) is large and \(p\) is small</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-49" style="background:;">
+  <hgroup>
+    <h2>Rates and Poisson random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>泊松随机变量经常对单位时间或面积某事件发生的次数建模</li>
+<li>\(X \sim Poisson(\lambda t)\) ,这里 
+
+<ul>
+<li>\(\lambda = E[X / t]\) 是单位时间内的期望计数。<br></li>
+<li>\(t\) 是观察时间<br></li>
+</ul></li>
+</ul>
+
+<p>当 \(n\) 很大同时 \(p\) 很小时，泊松分布是二项式分布的一个精确近似。  </p>
+
+<ul>
+<li>Notation
+
+<ul>
+<li>\(X \sim \mbox{Binomial}(n, p)\)</li>
+<li>\(\lambda = n p\)</li>
+<li>\(n\) gets large while \(p\) gets small</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-50" style="background:;">
+  <hgroup>
+    <h2>泊松分布的例子</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ol class = "build incremental">
+<li>在一个时间间隔内某电话交换台收到的电话呼叫次数。<br></li>
+<li>一本书一页中的印刷错误数。<br></li>
+<li>某地区一天内邮递丢失的信件数。<br></li>
+<li>某医院一天内的急诊病人数。<br></li>
+<li>某城市一个时间间隔内发生交通事故的次数。<br></li>
+</ol>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li><p>Question 1 : 在一公共汽车站出现的人数符合Poission分布，均值为\(2.5\) 每小时.<br>
+如果我们观察这个车站4小时, 整个时间内小于等于3个人出现的概率是多少?   </p></li>
+<li><p>Question 2 : 设一本书的各页的印刷错误个数X服从泊松分布,已知有一个和两个印刷错误的页数相同,试求随意抽查的4页中无印刷错误的概率.</p></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>泊松分布的练习答案</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>解 1 ：公共汽车站平均每小时出现2.5人，也就是说平均4小时出现8人，并符合泊松分布 \(Poisson(\lambda=8)\) ，小于等于3个人的概率<br>
+\(P = \frac{\lambda^0*e^{-\lambda}}{0!}+\frac{\lambda^1*e^{-\lambda}}{1!}+\frac{\lambda^2*e^{-\lambda}}{2!}+\frac{\lambda^3*e^{-\lambda}}{3!}\)
+将 $\lambda=8$带入即可得到答案。<br></li>
+<li>解 2 ： 我们首先需要求出 \(\lambda\)<br>
+由题意可知<br>
+\(\frac{\lambda^1*e^{-\lambda}}{1!}=\frac{\lambda^2*e^{-\lambda}}{2!}\) 解得 \(\lambda=2\)<br>
+说明各页印刷错误次数X服从 \(Poisson(\lambda=2)\) 
+随机取一页没有错误的概率为 \(\frac{\lambda^0*e^{-\lambda}}{0!}=e^{-2}\)<br>
+那么随机抽四页没有错误的概率为 \({(e^{-2})}^{-4}=e^{-8}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-52" style="background:;">
+  <hgroup>
+    <h2>Option 1 : 峰度 (Kurtosis) 和 偏度 (Skewness)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>偏度 是统计数据分布偏斜方向和程度的度量，&lt; 0 称分布具有负偏离，也称左偏态。&gt;0称分布具有正偏离，也称右偏态。
+数学上是随机变量标准化后的三阶统计量。
+\[
+v_1 = E[(\frac{x-E(x)}{\sqrt{Var(x)}})^3]
+\]</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>峰度 表征概率密度分布曲线在平均值处峰值高低的特征数。直观看来，峰度反映了峰部的尖度。峰度越大越说明尾部越窄小，反之尾部比较肥大。 
+数学上是随机变量标准化后的四阶统计量。 
+\[
+V_2 = E[(\frac{x-E(x)}{\sqrt{Var(x)}})^4]
+\]</p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-53" style="background:;">
+  <hgroup>
+    <h2>Option 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>问题1：将$n$只球随机的放入$N(N\geqq n)$个盒子中，试求每个盒子至多有一个球的概率（设盒子的容量不限）。</li>
+<li>\[ p=\frac{N(N-1)(N-2)...(N-n+1)}{N^n} \]</li>
+<li>求解生日悖论</li>
+<li>问题2：设有$N$间产品，其中有$D$件次品，从中任取$n$件，
+       问其中有 \(k(k\leqq D)\) 件次品的概率是多少？</li>
+<li>\[ p=\frac{\binom{D}{K}\binom{N-D}{n-k}}{\binom{N}{n}}\]</li>
+<li>超几何分布<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-54" style="background:;">
+  <hgroup>
+    <h2>Option 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>马尔可夫不等式(Markov Inequality)<br>
+随机变量$X&gt;0$，任意实数$a&gt;0$，有<br>
+\[P(X\geqq a) \leqq \frac{E(x)}{a}\]
+证： 设$X$的概率密度函数为\(f(x)\)<br>
+\[P(X\geqq a) \leqq \int_{a}^{\infty}\frac{X}{a}f(x)dx \leqq E(X/a)\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-55" style="background:;">
+  <hgroup>
+    <h2>Option 4</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>切比雪夫不等式(Chebyshev Inequality)<br>
+随机变量 \(X\) 的均值为 $\mu$，方差为 \(\sigma^2\) ，有<br>
+\[P(|X-\mu|\geqq \epsilon) \leqq \frac{\sigma^2}{\epsilon^2}\]
+证：
+  将$|X-\mu|$带入马尔可夫不等式，可得:<br>
+  \[
+    p(|X-\mu|\geqq a) \leqq \frac{E(|X-\mu|)}{a}  
+  \]
+  \[
+    P((X-\mu)^2\geqq a^2)\leqq \frac{E((X-\mu)^2)}{a^2}=\frac{\sigma^2}{a^2}
+  \]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-56" style="background:;">
+  <hgroup>
+    <h2>Option 5</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>霍夫丁不等式(Hoeffding Inequality)<br>
+考虑伯努利随机变量 \(X\) ，其正面发生的概率为 \(p\) ，对于 \(\epsilon>0\) ，试验 \(n\) 次，其正面出现的次数记为 \(H(n)\) ，有<br>
+\[P((p-\epsilon)n\leqq H(n)\leqq (p+\epsilon)n) \geqq 1-2exp(-2\epsilon^2n)\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-57" style="background:;">
+  <hgroup>
+    <h2>Option 6</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>最大似然估计(Maximum Likelihood Estimation)  </p>
+
+<ul class = "build incremental">
+<li>若总体 \(X\) 是连续性，其概率密度为 \(f(x;\theta),\theta \in \Theta\) 的形式已知，\(\theta\) 为待估参数，\(\Theta\) 是 $\theta$的可取范围。设 \(X_1,X_2,...,X_n\) 是来自 \(X\) 的样本，则 \(X_1,X_2,...,X_n\) 的联合概率密度为<br>
+\[\prod_{i=1}^{n}f(x_i,\theta)\]
+又设 \(x_1,x_2,...,x_n\) 是相应于样本 \(X_1,X_2,...,X_n\) 的观测值，样本的似然函数定义为：<br>
+\[L(\theta) = L(x_1,x_2,...,x_n;\theta)=\prod_{i=1}^{n}f(x_i,\theta)\]
+而使似然函数最大的 \(\theta\) 的估计值<br>
+\[\hat{\theta}=argmax_{\theta \in \Theta} L(\theta;x)\]
+称为 $\theta$的最大似然估计。</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-58" style="background:;">
+  <hgroup>
+    <h2>...接上页</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>为了计算方便，实践中我们常采用似然函数的对数形式，并对其求导而得到 \(\hat{\theta}\)<br></li>
+<li>例题： 设 \(X\sim B(1,p), X_1,X_2,...X_n\) 是来自 \(X\) 的一个样本值，求参数 \(p\) 的极大似然估计。<br>
+解： 设 \(x_1,x_2,...,x_n\) 是相应于样本  \(X_1,X_2,...X_n\) 的样本值，$X$的分布律为<br>
+\[P\{X=x\}=p^x(1-p)^{1-x},x=0,1.\]
+似然函数为<br>
+\[L(p)=\prod_{i=1}^{n}p^{x_i}(1-p)^{1-x_i},\]
+而 \(lnL(p)=(\sum_{i=1}^{n}x_i)ln(p)+(n-\sum_{i=1}^{n}x_i)ln(1-p)\)<br>
+令\[\frac{dlnL(p)}{dp}=\frac{\sum_{i=1}^{n}x_i}{p}-\frac{n-\sum_{i=1}^{n}x_i}{1-p}=0,\]
+解得 \(\hat{p}=\frac{1}{n}\sum_{i=1}^{n}x_i=\bar{x}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Course Introduction'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Prelimitary'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Type of Variables'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='概率基础'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='贝叶斯公式'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='例题1.'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='例题2.'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Random variables （随机变量）'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='可以被考虑为是随机变量的例子'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example 1 : Titanic dataset'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Example 2 : iris dataset'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Example 3 : mtcars dataset'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Relation between variables'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Example'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Example again'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='PMF (Probability Mass Function)'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='PDF (Probability Density Function)'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='CDF and Survival function'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Example'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Sampling &amp; Sources of bias'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Simple Random Sampling'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Stratified Sampling'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Cluster Sampling'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Multistage Sampling'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Descriptive Statistics'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Measure of Shape'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Measure of Center'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Measure of Spread'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='The population mean(总体均值)'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='The sample mean(样本均值)'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='The population variance(总体方差)'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='样本方差(The sample variance)'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Histogram (直方图)'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='Parameters of Histogram'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='BarPlot (条形图)'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Stacked Barplot'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='DotPlot'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Bubble Plot'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='Rose Plot'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Mosaic Plot'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='The Bernoulli distribution'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='二项式分布(Binomial distribution'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='正态分布(The normal distribution)'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='Normal Distribution 特性'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='Example for Norm and ScatterPlot'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='泊松分布(The Poisson distribution)'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='Example Poisson distribution'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Rates and Poisson random variables'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='泊松分布的例子'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='泊松分布的练习答案'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='Option 1 : 峰度 (Kurtosis) 和 偏度 (Skewness)'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='Option 2'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='Option 3'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='Option 4'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='Option 5'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='Option 6'>
+         57
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=58 title='...接上页'>
+         58
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
