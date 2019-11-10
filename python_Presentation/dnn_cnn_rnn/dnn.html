@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>DNN - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./nn_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./nn_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./nn_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./nn_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./nn_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./nn_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./dnn_cnn_rnn.html">深度神经网络</a></h2>
+                    <ul>
+                        <li>Basic Introduction</li>
+                        <li>Views on DNN</li>
+                        <li>RGLM</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>Basic Introduction</h3>
+                    <section>
+                    	<img src="nn_introduction_files/why-deep-learning.png" width="800" height="500"/>
+                    </section>
+                    <section>
+                    	<img src="nn_introduction_files/deeplearning0.png" width="800" height="400"/>
+                    </section>
+                    <section>
+                    	<img src="nn_introduction_files/deeplearning_artificialneuron3.png" width="800" height="400"/>
+                    </section>
+                    <section>
+                        <img src="nn_introduction_files/dnn_digit.png" width="1000" height="500"/>
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>Views On DNN</h4>
+                    <section>
+                        <ul>
+                            <li>High Cost on training a DNN</li>
+                            <li>Active Function brings non-linearity</li>
+                            <li>Automatic Feature Learning / Dimension Reduction</li>
+                            <li>High VC dimensions, which means need control overfitting</li>
+                            <li>Most used in unstructured data</li>
+                        </ul>
+                    </section>
+				</section>
+
+                <section>
+                    <h3>RGLM</h3>
+                    <section>
+                    	<p><font color='green'>Recursive Generalised Linear Model</font></p>
+                    </section>
+                    <section>
+                    	<h5>A Simple Linear Model</h5>
+                    	<p align="left">$\eta = \beta^\top x + \beta_0$</p>
+                    	<p align="left">$y = \eta+\epsilon \qquad \epsilon \sim \mathcal{N}(0,\sigma^2)$</p>
+                    	<ul align="left">
+                    		<li> $\eta$ is the systematic component of the model</li>
+                    		<li> $\epsilon$ is the random component</li>
+                    	</ul>
+                    </section>
+                    <section>
+                    	<h5> Generalised linear models (GLMs)</h5>
+                    	<p align="left">Extend linear model to problems where the distribution on the targets is not Gaussian but some other distribution (typically a distribution in the exponential family)</p>
+                    	<br>
+                    	<p align="left">$\eta = \beta^\top x, \qquad \beta=[\hat \beta, \beta_0], x = [\hat{x}, 1]$</p>
+                    	<p align="left">$\mathbb{E}[y] = \mu = g^{-1}(\eta)$</p>
+                    	<p> $g(·)$ is the link function</p>
+                    </section>
+                    <section>
+                    	<img src="nn_introduction_files/link_funcs.png" width="500" height="500"/>
+                    </section>
+                    <section>
+                    	<p>What RGLM means?</p>
+                    	<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<ul>
+                            		<li>In deep learning, the basic building block is called a layer.</li>
+                            		<li>Building block can be easily repeated to form more complex, hierarchical and non-linear regression functions</li>
+                            	</ul>
+                            	<br>
+                            	<ul>
+                            		<li><p>$h_l(x) = f_l(\eta_l)$</p></li>
+                            		<li><p>$\mathbb{E}[y] = \mu_L = h_L \circ \ldots \circ h_1 \circ h_o(x)$</p></li>
+                            		<li><p>$\mathcal{L} = - \log p(y | \mu_L)$</p></li>
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                            	<img src="nn_introduction_files/RGLMpic.png" width="120" height="200"/>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>* More Detail on DNN *</h4>
+                    <section>
+                        <img src="nn_introduction_files/dnn_logo.jpeg" width="800" height="500"/>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <p>Dataset</p>
+                                <img src="nn_introduction_files/dataset.png" width="500" height="400"/>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <p>NN</p>
+                                <img src="nn_introduction_files/dnn_example.png" width="600" height="400"/>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Training</p>
+                        <img src="nn_introduction_files/dnn_train.gif" width="500" height="400"/>
+                    </section>
+                    <section>
+                        <p>Single neuron operation</p>
+                        <img src="nn_introduction_files/single_neuron1.png" width="500" height="400"/>
+                    </section>
+                    <section>
+                        <p>Single Layer</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="nn_introduction_files/single_layer1.png" width="400" height="400"/>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <p>$z_i^{[l]}=w_i^T\cdot a^{[l-1]}+b_i, \ \ \ a_i^{[l]}=g^{[l]}(z_i^{[l]})$</p>
+                                <br>
+                                <p>$z_1^{[2]}=w_1^T\cdot a^{[1]}+b_1, \ \ \ a_1^{[2]}=g^{[2]}(z_1^{[2]})$</p>
+                                <p>$z_2^{[2]}=w_2^T\cdot a^{[1]}+b_2, \ \ \ a_2^{[2]}=g^{[2]}(z_2^{[2]})$</p>
+                                <p>$z_3^{[2]}=w_3^T\cdot a^{[1]}+b_3, \ \ \ a_3^{[2]}=g^{[2]}(z_3^{[2]})$</p>
+                                <p>$z_4^{[2]}=w_4^T\cdot a^{[1]}+b_4, \ \ \ a_4^{[2]}=g^{[2]}(z_4^{[2]})$</p>
+                                <p>$z_5^{[2]}=w_5^T\cdot a^{[1]}+b_5, \ \ \ a_5^{[2]}=g^{[2]}(z_5^{[2]})$</p>
+                                <p>$z_6^{[2]}=w_6^T\cdot a^{[1]}+b_6, \ \ \ a_6^{[2]}=g^{[2]}(z_6^{[2]})$</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Matrix Operation</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="nn_introduction_files/dnn_matrix1.png" width="500" height="300"/>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="nn_introduction_files/dnn_matrix2.png" width="500" height="300"/>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Vectorizing across multiple examples</p>
+                        <img src="nn_introduction_files/dnn_vector.png" width="800" height="300"/>
+                    </section>
+                    <section>
+                        <p>Activation function</p>
+                        <img src="nn_introduction_files/activate_function.png" width="600" height="450"/>
+                    </section>
+                    <section>
+                        <p>Loss Function</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="nn_introduction_files/dnn_loss.gif" width="500" height="400"/>
+                            </div>
+                            <br><br>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br><br>
+                                <p>$J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^{(i)},y^{(i)})$</p>
+                                <br>
+                                <p>$L(\hat{y},y)=-(ylog(\hat{y})+(1-y)log(1-\hat{y}))$</p>
+                            </div>
+                    </section>
+                    <section>
+                        <p style="font-size: 24px">Preventing Overfitting</p>
+                        <img src="nn_introduction_files/bias_variance.gif" width="600" height="450"/>
+                    </section>
+                    <section>
+                        <p style="font-size: 24px">L1 or L2 Regularization</p>
+                        <img src="nn_introduction_files/dnn_regularization.gif" width="600" height="450"/>
+                    </section>
+                    <section>
+                        <p style="font-size: 24px">How do neural networks learn?</p>
+                        <img src="nn_introduction_files/dnn_gradientdecent.gif" width="600" height="480"/>
+                    </section>
+                    <section>
+                        <p style="font-size: 24px">Critical Points</p>
+                        <img src="nn_introduction_files/critical_points.gif" width="800" height="450"/>
+                    </section>
+                    <section>
+                        <p style="font-size: 24px">Backpropagation</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="nn_introduction_files/backpropagation1.png" width="500" height="300"/>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <p>Parameters adjust</p>
+                                <ul>
+                                    <li><p>$W^{[l]}=W^{[l]}-\alpha dW^{[l]}$</p></li>
+                                    <li><p>$b^{[l]}=b^{[l]}-\alpha db^{[l]}$</p></li>
+                                </ul>
+                                <br>
+                                <p>In Matrix Form</p>
+                                <ul>
+                                    <li><p>$dW^{[l]}=\frac{\partial L}{\partial W^{[l]}}=\frac{1}{m}dZ^{[l]}A^{[l-1]T}$</p></li>
+                                    <li><p>$db^{[l]}=\frac{\partial L}{\partial b^{[l]}}=\frac{1}{m}\sum_{i=1}^m dZ^{[l](i)}$</p></li>
+                                     <li><p>$dA^{[l-1]}=\frac{\partial L}{\partial A^{[l-1]}}=W^{[l]T}dZ^{[l]}$</p></li>
+                                     <li><p>$dZ^{[l]}=dA^{[l]}*g^{'}(Z^{[l]})$</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./nn_introduction_files/head.min.js.下载"></script>
+		<script src="./nn_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./nn_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

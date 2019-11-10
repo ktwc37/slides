@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./re_metrics_files/reveal.css">
+		<link rel="stylesheet" href="./re_metrics_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./re_metrics_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./re_metrics_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./re_metrics_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./re_metrics_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./ml_metrics.html">模型评价介绍</a></h2>
+                    <p align="left">模型评估是模型开发过程中非常重要的一个步骤，它可以帮助来评价模型在未来的运行优劣。</p>
+                    <ul>
+                        <li>模型评价方法</li>
+                        <li>模型评价指标</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>模型评价方法</h4>
+                    
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+
+                    <div class="container">
+
+                        <div class="col"  style="font-size: 24px">
+                            <h5>Hold-Out</h5>
+                            <p>数据集会划分成三个子集：</p>
+                            <ul>
+                                <li>训练集(Training Set)</li>
+                                <li>验证集(Validation Set)</li>
+                                <li>测试集(Testing Set)</li>
+                            </ul>
+                        </div>
+
+                        <div class="col" style="font-size: 24px">
+                            <h5>Cross Validation</h5>
+                            <p>当数据集不足的时候：</p>
+                            <ul>
+                                <li> K-Fold </li>
+                                <li> Leave-One-Out </li>
+                            </ul>
+                        </div>
+
+                    </div>
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>模型评价指标</h4>
+                    <div align="left" style="font-size: 24px">
+					    <ul>
+                            <li>Confidence Interval</li>
+                            <li>Confusion Matrix</li>
+                            <li>Gain and Lift Chart</li>
+                            <li>Kolmogorov-Smirnov Chart</li>
+                            <li>Chi Square</li>
+                            <li>ROC curve</li>
+                            <li>Gini Coefficient</li>
+                            <li>Root Mean Square Error/L1</li>
+					   </ul>
+                    </div>
+				</section>
+                <section>
+                    <img src="./re_metrics_files/metrics_all.png" height="600" width="1000">
+                </section>
+                <!-- Classification -->
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./re_metrics_files/head.min.js.下载"></script>
+		<script src="./re_metrics_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./re_metrics_files/highlight.js.下载"></script><script type="text/javascript" src="./re_metrics_files/zoom.js.下载"></script><script type="text/javascript" src="./re_metrics_files/notes.js.下载"></script>
+
+	
+
+</body></html>

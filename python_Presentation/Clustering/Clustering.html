@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html class="js no-mobile desktop no-ie ff ff65 root-section w-1680 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius no-cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded" id="index-page" lang="en"><head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+
+		<title>Clustering</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.css">
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script async="" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/ga.js"></script><script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/paper.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]--><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/marked.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/markdown.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/highlight.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/search.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zoom.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/notes.js"></script>
+	<script id="_carbonads_projs" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/CKYI553M.json"></script>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+	<body style="transition: transform 0.8s ease 0s;">
+
+		<div class="reveal slide center has-vertical-slides has-horizontal-slides ready" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(1.25349);">
+				<section style="top: 106px; display: block;" class="past" aria-hidden="true" hidden="">
+					<h1>Clustering</h1>
+					<h3>Analysis</h3>
+					<p>
+						<small>Created by 马明</small>
+					</p>
+					<script async="" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/carbon.js" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-img" target="_blank" rel="noopener"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-text" target="_blank" rel="noopener">Focuse on Machine Learning, Quantitative Investment, Anomaly Detection</a></span><a href="http://carbonads.net/?utm_source=revealjscom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener">Fintech Scientist/Big Data System Architecture</a></span></div>
+				</section>
+
+				<section style="top: 188px; display: block;" class="present">
+					<h2>Content</h2>
+					<ul>
+						<li>Initial view on clustering: K-means</li>
+						<li>Overview on Clustering Analysis</li>
+						<li>Step by step on clustering algorithms
+							<ul>
+								<li>Hierarchical clustering</li>
+								<li>Density-based clustering</li>
+								<li>Partitioning methods</li>
+								<li>Fuzzy clustering</li>
+								<li>Model-based clustering</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section style="top: 32.5px; display: block;" class="" aria-hidden="true">
+						<h4>Initial view on clustering</h4>
+						<p>K-Means</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="kmean.gif" width="400" height="300" class="fragment" data-fragment-index="0">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<ul>
+									<li class="fragment" data-fragment-index="1">K-means works by selecting k central points, or means, hence K-Means</li>
+									<li class="fragment" data-fragment-index="1">Performs iterative (repetitive) calculations to optimize the positions of the centroids</li>
+								</ul>
+								<br>
+								<ul>
+									<li class="fragment" data-fragment-index="2">Time complexity: $O(n^2)$ or $O(n*k*I*d)$ (Lloyds algorithm)</li>
+									<li class="fragment" data-fragment-index="2">May not be repeatable and lack consistency</li>
+									<li class="fragment" data-fragment-index="2">K-Medians is less sensitive to outliers</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section style="top: 32.5px; display: block;" class="" aria-hidden="true">
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p class="fragment" data-fragment-index="0">kmeans 2 failures</p>
+                            	<img src="kmean_failures.png" width="400" height="200" class="fragment" data-fragment-index="0">
+                            	<p class="fragment" data-fragment-index="1">Gaussian Mixture Models (GMMs) give us more flexibility than K-Means</p>
+                            	<p class="fragment" data-fragment-index="2">With GMMs we assume that the data points are Gaussian distributed</p>
+                            	<p class="fragment" data-fragment-index="2">Two parameters to describe the shape of the clusters: the mean and the standard deviation</p>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p class="fragment" data-fragment-index="3">Expectation–Maximization (EM) used to find parameter for each cluster</p>
+                            	<img src="gmm.gif" width="400" height="300" class="fragment" data-fragment-index="4">
+                            	<ul class="fragment" data-fragment-index="4">
+                            		<li>Kmean can be treated as a special case of GMM</li>
+                            		<li>GMM support mixed membership</li>
+                            	</ul>
+                            </div>
+                        </div>
+					</section>
+					
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h4>Overview on Clustering Analysis</h4>
+					<section>
+						<div align="left" style="font-size: 30px">
+							<ul>
+								<li>Clustering is a Machine Learning technique that involves the grouping of data points</li>
+								<li>In theory, data points that are in the same group should have similar properties and/or features, while data points in different groups should have highly dissimilar properties and/or features</li>
+								<li>Clustering is a method of unsupervised learning and is a common technique for statistical data analysis used in many fields</li>
+								<li>We can use clustering analysis to gain some valuable insights from our data</li>
+							</ul>
+						</div>
+					</section>	
+					<section>
+						<p>How to evaluate a cluster algorithm?</p>
+						<br>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<ul style="font-size: 24px">
+									<li class="fragment" data-fragment-index="0">Internal measures for cluster validation
+										<ul>
+											<li>Silhouette coefficient</li>
+											<li>Dunn index</li>
+										</ul>
+									</li>
+									<li class="fragment" data-fragment-index="1">External measures for clustering validation</li>
+								</ul>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p class="fragment" data-fragment-index="2">核心思想：类内距离尽可能小；类间距离近可能大</p>
+								<p class="fragment" data-fragment-index="3">大部分评价方法主要衡量三个方面：
+									<ul class="fragment" data-fragment-index="3">
+										<li>Compactness</li>
+										<li>Separation</li>
+										<li>Connectivity</li>
+									</ul>
+								</p>
+								<p class="fragment" data-fragment-index="4">$Index = \frac{(\alpha \times Separation)}{(\beta \times Compactness)}$</p>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<div class="container">				
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Silhouette coefficient</p>
+                            	<p>The silhouette analysis measures how well an observation is clustered and it estimates the average distance between clusters</p>
+                            	<p>For each observation $i$ , the silhouette width $s_i$ is calculated as follows:</p>
+								<ol style="font-size: 20px">
+									<li> <p class="fragment" data-fragment-index="0">For each observation $i$ , calculate the average dissimilarity $a_i$ between $i$ and all other points of the cluster to which $i$ belongs</p></li>
+									<li> <p class="fragment" data-fragment-index="1">For all other clusters $C$ ,to which $i$ does not belong,  calculate the average dissimilarity $d(i,C)$ of $i$ to all observations of $C$ .The smallest of these $d(i,C)$ is defined as $b_i= \min_C d(i,C)$. The value of $b_i$ can be seen as the dissimilarity between $i$ and its “neighbor” cluster</p></li>
+									<li> <p class="fragment" data-fragment-index="2">Finally the silhouette width of the observation $i$ is defined by the formula: $S_i = (b_i - a_i)/max(a_i, b_i)$</p></li>
+								</ol>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p class="fragment" data-fragment-index="3">Dunn index</p>
+								<ul>
+									<li><p class="fragment" data-fragment-index="3">For each cluster, compute the distance between each of the objects in the cluster and the objects in the other clusters</p>
+										<p class="fragment" data-fragment-index="3">Use the minimum of this pairwise distance as the inter-cluster separation (min.separation)</p></li>
+									<li> <p class="fragment" data-fragment-index="4">For each cluster, compute the distance between the objects in the same cluster.</p> </li>
+									<li> <p class="fragment" data-fragment-index="5">Use the maximal intra-cluster distance (i.e maximum diameter) as the intra-cluster compactness</p> </li>
+									<li><p class="fragment" data-fragment-index="6">Calculate the Dunn index (D) as follow: $D = \frac{min.separation}{max.diameter}$</p></li>
+								</ul>
+							</div>
+						</div>
+					</section>	
+					<section>
+						<h4>How to choose $k$</h4>
+						<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+                    	<ul>
+                    		<li>Elbow method</li>
+                    		<li>Average silhouette method</li>
+                    		<li>Gap statistic method</li>
+                    	</ul>
+					</section>
+					<section>
+						<div class="container">				
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Elbow method</p>
+                            	<ul class="fragment" data-fragment-index="0">
+                            		<li>Looks at the total WSS(Within-cluster Sum of Square) as a function of the number of clusters</li>
+                            		<li>The location of a bend (knee) in the plot is generally considered as an indicator of the appropriate number of clusters</li>
+                            	</ul>
+                            	<p>Average silhouette method</p>
+                            	<ul class="fragment" data-fragment-index="1">
+                            		<li>Average silhouette method computes the average silhouette of observations for different values of $k$</li>
+                            		<li>The optimal number of clusters $k$ is the one that maximize the average silhouette over a range of possible values for $k$</li>
+                            	</ul>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Gap statistic method<p>
+                            	<ol class="fragment" data-fragment-index="2" style="font-size: 20px">
+                            		<li>Cluster the observed data, varying the number of clusters from $k = 1, ... , k_{max}$, and compute the corresponding total within intra-cluster variation $W_k$.</li>
+                            		<li>Generate B reference data sets with a random uniform distribution. Cluster each of these reference data sets with varying number of clusters $k = 1, ... , k_{max}$, and compute the corresponding total within intra-cluster variation $W_{kb}$</li>
+                            		<li>Compute the estimated gap statistic as the deviation of the observed $W_k$ value from its expected value $W_{kb}$ under the null hypothesis: $Gap(k) = \frac{1}{B} \sum\limits_{b=1}^B log(W_{kb}^*) - log(W_k)$</li>
+                            		<li>Choose the number of clusters as the smallest value of $k$ such that the gap statistic is within one standard deviation of the gap at $k+1$ : $Gap(k)\ge Gap(k+1)-S_{k+1}$</li>
+                            	</ol>
+                            </div>
+                        </div>
+					</section>					
+				</section>
+
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h4>Hierarchical clustering</h4>
+					<section>
+						<p>Top-down and Bottom-up</p>
+						<img src="hac.gif" width="800" height="400" class="fragment" data-fragment-index="0">
+					</section>
+					<section>
+						<p>How do we define "distance"?</p>
+						<div class="container">				
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p class="fragment" data-fragment-index="0">Linkage</p>
+                            	<img src="linkage.png" width="400" height="200" class="fragment" data-fragment-index="0">
+                            	<p class="fragment" data-fragment-index="1">Complete</p>
+                            	<img src="complete.png" width="400" height="200" class="fragment" data-fragment-index="1">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p class="fragment" data-fragment-index="2">Group Average</p>
+                            	<img src="group_average.png" width="400" height="200" class="fragment" data-fragment-index="2">
+                            	<p class="fragment" data-fragment-index="3">Ward's Method</p>
+                            	<p class="fragment" data-fragment-index="3">$$d(A,B)=SSE_{A\cup B}-(SSE_A+SSE_B)$$</p>
+                            </div>
+                        </div>
+					</section>
+					<section>
+						<p>Advanced Hierarchical clustering</p>
+						<ul>
+							<li><strong>BIRCH</strong>: uses CF-tree and incrementally adjusts the quality of sub-clusters</li>
+							<li>CURE: selects well-scattered points from the cluster and then shrinks them towards the center of the cluster by a specified fraction</li>
+							<li>CHAMELEON: hierarchical clustering using dynamic modeling</li>
+						</ul>
+					</section>
+					<section>
+						<p>Balanced Iterative Reducing and Clustering using Hierarchies</p>
+						<ul style="font-size: 30px">
+							<li>Incrementally construct a CF (Clustering Feature) tree, a hierarchical data structure for multiphase clustering
+								<ol>
+									<li>Scan DB to build an initial in-memory CF tree(a multi-level compression of the data that tries to preserve the inherent clustering structure of the data)</li>
+									<li>Use an arbitrary clustering algorithm to cluster the leaf nodes of the CF-tree</li>
+								</ol>
+							</li>
+							<li>Scales linearly</li>
+							<li>Weakness: handles only numeric data, and sensitive to the order of the data record</li>
+						</ul>
+					</section>
+					<section>
+						<div class="container">
+							<div class="col" align="left" style="font-size: 30px">
+								<p>Clustering Feature: $CF=(N,\overrightarrow{LS},SS)$</p>
+								<p>$N$ : Number of data points</p>
+								<p>$LS$ : $\sum_{i=1}^N=\overrightarrow{X_i}$</p>
+								<p>$SS$ : $\sum_{i=1}^N=\overrightarrow{X_i}^2$</p>
+							</div>
+							<div class="col" align="left" style="font-size: 20px">
+								<img src="birch.png" width="500" height="240" class="fragment" data-fragment-index="0">
+								<ul class="fragment" data-fragment-index="1">
+									<li>A CF tree is a height-balanced tree that stores the clustering features for a hierarchical clustering
+										<p>The nonleaf nodes store sums of the CFs of their children</p>
+									</li>
+									<li>Two parameters:
+										<p>Branching factor: maximum number of children</p>
+										<p>Threshold: max diameter of sub-clusters stored at the leaf nodes</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>CF Tree</p>
+						<img src="cftree.png" width="800" height="480">
+					</section>
+					<section>
+						<p>CHAMELEON algorithm</p>
+						<div class="container">
+							<div class="col" align="left" style="font-size: 30px">
+								<img src="cham.png" width="700" height="400" class="fragment" data-fragment-index="0">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<ul  class="fragment" data-fragment-index="1">
+									<li>相对互连性
+										<p>$$RI(C_i,C_j)=\frac{2\times |EC(C_i,C_j)|}{|EC(C_i)|+|EC(C_j)|}$$</p></li>
+									<li>相对近似性
+										<p>$$RC(C_i,C_j)=\frac{(|C_i|+|C_j|)EC(C_i,C_j)}{|C_j|EC(C_i)+|C_i|EC(C_j)}$$</p>
+										<p>$C_i$ 表示聚簇 $i$ 内数据点的个数，$EC(C_i)$ 表示的是 $C_i$ 内边的权重和，$EC(C_i,C_j)$ 表示连接两个聚簇的边的权重和。</p></li>
+									<li>度量函数用来判断两个聚簇是否合并：
+										<p>$RI(C_i,C_j) \times RC(C_i,C_j)^\alpha$</p></li>
+								</ul>
+							</div>
+						</div>
+
+					</section>
+				</section>
+
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h4>Density-Based clustering</h4>
+					<section>
+						<p>Mean-Shift Clustering</p>
+						<div class="container">				
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="mean_shifting.gif" width="300" height="300" class="fragment" data-fragment-index="0">
+								<ul class="fragment" data-fragment-index="1">
+									<li>Mean shift clustering is a sliding-window-based algorithm that attempts to find dense areas of data points</li>
+									<li>The goal is to locate the center points of each group/class</li>
+								</ul>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<img src="mean_shifting1.gif" width="400" height="300" class="fragment" data-fragment-index="2">
+								<ul style="font-size: 20px" class="fragment" data-fragment-index="2">
+									<li>We begin with a circular sliding window centered at a point C (randomly selected) and having radius r as the kernel</li>
+									<li>Mean shift is a hill climbing algorithm which involves shifting this kernel iteratively to a higher density region on each step until convergence</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Density-Based Spatial Clustering of Applications with Noise (DBSCAN)<p>
+						<div class="container">				
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="dbscan.gif" width="500" height="300" class="fragment" data-fragment-index="1">
+								<ul class="fragment" data-fragment-index="2">
+									<li>No need to determine $k$</li>
+									<li>Doesn’t perform well when the clusters are of varying density</li>
+								</ul>
+							</div>
+							<div class="col" align="left" style="font-size: 15px" class="fragment" data-fragment-index="0">
+								<ol>
+									<li>DBSCAN begins with an arbitrary starting data point that has not been visited</li>
+									<li>The neighborhood of this point is extracted using a distance epsilon $\epsilon$ (All points which are within the $\epsilon$ distance are neighborhood points)</li>
+									<li>If there are a sufficient number of points (according to minPoints) within this neighborhood then the clustering process starts and the current data point becomes the first point in the new cluster.Otherwise, the point will be labeled as noise.
+									<p>In both cases that point is marked as “visited”</p></li>
+									<li>This procedure repeated for all of the new points that have been just added to the cluster group</li>
+									<li>This process of steps 2 and 3 is repeated until all points in the cluster are determined i.e all points within the ε neighborhood of the cluster have been visited and labelled</li>
+									<li>Once we’re done with the current cluster, a new unvisited point is retrieved and processed, leading to the discovery of a further cluster or noise</li>
+									<li>This process repeats until all points are marked as visited</li>
+								</ol>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h4>Fuzzy clustering</h4>
+					<p align="left" style="font-size: 24px">Fuzzy clustering (also referred to as soft clustering or soft k-means) is a form of clustering in which each data point can belong to more than one cluster</p>
+					<div class="container">				
+                        <div class="col" align="left" style="font-size: 24px">
+							<p class="fragment" data-fragment-index="0">Fuzzy c-means (FCM) clustering</p>
+							<ul class="fragment" data-fragment-index="1">
+								<li>Similar to the k-means algorithm</li>
+								<li>
+									<ol>
+										<li>Choose a number of clusters</li>
+										<li>Assign coefficients randomly to each data point for being in the clusters</li>
+										<li>Repeat until the algorithm has converged (that is, the coefficients' change between two iterations is no more than ε , the given sensitivity threshold)
+											<p>Compute the centroid for each cluster</p>
+											<p>For each data point, compute its coefficients of being in the clusters</p></li>
+									</ol>
+								</li>
+							</ul>
+						</div>
+						<div class="col fragment" align="left" style="font-size: 20px"  data-fragment-index="2">
+							<p>Centroid</p>
+							<p>Any point $x$ has a set of coefficients giving the degree of being in the kth cluster $w_k(x)$, the centroid is defined as: $c_k=\frac{\sum_xw_k(x)^mx}{\sum_xw_k(x)^m}$</p>
+							<p>$m$ is the hyper-parameter that controls how fuzzy the cluster will be</p>
+							<p>Given a finite set of data, the algorithm returns a list of $c$ cluster centres $C=\{c_1,\cdots,c_c}$ and a partition matrix $W=w_{ij} \in [0,1]$, $i=1,\cdots,n$, $j=1,\cdots,c$</p>
+							<p> $w_{ij}$ , tells the degree to which element, $x_i$, belongs to cluster $c_j$</p>
+							<p>The FCM aims to minimize an objective function: $argmin_C \sum_{i=1}^n \sum_{j=1}^cw_{ij}^m||x_i-c_j||^2$</p>
+						</div>
+					</div>
+				</section>
+
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<section>
+						<p>Partition Clustering Algorithm</p>
+						<ul align="left">
+							<li>K-medoids</li>
+							<li>CLARA</li>
+							<li>CLARANS</li>
+						</ul>
+					</section>
+					<section>
+						<p>K-medoids</p>
+						<ul align-"left">
+							<li>Also referred as PAM (Partition Around Medoids)</li>
+							<li>Instead of taking the mean value of the object in a cluster as a reference point, medoids can be used, which is the most centrally located object in a cluster</li>
+							<li>PAM works effectively for small data sets, but doesn't scale well for large data sets</li>
+						</ul>
+					</section>
+					<section>
+						<p>CLARA</p>
+						<p align="left" style="font-size: 24px">CLARA (Clustering Large Applications, (Kaufman and Rousseeuw 1990)) is an extension to k-medoids (PAM) methods to deal with data containing a large number of objects (more than several thousand observations) in order to reduce computing time and RAM storage problem</p>
+						<p align="left" style="font-size: 24px">This is achieved using the sampling approach</p>
+						<ul style="font-size: 30px">
+							<li>Draw multiple samples and apply PAM on each</li>
+							<li>Returns best clustering</li>
+						</ul>
+					</section>
+					<section>
+						<p>CLARANS</p>
+						<ul style="font-size: 30px">
+							<li>Clustering Large Applications based on RAN-domized Search</li>
+							<li>Use sampling and PAM</li>
+							<li>Perform graph search with each node acting as a potential solution, that is a set of $k$ medoids</li>
+							<li>Clustering got after replacement - Neighbour</li>
+							<li>Moves to better neighbour</li> 
+							<li>Focus on spatial access structure</li>
+							<li>More efficient and scalable than PAM and CLARA</li>
+						</ul>
+					</section>
+				</section>
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<section>
+						<h4>Grid-based clustering algorithms</h4>
+						<ul>
+							<li>STING: A Statistical Information Grid Approach</li>
+							<li>WaveCluster: Use Wavelet Tranformation</li>
+							<li><strong>CLIQUE</strong></li>
+						</ul>
+					</section>
+					<section>
+						<p style="font-size: 30px">Clustering In QUEst</p>
+						
+						<p style="font-size: 30px">CLIQUE can be considered as both density-based and grid-based</li>
+						
+						<ol style="font-size: 30px">
+							<li>Partitions each dimension into the same number of equal length interval</li>
+							<li>Partitions an m-dimensional data space into nonoverlapping rectangular units</li>
+							<li>A unit is dense if the fraction of total data points contained in the unit exceeds the input model parameter</li>
+							<li>A cluster is a maximal set of connected dense units within a subspace</li>
+						</ol>
+					</section>
+				</section>
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<section>
+						<h3>Spectral Clustering</h3>
+						<img src="graph.jpeg" width="800" height="400" class="fragment" data-fragment-index="0">
+						<p class="fragment" data-fragment-index="1">Graph-based Clustering</p>
+					</section>
+					<section>
+						<p> 3 Major steps for Spectral Clustering </p>
+						<ol>
+							<li class="fragment" data-fragment-index="0">Create a similarity graph between our N objects to cluster</li>
+							<li class="fragment" data-fragment-index="1">Compute the first k eigenvectors of its Laplacian matrix to define a feature vector for each object</li>
+							<li class="fragment" data-fragment-index="2">Run k-means on these features to separate objects into k classes</li>
+						</ol>
+					</section>
+					<section>
+						<h4>Spectral Clustering VS Kmeans</h4>
+						<img src="spectral_kmean_compare1.png" width="800" height="320">
+					</section>
+					<section>
+						<h4>图论基本知识</h4>
+						<div align="left" style="font-size: 30px">
+							<p>我们一般用点的集合 $V$ 和边的集合 $E$ 来描述一个图，记为 $G(V,E)$ </p>
+							<p>其中，$V$ 即数据中的所有点 $(v_1, v_2,...v_n)$. 定义权重 $w_{ij}$ 为点 $v_i$ 与 $v_j$ 之间的权重. $w_{ij}$ 构成了图的邻接矩阵 $W_{n\times n}$</p>
+							<p>每个点的度 $d$ 定义为 $d_i = \sum\limits_{j=1}^{n}w_{ij}$</p>
+							<p>度矩阵为对角矩阵：$\mathbf{D} = \left( \begin{array}{ccc} d_1 & \ldots & \ldots \\ \ldots & d_2 & \ldots \\   \vdots & \vdots & \ddots \\   \ldots & \ldots & d_n \end{array} \right)$</p>
+						</div>
+					</section>
+					<section>
+						<p>Step 1 — Compute a similarity graph</p>
+						<div class="container">				
+                        	<div class="col" align="left" style="font-size: 24px">
+                        		<ol class="fragment" data-fragment-index="0">
+                        			<li>The ε-neighborhood graph</li>
+                        			<li>The KNN graph</li>
+                        			<li>Fully connected graph</li>
+                        		</ol>
+                        		<p class="fragment" data-fragment-index="2">$$w_{ij}=s_{ij}=exp(-\frac{||x_i-x_j||_2^2}{2\sigma^2})$$</p>
+                        	</div>
+                        	<div class="col" align="left" style="font-size: 24px">
+                        		<img src="adjecent_matrix.png" width="500" height="400" class="fragment" data-fragment-index="1">
+                        	</div>
+                        </div>
+					</section>
+					<section>
+						<p>Step 2 — Project the data onto a low-dimensional space</p>
+						<div class="container">				
+                        	<div class="col" align="left" style="font-size: 24px" >
+                        		<ul class="fragment" data-fragment-index="1">
+                        			<li>Compute eigenvalues and eigenvectors for L</li>
+                        			<li>Spectrum of Laplacian
+                        				<p>$0=\lambda_1 \le \lambda_2 \le \cdots \le \lambda_k$</p></li>
+                        		</ul>
+                        		<br>
+                        		<ol class="fragment" data-fragment-index="2">
+                        			<li>Graph $G$ has $k$ connected components</li>
+                        			<li>The greater $\lambda_2$, the greater the connectivity</li>
+                        		</ol>
+                        	</div>
+                        	<div class="col" align="left" style="font-size: 24px">
+                        		<p style="font-size: 24px">Laplacian Matrix</p>
+                        		<img src="laplacian.jpeg" width="500" height="400" class="fragment" data-fragment-index="0">
+                        	</div>
+                        </div>
+					</section>
+					<section>
+						<p>Step 3 — Create clusters</p>
+						<ol style="font-size: 30px">
+							<li>Modify our Laplacian to normalize it: $L_{norm}=D^{-1/2}LD^{-1/2}$</li>
+							<li>对于 $k$ 个 cluster, 得到前 $k$ 个特征向量 $\{v_1,v_2,\cdots,v_k\}$</li>
+							<li>令 $U \in \mathbb{R}^{n \times k}$ 为以 $v_1,\cdots,v_k$ 为列向量的矩阵</li>
+							<li>For $i=1,\cdots,n$ , 令 $y_i$ 为 $U$ 中对应的行向量, 其表示了每个节点的属性向量</li>
+							<li>用k-means算法来对这些结点进行聚类，得 $\{C_1,C_2,\cdots,C_k\}$</li>
+						</ol>
+					</section>
+					<section>
+						<h4>Spectral Clustering</h4>
+						<p align="left">Advantages</p>
+						<ul style="font-size: 30px">
+							<li>Does not make strong assumptions on the statistics of the clusters</li>
+							<li>Easy to implement and gives good clustering results</li>
+							<li>Reasonably fast for sparse data sets of several thousand elements</li>
+						</ul>
+						<p align="left">Disadvantages</p>
+						<ul style="font-size: 30px">
+							<li>Use of K-Means clustering in the final step implies that the clusters are not always the same</li>
+							<li>Computationally expensive for large datasets </li>
+						</ul>
+					</section>
+					
+				</section>
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h4>Intuition behind Spectral Clustering</h4>
+					<section>
+						<p class="fragment" data-fragment-index="0">Graph Partitioning</p>
+						<img src="graph_partition.png" width="800" height="450" class="fragment" data-fragment-index="1">
+					</section>
+					<section>
+						<p>Graph cut</p>
+						<img src="graph_cut.png" width="500" height="200" class="fragment" data-fragment-index="0">
+						<p align="left" style="font-size: 30px" class="fragment" data-fragment-index="1">An intuitive goal is find the partition that minimizes the cut</p>
+						<p align="left" style="font-size: 30px" class="fragment" data-fragment-index="2">$cut(A,B)=\sum_{i\in A,j\in B}W_{ij}=0.3$</p>
+
+					</section>
+					<section>
+						<p>Normalized Cut</p>
+						<p align="left" style="font-size: 30px" class="fragment" data-fragment-index="0">Consider the connectivity between groups relative to the volume of each group</p>
+						<img src="ncut.png" width="800" height="150" class="fragment" data-fragment-index="1">
+						<p align="left" style="font-size: 30px" class="fragment" data-fragment-index="2">Minimized when $Vol(A)$ and $Vol(B)$ are equal, thus encourage balanced cut</p>
+						<p align="left" style="font-size: 30px" class="fragment" data-fragment-index="2">$min_xNcut(x)=min_yy^T(D-W)y$, $y^TDy=1$</p>
+					</section>
+				</section>
+
+				<section data-markdown="" data-markdown-parsed="true" style="top: 108.5px; display: none;" class="future" aria-hidden="true" hidden=""><h2 id="markdown-support">Markdown support</h2>
+<p>Write content using inline or external Markdown.
+Instructions and more info available in the <a href="https://github.com/hakimel/reveal.js#markdown">readme</a>.</p>
+<pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">data-markdown</span>&gt;</span></span>
+  ## Markdown support
+
+  Write content using inline or external Markdown.
+  Instructions and more info available in the [<span class="hljs-string">readme</span>](<span class="hljs-link">https://github.com/hakimel/reveal.js#markdown</span>).
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+</code></pre></section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section id="fragments" style="top: 168px; display: none;" class="" aria-hidden="true">
+						<h2>Fragments</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment" data-fragment-index="0">... to step through ...</p>
+						<p><span class="fragment" data-fragment-index="1">... a</span> <span class="fragment" data-fragment-index="2">fragmented</span> <span class="fragment" data-fragment-index="3">slide.</span></p>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section class="future" aria-hidden="true" style="top: 18.5px; display: none;" hidden="">
+						<h2>Fragment Styles</h2>
+						<p>There's different types of fragments, like:</p>
+						<p class="fragment grow" data-fragment-index="0">grow</p>
+						<p class="fragment shrink" data-fragment-index="1">shrink</p>
+						<p class="fragment fade-out" data-fragment-index="2">fade-out</p>
+						<p class="fragment fade-up" data-fragment-index="3">fade-up (also down, left and right!)</p>
+						<p class="fragment current-visible" data-fragment-index="4">current-visible</p>
+						<p>Highlight <span class="fragment highlight-red" data-fragment-index="5">red</span> <span class="fragment highlight-blue" data-fragment-index="6">blue</span> <span class="fragment highlight-green" data-fragment-index="7">green</span></p>
+					</section>
+				</section>
+
+				<section id="transitions" style="top: 215px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="https://revealjs.com/?transition=none#/transitions">None</a> -
+						<a href="https://revealjs.com/?transition=fade#/transitions">Fade</a> -
+						<a href="https://revealjs.com/?transition=slide#/transitions">Slide</a> -
+						<a href="https://revealjs.com/?transition=convex#/transitions">Convex</a> -
+						<a href="https://revealjs.com/?transition=concave#/transitions">Concave</a> -
+						<a href="https://revealjs.com/?transition=zoom#/transitions">Zoom</a>
+					</p>
+				</section>
+
+				<section id="themes" style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Themes</h2>
+					<p>
+						reveal.js comes with a few themes built in: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					</p>
+				</section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section data-background="#dddddd" style="top: 41.5px; display: none;" class="has-light-background" aria-hidden="true">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="navigate-down" disabled="disabled">
+							<img alt="Down arrow" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/arrow.png" data-lazy-loaded="" width="178" height="238">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" class="future" aria-hidden="true" style="top: 251px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Image Backgrounds</h2>
+						<pre><code class="hljs stylus">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>=<span class="hljs-string">"image.png"</span>&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px" class="future" aria-hidden="true" style="top: 242.5px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Tiled Backgrounds</h2>
+						<pre><code class="hljs xl" style="word-wrap: break-word;">&lt;section <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>=<span class="hljs-string">"image.png"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-repeat=<span class="hljs-string">"repeat"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-size=<span class="hljs-string">"100px"</span>&gt;</code></pre>
+					</section>
+					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000" class="has-dark-background future" aria-hidden="true" style="top: 350px; display: none;" hidden="">
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+							<h2>Video Backgrounds</h2>
+							<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-video=<span class="hljs-string">"video.mp4,video.webm"</span>&gt;</code></pre>
+						</div>
+					</section>
+					<section data-background="http://i.giphy.com/90F8aUepslB84.gif" class="future" aria-hidden="true" style="top: 350px; display: none;" data-background-image="http://i.giphy.com/90F8aUepslB84.gif" hidden="">
+						<h2>... and GIFs!</h2>
+					</section>
+				</section>
+
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
+					</p>
+					<pre><code class="hljs css"><span class="hljs-selector-tag">Reveal</span><span class="hljs-selector-class">.configure</span>({ <span class="hljs-attribute">backgroundTransition</span>: <span class="hljs-string">'zoom'</span> })</code></pre>
+				</section>
+
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom" style="top: 213.5px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						You can override background transitions per-slide.
+					</p>
+					<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-transition=<span class="hljs-string">"zoom"</span>&gt;</code></pre>
+				</section>
+
+				<section style="top: 33.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Pretty Code</h2>
+					<pre><code class="hljs javascript" data-trim="" contenteditable=""><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">linkify</span>(<span class="hljs-params"> selector </span>) </span>{
+  <span class="hljs-keyword">if</span>( supports3DTransforms ) {
+
+    <span class="hljs-keyword">var</span> nodes = <span class="hljs-built_in">document</span>.querySelectorAll( selector );
+
+    <span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = nodes.length; i &lt; len; i++ ) {
+      <span class="hljs-keyword">var</span> node = nodes[i];
+
+      <span class="hljs-keyword">if</span>( !node.className ) {
+        node.className += <span class="hljs-string">' roll'</span>;
+      }
+    }
+  }
+}</code></pre>
+					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
+
+				<section style="top: 170.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Marvelous List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section style="top: 198px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section style="top: 135.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Tabular Tables</h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Value</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Apples</td>
+								<td>$1</td>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>Lemonade</td>
+								<td>$2</td>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>Bread</td>
+								<td>$3</td>
+								<td>2</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section style="top: 8px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The nice thing about standards is that there are so many to choose from</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						“For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.”
+					</blockquote>
+				</section>
+
+				<section style="top: 202px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section style="top: 177.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Speaker View</h2>
+					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
+					<p>Press the <em>S</em> key to try it out.</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your 
+presentation, but you can see them if you open the speaker notes window 
+(hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section style="top: 25px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
+					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen="" width="445" height="355" frameborder="0"> </iframe>
+				</section>
+
+				<section style="top: 131px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the page background.
+					</p>
+				</section>
+
+				<section data-state="customevent" style="top: 157.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>State Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code class="javascript hljs" data-trim="" style="font-size: 18px;" contenteditable="">Reveal.addEventListener( <span class="hljs-string">'customevent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'"customevent" has fired'</span> );
+} );</code></pre>
+				</section>
+
+				<section style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Take a Moment</h2>
+					<p>
+						Press B or . on your keyboard to pause the presentation. This is 
+helpful when you're on stage and want to take distracting slides off the
+ screen.
+					</p>
+				</section>
+
+				<section style="top: 143px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Much more</h2>
+					<ul>
+						<li>Right-to-left support</li>
+						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
+					</ul>
+				</section>
+
+				<section style="text-align: left; top: 192.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h1>THE END</h1>
+					<p>
+						- <a href="https://slides.com/">Try the online editor</a> <br>
+						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					</p>
+				</section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background past" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="background: rgb(221, 221, 221) none repeat scroll 0% 0%; display: none;" data-background-hash="#ddddddnullnullnullnullnullnullnullnullnull" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.pngnullnullnullnullnullnullnullnullnull" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png100pxnullnullnullnullrepeatnullnullnull" data-background-size="100px" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-size: 100px auto; background-repeat: repeat; background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="0https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webmnull#000000nullnullnullnull" style="background-color: rgb(0, 0, 0); display: none;"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="http://i.giphy.com/90F8aUepslB84.gifnullnullnullnullnullnullnullnullnull" style="display: none;"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="background: rgb(77, 126, 101) none repeat scroll 0% 0%; display: none;" data-background-hash="#4d7e65nullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="background: rgb(181, 83, 60) none repeat scroll 0% 0%; display: none;" data-background-hash="#b5533cnullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="progress" style="display: block;"><span style="width: 52.5px;"></span></div><aside class="controls" style="display: block;" data-controls-layout="bottom-right" data-controls-back-arrows="faded"><button class="navigate-left enabled" aria-label="previous slide"><div class="controls-arrow"></div></button><button class="navigate-right enabled" aria-label="next slide"><div class="controls-arrow"></div></button><button class="navigate-up" aria-label="above slide" disabled="disabled"><div class="controls-arrow"></div></button><button class="navigate-down" aria-label="below slide" disabled="disabled"><div class="controls-arrow"></div></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe="" tabindex="0"></div><div class="pause-overlay"><button class="resume-button">Resume presentation</button></div><div style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);" id="aria-status-div" aria-live="polite" aria-atomic="true">
+					Hello There
+					
+						reveal.js enables you to create beautiful interactive slide decks 
+using HTML. This presentation will show you examples of what it can do.
+					
+				</div><div id="searchinputdiv" class="searchdiv" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: none;"><span><input type="search" id="searchinput" class="searchinput" style="vertical-align: top;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJiSURBVHjatFZNaxNBGH5md+Mmu92NVdKDRipSAyqCghgQD4L4cRe86UUtAQ+eFCxoa4/25EXBFi8eBE+eRPoDhB6KgiiixdAPCEkx2pjvTXadd9yNsflwuyUDD/O+u8PzzDPvzOwyx3EwyCZhwG3gAkp7MnpjgbopjsltcD4gjuXZZKeAR348MYLYTm3LzOs/y3j3JTfZxgXWXmTuwPHIc4VmoOmv5IrI53+AO2DdHLjkDWQ3GoEEVFXtXQOvkSnPWcyUceviLhwbDYv8/XIVj97kse7TodLvZXxYxrPUHkQ1ufXs3FEdybEIxucySOesoNvUgWU1cP3MkCBfTFdw9fGaAMVmRELq7LBw2Q3/FaAxxWIRpw+ZIr/7IouPqzUBiqmdHAv7EuhRAwf1er2Vy4x1jW3b2d5Jfvu5IPp7l2LYbcgCFFNb+FoJ7oBqEAqFMPNqFcmEgVMJDfMT+1tvN0pNjERlMS6QA5pFOKxiKVPFhakPeL3It+WGJUDxt2wFR+JhzI7v5ctkd8DXOZAkCYYxhO+lKm4+Xfqz/rIixBuNBl7eOYzkQQNzqX249mRl6zUgEcYkaJrGhUwBinVdh6IouPzwE6/DL5w4oLkH8y981aDf+uq6hlKpJESiUdNfDZi7/ehG9K6KfiA3pml0PLcsq+cSMTj2NL9ukc4UOmz7AZ3+crkC4mHujFvXNaMFB3bEr8xPS6p5O+jXxq4VZtaen7/PwzrntjcLUE0iHPS1Ud1cdiEJl/8WivZk0wXd7zWOMkeF8s0CcAmkNrC2nvXZDbbbN73ccYnZoH9bfgswAFzAe9/h3dbKAAAAAElFTkSuQmCC" id="searchbutton" class="searchicon" style="vertical-align: top; margin-top: -1px;"></span></div></div>
+
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/head.js"></script>
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				chalkboard: {
+        					},
+        		keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0//MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/chalkboard/chalkboard.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+		<!-- Everything below this point is only used for the reveal.js demo page -->
+
+		<a class="fork-reveal" style="display: block;" href="https://github.com/hakimel/reveal.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875.png" alt="Fork reveal.js on GitHub"></a>
+
+		<div class="share-reveal" style="display: block; position: absolute; bottom: 16px; left: 50%; margin-left: -139px; z-index: 20;">
+			<a class="share-reveal-editor" href="https://slides.com/">Enjoy Learning Thinking</a>
+		</div>
+
+		<style>
+			/* Social sharing */
+			.share-reveal a {
+				display: inline-block;
+				height: 34px;
+				line-height: 32px;
+				padding: 0 10px;
+				color: #fff;
+				font-family: Helvetica, sans-serif;
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 12px;
+				vertical-align: top;
+				text-transform: uppercase;
+				box-sizing: border-box;
+			}
+
+			.share-reveal .share-reveal-editor {
+				line-height: 30px;
+			}
+
+			.share-reveal svg {
+				vertical-align: middle;
+			}
+
+			.share-reveal a + a {
+				margin-left: 10px;
+			}
+
+			.share-reveal-editor {
+				border: 2px solid #fff;
+			}
+
+			.share-reveal-twitter,
+			.share-reveal-follow {
+				background-color: #00aced;
+			}
+
+			.share-reveal-facebook {
+				background-color: #4B71B8;
+			}
+
+			/* Advertising */
+			#carbonads {
+				width: 370px;
+				min-height: 100px;
+				font-size: 18px;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				padding: 10px;
+				margin: 40px auto 0 auto;
+				font-size: 16px;
+				z-index: 10;
+				text-align: left;
+			}
+
+			#carbonads .carbon-img img {
+				float: left;
+				margin: 0 10px 0 0;
+				border: 0;
+				box-shadow: none;
+			}
+
+			#carbonads .carbon-poweredby {
+				display: block;
+				margin-top: 10px;
+				color: #aaa;
+			}
+		</style>
+
+		<script>
+		var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+		(function(d, t) {
+		var g = d.createElement(t),
+			s = d.getElementsByTagName(t)[0];
+		g.async = true;
+		g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g, s);
+		})(document, 'script');
+		</script>
+
+		<script>
+			[].slice.call( document.querySelectorAll( '.share-reveal-facebook, .share-reveal-twitter' ) ).forEach( function( element ) {
+				element.addEventListener( 'click', function( event ) {
+					event.preventDefault();
+					var width = 500, height = 300;
+					var winTop = window.screenY + (window.screen.height / 2) - (height / 2);
+					var winLeft = window.screenX + (window.screen.width / 2) - (width / 2);
+					window.open(this.href, 'shre', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+				} );
+			} );
+
+			if( !navigator.userAgent.match( /(iphone|android)/gi ) && !!document.querySelector ) {
+				document.querySelector( '.share-reveal' ).style.display = 'block';
+				document.querySelector( '.fork-reveal' ).style.display = 'block';
+			}
+		</script>
+
+	
+
+</body></html>

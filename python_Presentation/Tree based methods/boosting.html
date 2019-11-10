@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./decision_tree_files/reveal.css">
+		<link rel="stylesheet" href="./decision_tree_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./decision_tree_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./decision_tree_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./decision_tree_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./decision_tree_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./tree.html">Boosting Method</a></h2>
+                    <ul>
+                    	<li>Overview on boosting</li>
+                    	<li>Adaboost</li>
+                        <li>GBDT/Xgboost</li>
+                        <li>Summary</li>
+                    </ul>
+				</section>
+                <section>
+                    <h4>Overview on boosting</h4>
+                    <section>
+                        <img src="./decision_tree_files/boosting.jpg" height="400" width="800">
+                    </section>
+                    <section>
+                    	<p align="left">Like bagging, boosting is a general approach that can be applied to many statistical learning methods for regression or classification</p>
+                    </section>
+                    <section>
+                    	<p align="left">Boosting works in a similar way as Bagging, except that the trees are grown <strong>sequentially</strong>:  each tree is grown using information from previously grown trees.</p>
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>General Boosting Algorithm for regression trees</h4>
+                    <section>
+                        <div style="font-size: 24px">
+                            <ol>
+                                <li><p>Set $\hat{f}(x) = 0$ and $r_i=y_i$ for all $i$ in the training set.</p></li>
+                                <li><p>For $b= 1,2,...,B$ , repeat:</p> 
+                                	<ul>
+                                		<li> Fit a tree $\hat{f}^b$ with $d$ splits ($d + 1$ terminal nodes) to the training data $(X,r)$.</li>
+                                		<li> Update $\hat{f}$ by adding in a shrunken version of the new tree:
+                                			 $$\hat{f}(x) \longleftarrow \hat{f}(x) + \lambda \hat{f}^b(x)$$</li>
+                                		<li> Update the residuals,
+                                			 $$r_i \longleftarrow r_i - \lambda \hat{f}^b(x_i)$$
+                                		</li>
+                                	</ul>
+                                </li>
+                                <li>Output the model: $$\hat{f}(x)=\sum_{b=1}^B \lambda \hat{f}^b(x)$$</li>
+                            </ol>
+                        </div>
+                    </section>
+                    <section>
+                    	<p align="left">Two core ideas:
+							<ul>
+                    			<li>Learning Slowly</li>
+                    			<li>Residual fitting</li>
+                    		</ul>
+                    	</p>
+                    	<p align="left">Three major parameters：
+							<ul>
+                    			<li>The number of trees $B$ </li>
+                    			<li>The shrinkage parameter $\lambda$ </li>
+                    			<li>The number of splits $d$ </li>
+                    		</ul>
+                    	</p>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                	<h4>Adaboost</h4>
+                	<section>
+                		<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Core Idea: Combines the outputs of many “weak” classifiers to produce a powerful “committee.”</p>
+                            	<ul>
+                            		<li>Consider a two-class problem, the error rate on the training sample is: $\bar{err}=\frac{1}{N}\sum_{i=1}^N I(y_i\neq G(x_i))$</li>
+                            		<li>The expected error rate on future predictions is: $E_{XY}I(Y\neq G(X))$</li>
+                            		<li>A weak classifier is one whose error rate is only slightly better than random guessing</li>
+                            		<li>The output model is: $$G(x)=sign(\sum_{m=1}^M\alpha_m G_m(x))$$</li>
+                            	</ul>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<img src="./decision_tree_files/adaboost.png" height="400" width="400">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                    	<p>Detail on adaboost algorithm</p>
+                    	<ol style="font-size: 30px">
+                    		<li>初始化观测数据点的权重 $w_i=1/N$ , $i=1,2,\cdots,N, \ y_i \in \{-1,1\}$</li>
+                    		<li>For $m=1$ to $M$:
+                    			<p>(a) Fit a classfier $G_m(x)$ to the training data using weights $w_i$</p>
+                    			<p>(b) 计算 $\epsilon_m=E_{w_m}[1_{y\neq G(x)}]$</p>
+                    			<p>(c) 计算 $\alpha_m=\frac{1}{2}ln((1-\epsilon_m)/\epsilon_m)$</p>
+                    			<p>(d) 更新权重：$w_{m+1}(x_i,y_i)\leftarrow \frac{w_m(xi,yi)*exp[-\alpha_m y_iG_m(x_i)]}{Z_m}$</p></li>
+                    		<li>Output the model: $G(x)=sign[\sum_{m=1}^M\alpha_m G_m(x)]$ </li>
+                    	</ol>
+                    </section>
+                    <section>
+                    	<p> Additive logistic regression model</p>
+                    	<div class="container">
+	                    	<div class="col" align="left" style="font-size: 24px">
+	                    		<p>Loss Function: $L(y,G(x))=E(e^{-yG(x)})$, minimized at $\frac{\partial E[e^{-yG(x)}]}{\partial E(G(x))}=0$</p>
+	                    		<p>$E[e^{-yG(x)}]=e^{G(x)}P(y=-1|x)+e^{-G(x)}P(y=1|x)$</p>
+	                    		<p>$\frac{\partial E[e^{-yG(x)}]}{\partial E(G(x))}=e^{G(x)}P(y=-1|x)-e^{-G(x)}P(y=1|x)$</p>
+	                    		<p>解得: $G(x)=\frac{1}{2}log\frac{P(y=1|x)}{P(y=-1|x)}$</p>
+	                    		<p>进一步：$P(y=1|x)=\frac{e^{2G(x)}}{1+e^{2G(x)}}$</p>
+	                    	</div>
+	                    	<div class="col" align="left" style="font-size: 24px">
+	                    		<p>我们有 $G(x)$ , 尝试得到新的 $G(x)+cf(x)$:</p>
+	                    		<p>$L(y,G(x)+cf(x))=E[e^{-y(G(x)+cf(x))}]$</p>
+	                    		<p>$\approx E[e^{-yG(x)}(1-ycf(x)+c^2y^2f(x)^2/2)]$</p>
+	                    		<p>这样，$f(x)=argmin_f E_w(1-ycf(X)+c^2/2|x)$</p>
+	                    		<p>If $c>0$, then maximizing $E_w[yf(x)]$</p>
+	                    		<p>$c=argmin_c E_w[e^{-cyf(x)}]$</p>
+	                    		<p>解得：$E_w[-yf(x)e^{-cyf(x)}]=0$</p>
+	                    		<p>$E_w[1_{y\neq f(x)}]e^c-E_w[1_{y= f(x)}]e^{-c}=0$</p>
+	                    		<p>得到：$c=\frac{1}{2}ln(\frac{1-\epsilon}{\epsilon})$</p>
+	                    	</div>
+	                    </div>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                	<h4>XGBoost</h4>
+                	<section>
+	                	<p>在学习问题中，我们经常面临如下形式得目标函数：</p>
+	                	<p>$\text{obj}(\theta) = L(\theta) + \Omega(\theta)$</p>
+	                	<ul align="left">
+	                		<li><p>回归问题：$L(\theta) = \sum_i (y_i-\hat{y}_i)^2$</p></li>
+	                		<li><p>分类问题：$L(\theta) = \sum_i[ y_i\ln (1+e^{-\hat{y}_i}) + (1-y_i)\ln (1+e^{\hat{y}_i})]$</p></li>
+	                	</ul>
+	                </section>
+	                <section>
+	                	<div class="container">
+	                    	<div class="col" align="left" style="font-size: 24px">
+	                			<p>Tree Boosting</p>
+	                			<p align="left">$\hat{y}_i = \sum_{k=1}^K f_k(x_i), f_k \in \mathcal{F}$</p>
+	                			<p align="left">$\text{obj} = \sum_{i=1}^n l(y_i, \hat{y}_i^{(t)}) + \sum_{i=1}^t\Omega(f_i)$</p>
+	                			<br>
+	                			<p> Optimizes our objective</p>
+	                			<p>$\begin{split}\text{obj}^{(t)} & = \sum_{i=1}^n l(y_i, \hat{y}_i^{(t)}) + \sum_{i=1}^t\Omega(f_i) \\
+          & = \sum_{i=1}^n l(y_i, \hat{y}_i^{(t-1)} + f_t(x_i)) + \Omega(f_t) + \mathrm{constant}\end{split}$</p>
+	                		</div>
+	                		<div class="col" align="left" style="font-size: 24px">
+	                			<p>Additive Training</p>
+	                			<p>$\begin{split}\hat{y}_i^{(0)} &= 0\\
+									\hat{y}_i^{(1)} &= f_1(x_i) = \hat{y}_i^{(0)} + f_1(x_i)\\
+									\hat{y}_i^{(2)} &= f_1(x_i) + f_2(x_i)= \hat{y}_i^{(1)} + f_2(x_i)\\
+									&\dots\\
+									\hat{y}_i^{(t)} &= \sum_{k=1}^t f_k(x_i)= \hat{y}_i^{(t-1)} + f_t(x_i)\end{split}$
+								</p>
+							</div>
+						</div>
+	                </section>
+	                <section>
+	                	<div class="container">
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<p>Consider using mean squared error (MSE)</p>
+	                    		<p>$\begin{split}\text{obj}^{(t)} & = \sum_{i=1}^n (y_i - (\hat{y}_i^{(t-1)} + f_t(x_i)))^2 + \sum_{i=1}^t\Omega(f_i) \\
+          & = \sum_{i=1}^n [2(\hat{y}_i^{(t-1)} - y_i)f_t(x_i) + f_t(x_i)^2] + \Omega(f_t) + \mathrm{constant}\end{split}$</p>
+	                    	</div>
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<p>Take the Taylor expansion</p>
+	                    		<p>Recall $f(x+\Delta x)\approx f(x)+f^{'}(x)\Delta x+f^{''}(x)\Delta x^2$</p>
+	                    		<p>$\text{obj}^{(t)} = \sum_{i=1}^n [l(y_i, \hat{y}_i^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t) + \mathrm{constant}$</p>
+	                    		<p>这里，$\begin{split}g_i &= \partial_{\hat{y}_i^{(t-1)}} l(y_i, \hat{y}_i^{(t-1)})\\
+h_i &= \partial_{\hat{y}_i^{(t-1)}}^2 l(y_i, \hat{y}_i^{(t-1)})\end{split}$</p>
+								<p>remove all the constants, the specific objective at step $t$ becomes</p>
+								<p>$\sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t)$</p>
+	                    	</div>
+	                    </div>
+	                </section>
+	                <section>
+	                	<div class="container">
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<p>Model Complexity</p>
+	                    		<p>Redefinition of the tree $f(x)$ as: 
+	                    			$$f_t(x) = w_{q(x)}, w \in R^T, q:R^d\rightarrow \{1,2,\cdots,T\} .$$</p>
+	                    		<p>	$w$ : the vector of scores on leaves</p>
+	                    		<p>	$q$ : function assigning each data point to the corresponding leaf</p>
+	                    		<p>	$T$ : the number of leaves</p>
+	                    	</div>
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<img src="./decision_tree_files/redefine_score.png" height="400" width="600">
+	                    	</div>
+	                    </div>
+	                </section>
+	                <section>
+	                	<div class="container">
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<p> Define the complexity as:
+	                    			$$\Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2$$
+	                    		</p>
+	                    	</div>
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<img src="./decision_tree_files/tree_com.png" height="400" width="600">
+	                    	</div>
+	                    </div>
+	                </section>
+	                <section>
+	                    <p>The structure score</p>
+	                    <div class="container">
+	                    	<div class="col" align="left" style="font-size: 20px">
+	                    		<p>Regroup the objective by leaf</p>
+	                    		<p>$\begin{split}\text{obj}^{(t)} &\approx \sum_{i=1}^n [g_i w_{q(x_i)} + \frac{1}{2} h_i w_{q(x_i)}^2] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2\\
+&= \sum^T_{j=1} [(\sum_{i\in I_j} g_i) w_j + \frac{1}{2} (\sum_{i\in I_j} h_i + \lambda) w_j^2 ] + \gamma T\end{split}$</p>
+								<p>这里 $I_j = \{i|q(x_i)=j\}$  is the set of indices of data points assigned to the $j$-th leaf</p>
+								<p>This is sum of T independent quadratic function</p>
+							</div>
+							<div class="col" align="left" style="font-size: 20px">
+								<p>$\text{obj}^{(t)} = \sum^T_{j=1} [G_jw_j + \frac{1}{2} (H_j+\lambda) w_j^2] +\gamma T$</p>
+								<p>这里，$G_j = \sum_{i\in I_j} g_i$, $H_j = \sum_{i\in I_j} h_i$</p>
+								<p>The best solution for $w_j$ is: $\begin{split}w_j^\ast &= -\frac{G_j}{H_j+\lambda}\\
+\text{obj}^\ast &= -\frac{1}{2} \sum_{j=1}^T \frac{G_j^2}{H_j+\lambda} + \gamma T\end{split}$</p>
+								<p>The last equation measures how good a tree structure $q(x)$ is</p>
+	                    	</div>
+	                    </div>
+	                </section>
+	                <section>
+	                	<div class="container">
+	                    	<div class="col" align="left">
+	                    		<p>Example</p>
+	                    		<img src="./decision_tree_files/struct_score.png" height="340" width="600">
+	                    	</div>
+	                    	<div class="col" align="left" style="font-size: 24px">
+	                    		<p>Grow tree greedily</p>
+	                    		<br>
+	                    		<p>For each leaf node of the tree, try to add a split. The change of objective after adding the split is :</p>
+	                    		<p>$Gain = \frac{1}{2} \left[\frac{G_L^2}{H_L+\lambda}+\frac{G_R^2}{H_R+\lambda}-\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}\right] - \gamma$</p>
+	                    		<p>If the gain is smaller than $\gamma$ , we would do better not to add that branch</p>
+	                    	</div>
+	                    </div>
+	                </section>
+	                <section>
+	                	<p>How do we find the best split?</p>
+	                	<ul style="font-size: 30px">
+	                		<li>For each node, enumerate over all features
+	                			<ul>
+	                				<li>For each feature, sorted the instances by feature value</li>
+	                				<li>Use a linear scan to decide the best split along that feature</li>
+	                				<li>Take the best split solution along all the features</li>
+	                			</ul>
+	                		</li>
+	                		<li>Time Complexity growing a tree of depth K</li>
+	                			<ul>
+	                				<li>It is O(n d K log n): or each level, need O(n log n) time to sort There are d features, and we need to do it for K level</li>
+	                				<li>This can be further optimized (e.g. use approximation or caching the sorted features)</li>
+	                				<li>Can scale to very large dataset</li>
+	                			</ul>
+	                		</li>
+	                	</ul>
+	                </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                	<h4>Summary</h4>
+                	<div class="container">
+	                    <div class="col" align="left">
+	                    	<img src="./decision_tree_files/summary0.png" height="340" width="600">
+	                    </div>
+	                    <div class="col" align="left">
+	                    	<img src="./decision_tree_files/summary1.png" height="340" width="600">
+	                    </div>
+	                </div>
+                </section>
+                
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./decision_tree_files/head.min.js.下载"></script>
+		<script src="./decision_tree_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				width: 1280,
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./decision_tree_files/highlight.js.下载"></script><script type="text/javascript" src="./decision_tree_files/zoom.js.下载"></script><script type="text/javascript" src="./decision_tree_files/notes.js.下载"></script>
+
+	
+
+</body></html>

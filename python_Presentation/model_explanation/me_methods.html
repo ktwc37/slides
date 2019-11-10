@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./me_tradeoff_files/reveal.css">
+		<link rel="stylesheet" href="./me_tradeoff_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./me_tradepff_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./me_tradeoff_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./me_tradeoff_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./me_tradeoff_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Criteria for Machine Learning Model Interpretation Methods</h3>
+                    <ul>
+                        <li>Intrinsic or post hoc?</li>
+                        <li>Model-specific or model-agnostic? </li>
+                        <li>Local or Global?</li>
+                    </ul>
+                </section>
+                <section class="present" style="top: 163.5px; display: block;">
+                    <h3><a href="./model_explaination.html">Model Explaination Methods</a></h3>
+                    <ul>
+                        <li>Feature Importance</li>
+                        <li>Partial Dependency</li>
+                        <li>Shap Value</li>
+                        <li>LIMEs Method</li>
+                    </ul>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3> Model Construction Pipeline Review</h3>
+                    <img src="./me_tradeoff_files/normal_model.png" height="400" width="600">
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Feature Importance</h3>
+                    <br>
+                    <p> Xgboost supports feature importance by: </p>
+                    <ul>
+                        <li> Feature Weights </li>
+                        <li> Information Gain </li>
+                        <li> Coverage </li>
+                    </ul>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Partial Dependency</h3>
+                    <ul>
+                        <li>Partial Dependence describes the marginal impact of a feature on model prediction, holding other features in the model constant</li>
+                        <li>The derivative of partial dependence describes the impact of a feature (analogous to a feature coefficient in a regression model)</li>
+                    </ul>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Shap Value</h3>
+                    <section>
+                        <p>If we all collaborate, how do we divide the payoff?</p>
+                        <img src="./me_tradeoff_files/shap1.jpeg" height="300" width="600">
+                    </section>
+                    <section>
+                        <ul>
+                            <li>SHAP values try to explain the output of a model (function) as a sum of the effects of each feature being introduced into a conditional expectation.</li>
+                            <li>Proofs from game theory show this is the only possible consistent approach</li>
+                            <li align="left" style="font-size: 24px">$$\phi_{ij}=\sum_{All\ Ordering} val(\{features.before.j\}\cup x_{ij})-val(\{features.before.j\})$$</li>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>LIMEs Method</h3>
+                    <p>Local Interpretable Model-Agnostic Explanations(LIME)</p>
+                    <section>
+                        <p> Now forget about the model, all we have is a black box which can do something magic.</p>
+                        <ul>
+                            <li>LIME is a novel algorithm to access the behavior of the any base estimator(model)</li>
+                            <li>Using interpretable surrogate models (e.g. linear classifier/regressor)</li>
+                            <li>Locally faithful but may not align with the global behavior</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p> What LIME acctually did?</p>
+                        <ol>
+                            <li>LIME generates a new dataset consisting of perturbed samples and the associated black box model’s predictions</li>
+                            <li>On this dataset LIME then trains an interpretable model weighted by the proximity of the sampled instances to the instance of interest</li>
+                        <ol>
+                    </section>
+                </section>   		
+                <!-- Summary of web applications -->
+                <!-- Model difficulties -->
+			</div>
+        </div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./me_tradeoff_files/head.min.js.下载"></script>
+		<script src="./me_tradeoff_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./me_tradeoff_files/highlight.js.下载"></script><script type="text/javascript" src="./me_tradeoff_files/zoom.js.下载"></script><script type="text/javascript" src="./me_tradeoff_files/notes.js.下载"></script>
+
+	
+
+</body></html>

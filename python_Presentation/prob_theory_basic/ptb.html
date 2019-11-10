@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis Foundation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis Foundation">
+  <meta name="author" content="MaMing">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis Foundation</h1>
+    <h2>Descriptive Statistics and Probability Bacis Thory</h2>
+    <p>MaMing<br/>Big Data Platform Architecture and Data Scientist.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Course Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Prelimitary </li>
+<li>Population and Sample<br></li>
+<li>Random Variable<br></li>
+<li>Descriptive Statistics<br></li>
+<li>Visualization </li>
+<li>Probability distribution<br>
+
+<ul>
+<li>Normal Distribution</li>
+<li>Binomial Distribution<br></li>
+<li>Possion Distribution<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Prelimitary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Data Basics<br>
+
+<ul>
+<li>Observations,Variables and data matrics or data frame<br></li>
+<li>Type of Variables<br></li>
+</ul></li>
+<li>Random Variables<br></li>
+<li>Relationships between Variables<br></li>
+<li>PMF PDF CDF SF<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Type of Variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Numerical (Quantitative)<br>
+
+<ul>
+<li>Continous<br></li>
+<li>Discrete<br></li>
+</ul></li>
+<li>Categorical (Qualitative)
+
+<ul>
+<li>Nominal<br></li>
+<li>Ordinal<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Random variables （随机变量）</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>一个 <strong>random variable</strong> 是一个实验或观察结果的数字形式输出.<br></li>
+<li>Random Variable有两种形式,<br>
+<strong>discrete</strong> or <strong>continuous</strong>.<br></li>
+<li>离散型random variable ： 有限的可能性.<br>
+\(P(X = k)\)<br></li>
+<li>连续型random variable接受一个实数范围.<br>
+\(P(X \in A)\)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Examples of variables that can be thought of as random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The \((0-1)\) outcome of the flip of a coin</li>
+<li>The outcome from the roll of a die</li>
+<li>The web site traffic on a given day<br></li>
+<li>The number of people who click on an Ad<br></li>
+<li>Question? : How to describe the distribution of a random variable?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Relation between variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Correlation<br>
+
+<ul>
+<li>Positive and Negativa<br></li>
+<li>Strong and Weak<br></li>
+</ul></li>
+<li><img src="correlation.png" width="600px" height="350px" /><br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example for correlation vs causation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>某调查机构调查2379个9~19岁女生显示大部分吃早餐的女生都比较苗条，如果我们由此得出结论：<br>
+吃早餐可以使女士苗条<br>
+你认为正确吗？ </li>
+<li>Correlation DONOT imply Causation!!!<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>PMF (Probability Mass Function)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A probability mass function evaluated at a value corresponds to the
+probability that a random variable takes that value. To be a valid
+pmf, \(p\), must satisfy  </p>
+
+<ol>
+<li>\(p(x) \geq 0\) for all \(x\)</li>
+<li>\(\sum_{x} p(x) = 1\)</li>
+</ol>
+
+<p>The sum is taken over all of the possible values for \(x\).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example for PMF</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let \(X\) be the result of a coin flip where \(X=0\) represents
+tails and \(X = 1\) represents heads.
+\[
+p(x) = (1/2)^{x} (1/2)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]
+Suppose that we do not know whether or not the coin is fair; Let
+\(\theta\) be the probability of a head expressed as a proportion
+(between 0 and 1).
+\[
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>PDF (Probability Density Function)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A probability density function (pdf), is a function associated with
+a continuous random variable </p>
+
+<p><em>Areas under pdfs correspond to probabilities for that random variable</em></p>
+
+<p>To be a valid pdf, a function \(f\) must satisfy</p>
+
+<ol>
+<li><p>\(f(x) \geq 0\) for all \(x\)</p></li>
+<li><p>The area under \(f(x)\) is one.</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example of PDF</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Suppose that the proportion of help calls that get addressed in
+a random day by a help line is given by
+\[
+f(x) = \left\{\begin{array}{ll}
+    2 x & \mbox{ for } 1 > x > 0 \\
+    0                 & \mbox{ otherwise} 
+\end{array} \right. 
+\]</p>
+
+<p>Is this a mathematically valid density?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>CDF and survival function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>cumulative distribution function</strong> (CDF) of a random variable \(X\) is defined as the function 
+\[
+F(x) = P(X \leq x)
+\]</li>
+<li>This definition applies regardless of whether \(X\) is discrete or continuous.</li>
+<li>The <strong>survival function</strong> of a random variable \(X\) is defined as
+\[
+S(x) = P(X > x)
+\]</li>
+<li>Notice that \(S(x) = 1 - F(x)\)</li>
+<li>For continuous random variables, the PDF is the derivative of the CDF</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What are the survival function and CDF from the density considered before?</p>
+
+<p>For \(1 \geq x \geq 0\)
+\[
+F(x) = P(X \leq x) = \frac{1}{2} Base \times Height = \frac{1}{2} (x) \times (2 x) = x^2
+\]</p>
+
+<p>\[
+S(x) = 1 - x^2
+\]</p>
+
+<pre><code class="r">pbeta(c(0.4, 0.5, 0.6), 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.16 0.25 0.36
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Sampling &amp; Sources of bias</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Census vs Sample<br></li>
+<li>Sources of Bias<br>
+
+<ul>
+<li>Convenience Sample<br></li>
+<li>No Response<br></li>
+<li>Voluntary Respone<br></li>
+</ul></li>
+<li>Sampling methods<br>
+
+<ul>
+<li>Simple random sampling (SRS)<br></li>
+<li>Stratified sample<br></li>
+<li>Cluster sample<br></li>
+<li>Multistage sample<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Sampling Methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>simple random sampling (SRS)<br></li>
+<li>stratified sample<br></li>
+<li>cluster sample<br></li>
+<li>multistage sample<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Simple Random Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./src.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Stratified Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./stratum_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Cluster Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./cluster_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Multistage Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./multis_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Descriptive Statistics</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Center<br>
+
+<ul>
+<li>Mean<br></li>
+<li>Median<br></li>
+<li>Mode<br></li>
+</ul></li>
+<li>Shape<br></li>
+<li>Spread 
+
+<ul>
+<li>Range </li>
+<li>Variance </li>
+<li>IQR (Inter Quarter Range)</li>
+</ul></li>
+<li>Fivenum : \(( Min,Q_1,Median,Q_3,Max)\)</li>
+<li>Visualization<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Measure of Shape</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./shape.png" alt="">  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Measure of Center</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./center.png" width="800" height="500" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Measure of Spread</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Range : ( Max - Min )</li>
+<li>Variance : \(S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}\)</li>
+<li>Standart Deviation : \(\sqrt{Var(x)}\)</li>
+<li>IQR ( Inter Quartile Range) : \(Q_3-Q_1\) </li>
+<li>Robust Statistics : Mean,IQR<br></li>
+<li>Question: For Variance, Why do we square the difference?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>The population mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>expected value</strong> or <strong>mean</strong> of a random variable is the center of its distribution</li>
+<li>For discrete random variable \(X\) with PMF \(p(x)\), it is defined as follows
+\[
+E[X] = \sum_x xp(x).
+\]
+where the sum is taken over the possible values of \(x\)</li>
+<li>\(E[X]\) represents the center of mass of a collection of locations and weights, \(\{x, p(x)\}\)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>The sample mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample mean estimates this population mean</li>
+<li>The center of mass of the data is the empirical mean
+\[
+\bar X = \sum_{i=1}^n x_i p(x_i)
+\]
+where \(p(x_i) = 1/n\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>The variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The variance of a random variable is a measure of <em>spread</em></li>
+<li>If \(X\) is a random variable with mean \(\mu\), the variance of \(X\) is defined as</li>
+</ul>
+
+<p>\[
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+\] </p>
+
+<ul>
+<li>The expected (squared) distance from the mean</li>
+<li>Densities with a higher variance are more spread out than densities with a lower variance</li>
+<li>The square root of the variance is called the <strong>standard deviation</strong></li>
+<li>The standard deviation has the same units as \(X\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>The sample variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample variance is 
+\[
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+\]
+(almost, but not quite, the average squared deviation from
+the sample mean)</li>
+<li>It is also a random variable
+
+<ul>
+<li>It has an associate population distribution</li>
+<li>Its expected value is the population variance</li>
+<li>Its distribution gets more concentrated around the population variance with more data</li>
+</ul></li>
+<li>Its square root is the sample standard deviation</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Histogram (直方图)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A histogram is a graphical representation of the distribution of numerical data.<br>
+<img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Parameters of Histogram</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Number of bins : \(k\)</li>
+<li>Or bin width : \(h\)<br></li>
+<li>How to choose \(k\)<br>
+
+<ul>
+<li>Square-root choice : \(k=\sqrt{n}\)</li>
+<li>Sturges&#39; formula : \(k=\log_2 n + 1\)<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>BarPlot (条形图)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>A bar chart or bar graph is a chart or graph that presents grouped data with rectangular bars with lengths proportional to the values that they represent.<br></li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>DotPlot</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>The dot plot as a representation of a distribution consists of group of data points plotted on a simple scale. Dot plots are used for continuous, quantitative, univariate data.<br></li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Question 1</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>what is 1 + 1?</p>
+
+<ol>
+<li>1 </li>
+<li><em>2</em></li>
+<li>3</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This is a hint</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>This is an explanation</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="bigger" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>Interactive Chart</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Bubble Plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>The Bernoulli distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>Bernoulli distribution</strong> arises as the result of a binary outcome</li>
+<li>Bernoulli random variables take (only) the values 1 and 0 with probabilities of (say) \(p\) and \(1-p\) respectively</li>
+<li>The PMF for a Bernoulli random variable \(X\) is \[P(X = x) =  p^x (1 - p)^{1 - x}\]</li>
+<li>The mean of a Bernoulli random variable is \(p\) and the variance is \(p(1 - p)\)</li>
+<li>If we let \(X\) be a Bernoulli random variable, it is typical to call \(X=1\) as a &quot;success&quot; and \(X=0\) as a &quot;failure&quot;</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Binomial trials</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <em>binomial random variables</em> are obtained as the sum of iid Bernoulli trials</li>
+<li>In specific, let \(X_1,\ldots,X_n\) be iid Bernoulli\((p)\); then \(X = \sum_{i=1}^n X_i\) is a binomial random variable</li>
+<li>The binomial mass function is
+\[
+P(X = x) = 
+\left(
+\begin{array}{c}
+n \\ x
+\end{array}
+\right)
+p^x(1 - p)^{n-x}
+\]
+for \(x=0,\ldots,n\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>The normal distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A random variable is said to follow a <strong>normal</strong> or <strong>Gaussian</strong> distribution with mean \(\mu\) and variance \(\sigma^2\) if the associated density is
+\[
+(2\pi \sigma^2)^{-1/2}e^{-(x - \mu)^2/2\sigma^2}
+\]
+If \(X\) a RV with this density then \(E[X] = \mu\) and \(Var(X) = \sigma^2\)</li>
+<li>We write \(X\sim \mbox{N}(\mu, \sigma^2)\)</li>
+<li>When \(\mu = 0\) and \(\sigma = 1\) the resulting distribution is called <strong>the standard normal distribution</strong></li>
+<li>Standard normal RVs are often labeled \(Z\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>Normal Distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>The Poisson distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Used to model counts</li>
+<li>The Poisson mass function is
+\[
+P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}
+\]
+for \(x=0,1,\ldots\)</li>
+<li>The mean of this distribution is \(\lambda\)</li>
+<li>The variance of this distribution is \(\lambda\)</li>
+<li>Notice that \(x\) ranges from \(0\) to \(\infty\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Some uses for the Poisson distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Modeling count data<br></li>
+<li>Modeling event-time or survival data</li>
+<li>Modeling contingency tables</li>
+<li>Approximating binomials when \(n\) is large and \(p\) is small</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>Rates and Poisson random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Poisson random variables are used to model rates</li>
+<li>\(X \sim Poisson(\lambda t)\) where 
+
+<ul>
+<li>\(\lambda = E[X / t]\) is the expected count per unit of time</li>
+<li>\(t\) is the total monitoring time</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The number of people that show up at a bus stop is Poisson with
+a mean of \(2.5\) per hour.</p>
+
+<p>If watching the bus stop for 4 hours, what is the probability that \(3\)
+or fewer people show up for the whole time?</p>
+
+<h2>Normal Distribution</h2>
+
+<p><img src="assets/fig/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Course Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Prelimitary'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Type of Variables'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Random variables （随机变量）'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Examples of variables that can be thought of as random variables'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Relation between variables'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example for correlation vs causation'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='PMF (Probability Mass Function)'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Example for PMF'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='PDF (Probability Density Function)'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example of PDF'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='CDF and survival function'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Example'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Sampling &amp; Sources of bias'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Sampling Methods'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Simple Random Sampling'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Stratified Sampling'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Cluster Sampling'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Multistage Sampling'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Descriptive Statistics'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Measure of Shape'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Measure of Center'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Measure of Spread'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='The population mean'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='The sample mean'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='The variance'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='The sample variance'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Histogram (直方图)'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Parameters of Histogram'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='BarPlot (条形图)'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='DotPlot'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='Question 1'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='Interactive Chart'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Bubble Plot'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='The Bernoulli distribution'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='Binomial trials'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='The normal distribution'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Normal Distribution'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='NA'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='The Poisson distribution'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Some uses for the Poisson distribution'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='Rates and Poisson random variables'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='Example'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='NA'>
+         44
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+<script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

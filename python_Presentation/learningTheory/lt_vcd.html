@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./lt_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./lt_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./lt_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./lt_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./lt_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./lt_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./learningtheory.html">Vapnik–Chervonenkis dimension</a></h2>
+                    <ul>
+                        <p>有效假设集合</p>
+                        <p>Break Point and Shatter</p>
+                        <p>VC dimension<p>
+                    </ul>
+				</section>
+                <section>
+                    <h3>有效假设集合</h3>
+                    <section>
+                        <p align="left">从 $H$ 中任意选择一个方程 $h$，让这个 $h$ 对样本集合 $D$ 进行二元分类，输出一个结果向量。例如在平面里用一条直线对2个点进行二元分类，输出可能为{1,–1}，{–1,1}，{1,1}，{–1,–1}，这样每个输出向量我们称为一个dichotomy（对分）。</p>
+                        <br>
+                        <p align="left">如果对平面上的4个点来分类，输出的结果向量只有14种可能，即有14个dichotomies。</p>
+                    </section>
+                    <section>
+                        <p align="left">如果有 $N$ 个样本数据，那么有效的假设个数定义为： $effective(N) = \mathcal{H}$作用于样本集 $D$ “最多”能产生多少不同的dichotomy。</p>
+                        <p>能否用$effective(N)$来替换hoeffding不等式中的$M$</p>
+                        <p>$$P[|E_{train}(g)-E_{test}(g)|>\epsilon] \le 2effective(N)exp(-2\epsilon^2 N)$$</p>
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>成长函数</h4>
+                    <section>
+                        <p  align="left">$\mathcal{H}$ 作用于 $D$ “最多”能产生多少种不同的dichotomies？这个数量与假设空间$\mathcal{H}$有关，跟数据量$N$也有关。将H作用于D“最多”能产生的dichotomies数量(即effective(N) )表示为数学符号：$max_{\mathcal{H}}(x_1,x_2,…,x_N)$</p>
+                        <p  align="left">这个式子又称为“成长函数”(growth function)。在$\mathcal{H}$确定的情况下，growth function是一个与$N$相关的函数。</p>
+                    </section>
+                </section>
+
+                <section>
+                    <h4>Break Point与Shatter</h4>
+                    <section>
+                        <ul>
+                            <li>Shatter的概念：当假设空间 $\mathcal{H}$ 作用于 $N$ 个input的样本集时，产生的dichotomies数量等于这 $N$ 个点总的组合数 $2^N$ 时，就称：这 $N$ 个inputs被 $\mathcal{H}$ 给shatter掉了</li>
+                            <br>
+                            <li>对于给定的成长函数$m_\mathcal{H}(N)$，从 $N=1$ 出发，$N$ 慢慢变大，当增大到 $k$ 时，出现 $m_\mathcal{H}(N)\lt2^k$ 的情形，则我们说 $k$ 是该成长函数的<em>break point</em>。对于任何 $N$ > $k$ 个inputs而言，$\mathcal{H}$ 都没有办法再shatter他们了。</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                        </style>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./lt_introduction_files/vc1.png" height="350" width="400">
+                                <img src="./lt_introduction_files/vc3.png" height="100" width="400">
+                            </div>
+                            <div class="col" aligh="right" style="font-size: 24px">
+                                <img src="./lt_introduction_files/vc2.png" height="500" width="400">
+                            </div>
+                        </div>
+                    </section>
+				</section>
+                <section>
+                    <h3>VC Dimensions</h3>
+                    <ul>
+                        <p>一个假设空间 $\mathcal{H}$ 的VC dimension，是这个 $\mathcal{H}$ 最多能够shatter掉的点的数量，记为 $dvc(\mathcal{H})$</p>
+                        <p> VC维衡量了模型复杂度 </p>
+                        <p>一个实践规律：VC 维与假设参数w 的自由变量数目大约相等。$dvc =$ #free parameters</p>
+                        <p>$ExpectedLoss(h)\le TrainingLoss(h) + \sqrt{\frac{d(log\frac{2N}{d}+1)+log\frac{4}{\delta}}{2N}}$</p>
+                    </ul>
+                </section>
+                <section>
+                    <h3>深度学习与VC维</h3>
+                    <p>对于神经网络，其VC维的公式为：$dvc=O(V*D)$</p>
+                    <p>其中 $V$ 表示神经网络中神经元的个数，$D$ 表示weight的个数，也就是神经元之间连接的数目。</p>
+                </section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./lt_introduction_files/head.min.js.下载"></script>
+		<script src="./lt_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./lt_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./lt_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./lt_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

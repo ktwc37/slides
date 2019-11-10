@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./lr_maxsharperatio_files/reveal.css">
+		<link rel="stylesheet" href="./lr_maxsharperatio_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./lr_maxsharperatio_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./lr_maxsharperatio_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./lr_maxsharperatio_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./lr_maxsharperatio_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./逻辑回归.html">"经验风险"最小化分类器</a></h2>
+                    <ul>
+                        <li>最大熵模型</li>
+                        <li>逻辑回归的推广</li>
+                        <li>Softmax回归</li>
+                        <li>逻辑回归就是最大熵分类器</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>思考</h3>
+                    <section>
+                        1. 一个由某个厂家特制的硬币，在随机试验的情况下请猜测其正面出现的概率？
+                    </section>
+                    <section>
+                        2. 一个由某个厂家特制的骰子，在随机试验的情况下请猜测其点数？
+                    </section>
+                    <section>
+                        3. 上一问中，如果被告知6点不可能出现，请重新猜测其点数？
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>最大熵模型</h4>
+
+                    <section>
+                        <div align="left" style="font-size: 24px">
+                            <p>MaxEnt 是概率模型学习中一个准则，其思想为：在学习概率模型时，所有可能的模型中熵最大的模型是最好的模型；若概率模型需要满足一些约束，则最大熵原理就是在满足已知约束的条件集合中选择熵最大模型。</p>
+                            <p>最大熵原理指出，对一个随机事件的概率分布进行预测时，预测应当满足全部已知的约束，而对未知的情况不要做任何主观假设。在这种情况下，概率分布最均匀，预测的风险最小，因此得到的概率分布的熵是最大</p>
+                            <p>给定训练数据$\left \{ (x_i,y_i)\right\}_{i=1}^N$，现在要通过Maximum Entropy 来建立一个概率判别模型，该模型的任务是对于给定的$X = x$以条件概率分布$P(Y|X = x)$预测Y的取值。 </p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div align="left" style="font-size: 24px">
+                            <p>对于随机变量$X = x_i,i = 1,2,…$,</p>
+                            <p>随机变量期望: 其数学期望为$E(X) = \sum_ix_ip_i$</p>
+                            <p>随机变量函数期望：$Y = f(X),\ E(Y) = \sum_if(x_i)p_i$</p>
+                            <p>特征函数$f(x,y)$描述x与y之间的某一事实，其定义如下：$$f(x,y) = \left \{ \begin{aligned} 1, & \ 当 \ x、y \ 满足某一事实.\\ 0,   & \ 不满足该事实.\\ \end{aligned}\right .$$</p>
+                            <p>根据训练数据确定联合分布的经验分布$\widetilde{P}(X,Y)$与边缘分布的经验分布$\widetilde{P}(X)$为$$\begin{aligned}  \widetilde{P}(X = x,Y = y) &= \frac{count(X=x,Y= y)}{N}\\ \widetilde{P}(X = x) &= \frac{count(X=x)}{N} \end{aligned}$$</p>
+                        </div>
+                    </section>
+                    <section>
+                        <div align="left" style="font-size: 24px">
+                            <p>用$E _{\widetilde{P}}(f)$表示特征函数$f(x,y)$关于经验分布$\widetilde{P}(X ,Y )$上的期望，有$$E _{\widetilde{P}}(f)  = \sum_{x,y}\widetilde{P}(x ,y)f(x,y) = \frac{1}{N} \sum_{x,y}f(x,y)$$</p>
+                            <p>$E_P(f) = E _{\widetilde{P}}(f)$</p>
+                            <p>$\sum_{x,y}\widetilde{P}(x)p(y|x)f(x,y) =  \sum_{x,y}\widetilde{P}(x ,y)f(x,y)$</p>
+                            <p>模型$P(Y|X)$的熵为：$H(P) =–\sum_{x,y}P(y,x)logP(y|x)= –\sum_{x,y}\widetilde{P}(x)P(y|x)logP(y|x)$</p>
+                            <p>模型约束条件即为$$\begin{aligned} & \min_{P \in C} \ \  \sum_{x,y} \widetilde{P}(x)P(y|x)logP(y|x) \\ & \ s.t. \ \ \ E_p(f_i) =  E _{\widetilde{P}}(f_i) \\ &  \ \ \ \ \ \ \ \ \ \sum_yP(y|x) = 1 \end{aligned}$$</p>
+                        </div>
+                    </section>
+                    <section>
+                        <div align="left" style="font-size: 20px">
+                            <p>MaxEnt模型最后被形式化为带有约束条件的最优化问题，引入拉格朗日乘子$w_0,w_1,…,w_n$,拉格朗日函数为：$$\begin{aligned} L(P,w)   &= -H(P) + w_0\left (1-\sum_yP(y|x) \right ) + \sum^n_{i=1}w_i(E _{\widetilde{P}}(f_i) - E_p(f_i))\\ &=\sum_{x,y} \widetilde{P}(x)P(y|x)logP(y|x) + w_0\left (1-\sum_yP(y|x) \right ) + \sum^n_{i=1}w_i\left (\sum_{x,y}\widetilde{P}(x ,y)f(x,y) -\sum_{x,y}\widetilde{P}(x)p(y|x)f(x,y) \right ) \end{aligned}$$</p>
+                            <p>求解后得到：$$\begin{aligned} P_w(y|x) &= \frac{1}{Z_w(x) }exp \left ( \sum_{i=1}^n w_if_i(x,y) \right ) \\ Z_w(x) &=\sum _y  exp \left ( \sum_{i=1}^n w_if_i(x,y) \right ) \end{aligned}$$</p>
+                        </div>
+                    </section>
+
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>逻辑回归的推广</h4>
+                    <section>
+                        <p>逻辑回归是解决二元分类问题，是否可以扩展这种思路来解决多元分类问题呢？</p>
+					</section>
+                    <section>
+                        <h5> One Vs All (One Vs Rest) </h5>
+                        <p>一个基础的想法是把$k$元分类问题理解为$k$个逻辑回归问题</p>
+                        <img src="./lr_maxsharperatio_files/onevsall.png" height="400" width="800">
+                    </section>
+                    <section>
+                        <h5> One Vs One (Multinominal logit regression)</h5>
+                        <p>第二种思路就是和逻辑回归的建模思路类似，我们从$k$中选取一类作为参考，为每个类建立其对参考类的收益风险比</p>
+                        <p>$$ln\frac{P(Y=1)}{P(Y=K)} = X\beta_1$$
+                           $$ln\frac{P(Y=2)}{P(Y=K)} = X\beta_2$$
+                           ...
+                           $$ln\frac{P(Y=K-1)}{P(Y=K)} = X\beta_{K-1}$$
+                        </p>
+                    </section>
+                    <section>
+                        <div align="left" style="font-size: 24px">
+                            <p>对上面$K-1$个方程取指数，得到：</p>
+                            <p>$$P(Y=1)=P(Y=K)e^{X\beta_1}$$
+                               $$P(Y=2)=P(Y=K)e^{X\beta_2}$$
+                               $$...$$
+                               $$P(Y=K-1)=P(Y=K)e^{X\beta_{K-1}}$$</p>
+                            <p>根据总体概率和为1，可以得到:</p>
+                            <p>$$P(Y=K)=1-\sum_{k=1}^{K-1}P(Y=k)=1-\sum_{k=1}^{K-1}P(Y=K)e^{X\beta_k}$$
+                               $$P(Y=K)=\frac{1}{1+\sum_{k=1}^{K-1}e^{X\beta_k}}$$</p>
+                            
+                        </div>
+                    </section>
+                    <section>
+                        <p>最后得到：$$P(Y=1)=\frac{e^{X\beta_1}}{1+\sum_{k=1}^{K-1}e^{X\beta_k}}$$
+                               $$P(Y=2)=\frac{e^{X\beta_2}}{1+\sum_{k=1}^{K-1}e^{X\beta_k}}$$
+                               $$...$$
+                               $$P(Y=K-1)=\frac{e^{X\beta_{K-1}}}{1+\sum_{k=1}^{K-1}e^{X\beta_k}}$$</p>
+                        <p>注意：这种建模方式假设数据和分类符合IIA(Independence of Irrelevance Alternatives)</p>
+                    </section>
+
+				</section>
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>Softmax回归</h4>
+                    <div align="left" style="font-size: 24px">
+                        <p>回想前面所做的模型推导中，参考类的概率公式形式和其他类的概率公式形式不太一样。</p>
+                        <p>我们设$e^{X\beta_K}=1$,可得：$$P(Y=1)=\frac{e^{X\beta_1}}{\sum_{k=1}^{K}e^{X\beta_k}}$$
+                            $$P(Y=2)=\frac{e^{X\beta_2}}{\sum_{k=1}^{K}e^{X\beta_k}}$$
+                            $$...$$
+                            $$P(Y=K)=\frac{e^{X\beta_{K}}}{\sum_{k=1}^{K}e^{X\beta_k}}$$</p>
+                        <p>联想最大熵模型的结果，可知Softmax回归就是采用的最大熵模型的思想。当$K=2$时就是逻辑回归，也就是说逻辑回归是最大熵分类器的一种特殊形式。<p>
+                    </div>
+                </section>
+
+                <!-- Regression -->
+                    
+                <!-- Model difficulties -->
+               
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./lr_maxsharperatio_files/head.min.js.下载"></script>
+		<script src="./lr_maxsharperatio_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./lr_maxsharperatio_files/highlight.js.下载"></script><script type="text/javascript" src="./lr_maxsharperatio_files/zoom.js.下载"></script><script type="text/javascript" src="./lr_maxsharperatio_files/notes.js.下载"></script>
+
+	
+
+</body></html>

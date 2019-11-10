@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width"><title>http://cs231n.github.io/assets/conv-demo/index.html</title><link rel="stylesheet" type="text/css" href="resource://content-accessible/viewsource.css"></head><body id="viewsource" class="highlight" style="-moz-tab-size: 4" contextmenu="actions"><pre id="line1"><span>
+<span id="line2"></span></span><span class="error" title="尚未定义 Doctype 就出现了起始标签。预期应有“&lt;!DOCTYPE html&gt;”。">&lt;<span class="start-tag">html</span>&gt;</span><span>
+<span id="line3"></span></span><span>&lt;<span class="start-tag">head</span>&gt;</span><span>
+<span id="line4"></span></span><span>&lt;<span class="start-tag">title</span>&gt;</span><span>Convolution demo</span><span>&lt;/<span class="end-tag">title</span>&gt;</span><span>
+<span id="line5"></span>
+<span id="line6"></span></span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">type</span>="<a class="attribute-value">text/javascript</a>" <span class="attribute-name">src</span>="<a class="attribute-value" href="d3.min.js">d3.min.js</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+<span id="line7"></span></span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">type</span>="<a class="attribute-value">text/javascript</a>" <span class="attribute-name">src</span>="<a class="attribute-value" href="utils.js">utils.js</a>"&gt;</span><span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+<span id="line8"></span>
+<span id="line9"></span></span><span>&lt;<span class="start-tag">style</span> <span class="attribute-name">type</span>="<a class="attribute-value">text/css</a>"&gt;</span><span>
+<span id="line10"></span>body {
+<span id="line11"></span>  margin: 0;
+<span id="line12"></span>  padding: 0;
+<span id="line13"></span>}
+<span id="line14"></span></span><span>&lt;/<span class="end-tag">style</span>&gt;</span><span>
+<span id="line15"></span>
+<span id="line16"></span></span><span>&lt;<span class="start-tag">script</span> <span class="attribute-name">type</span>="<a class="attribute-value">text/javascript</a>"&gt;</span><span>
+<span id="line17"></span>
+<span id="line18"></span>var W1 = 7;
+<span id="line19"></span>var H1 = 7;
+<span id="line20"></span>var D1 = 3;
+<span id="line21"></span>
+<span id="line22"></span>var K = 2;
+<span id="line23"></span>var F = 3;
+<span id="line24"></span>var S = 2; // stride
+<span id="line25"></span>
+<span id="line26"></span>var cs = 25; // cell size
+<span id="line27"></span>
+<span id="line28"></span>var X = new U.Vol(W1, H1, D1); // input volume
+<span id="line29"></span>for(var q=0;q</span><span>&lt;X</span><span>.w.length;q++) {
+<span id="line30"></span>  X.w[q] = Math.floor(Math.random()*3);
+<span id="line31"></span>  // 0 pad with P = 1
+<span id="line32"></span>  for(var d=0;d</span><span>&lt;X</span><span>.depth;d++) {
+<span id="line33"></span>    for(var x=0;x</span><span>&lt;X</span><span>.sx;x++) {
+<span id="line34"></span>      for(var y=0;y</span><span>&lt;X</span><span>.sy;y++) {
+<span id="line35"></span>        if(x === 0 || x === (X.sx - 1) || y === 0 || y === (X.sy - 1)) {
+<span id="line36"></span>          X.set(x,y,d,0);
+<span id="line37"></span>        }
+<span id="line38"></span>      }  
+<span id="line39"></span>    }
+<span id="line40"></span>  }
+<span id="line41"></span>}
+<span id="line42"></span>
+<span id="line43"></span>var Ws = [];
+<span id="line44"></span>var bs = [];
+<span id="line45"></span>for(var k=0;k</span><span>&lt;K</span><span>;k++) {
+<span id="line46"></span>  var W = new U.Vol(F, F, D1);
+<span id="line47"></span>  for(var q=0;q</span><span>&lt;W</span><span>.w.length;q++) {
+<span id="line48"></span>    W.w[q] = Math.floor(Math.random()*3) - 1;
+<span id="line49"></span>  }
+<span id="line50"></span>  Ws.push(W);
+<span id="line51"></span>  var b = new U.Vol(1,1,1);
+<span id="line52"></span>  b.w[0] = 1 - k;
+<span id="line53"></span>  bs.push(b);
+<span id="line54"></span>}
+<span id="line55"></span>
+<span id="line56"></span>var conv_forward = function(V, Ws, bs, stride) {
+<span id="line57"></span>  // optimized code by @mdda that achieves 2x speedup over previous version
+<span id="line58"></span>  var out_sy = ((V.sy-W.sy)/stride +1);
+<span id="line59"></span>  var out_sx = ((V.sx-W.sx)/stride +1);
+<span id="line60"></span>  var A = new U.Vol(out_sx |0, out_sy |0, Ws.length |0, 0.0);
+<span id="line61"></span>  
+<span id="line62"></span>  var V_sx = V.sx |0;
+<span id="line63"></span>  var V_sy = V.sy |0;
+<span id="line64"></span>  var xy_stride = stride |0;
+<span id="line65"></span>
+<span id="line66"></span>  for(var d=0;d</span><span>&lt;W</span><span>s.length;d++) {
+<span id="line67"></span>    var f = Ws[d];
+<span id="line68"></span>    var x = 0;
+<span id="line69"></span>    var y = 0;
+<span id="line70"></span>    for(var ay=0; ay</span><span>&lt;o</span><span>ut_sy; y+=xy_stride,ay++) {  // xy_stride
+<span id="line71"></span>      x = 0;
+<span id="line72"></span>      for(var ax=0; ax</span><span>&lt;o</span><span>ut_sx; x+=xy_stride,ax++) {  // xy_stride
+<span id="line73"></span>
+<span id="line74"></span>        // convolve centered at this particular location
+<span id="line75"></span>        var a = 0.0;
+<span id="line76"></span>        for(var fy=0;fy</span><span>&lt;f</span><span>.sy;fy++) {
+<span id="line77"></span>          var oy = y+fy; // coordinates in the original input array coordinates
+<span id="line78"></span>          for(var fx=0;fx</span><span>&lt;f</span><span>.sx;fx++) {
+<span id="line79"></span>            var ox = x+fx;
+<span id="line80"></span>            if(oy&gt;=0 &amp;&amp; oy</span><span>&lt;V</span><span>_sy &amp;&amp; ox&gt;=0 &amp;&amp; ox</span><span>&lt;V</span><span>_sx) {
+<span id="line81"></span>              for(var fd=0;fd</span><span>&lt;f</span><span>.depth;fd++) {
+<span id="line82"></span>                // avoid function call overhead (x2) for efficiency, compromise modularity :(
+<span id="line83"></span>                a += f.w[((f.sx * fy)+fx)*f.depth+fd] * V.w[((V_sx * oy)+ox)*V.depth+fd];
+<span id="line84"></span>              }
+<span id="line85"></span>            }
+<span id="line86"></span>          }
+<span id="line87"></span>        }
+<span id="line88"></span>        a += bs[d].w[0];
+<span id="line89"></span>        A.set(ax, ay, d, a);
+<span id="line90"></span>      }
+<span id="line91"></span>    }
+<span id="line92"></span>  }
+<span id="line93"></span>  return A;
+<span id="line94"></span>}
+<span id="line95"></span>
+<span id="line96"></span>function renderVol(svg, V, xoff, yoff, col, title, vid) {
+<span id="line97"></span>
+<span id="line98"></span>  var pad = 3;
+<span id="line99"></span>  var dpad = 20;
+<span id="line100"></span>
+<span id="line101"></span>  var gyoff = 20;
+<span id="line102"></span>
+<span id="line103"></span>  var txt = title + ' (' + V.sx + 'x' + V.sy + 'x' + V.depth + ')';
+<span id="line104"></span>  // 1 padding exception
+<span id="line105"></span>  //if(vid === 'x') { txt = title + ' (' + (V.sx-2) + 'x' + (V.sy-2) + 'x' + V.depth + ')'; }
+<span id="line106"></span>
+<span id="line107"></span>  svg.append('text')
+<span id="line108"></span>    .attr('x', xoff)
+<span id="line109"></span>    .attr('y', yoff - 5)
+<span id="line110"></span>    .attr('font-size', 16)
+<span id="line111"></span>    .attr('fill', 'black')
+<span id="line112"></span>    .text(txt);
+<span id="line113"></span>
+<span id="line114"></span>  for(var d = 0; d </span><span>&lt; </span><span>V.depth; d++) {
+<span id="line115"></span>
+<span id="line116"></span>    svg.append('text')
+<span id="line117"></span>      .attr('x', xoff)
+<span id="line118"></span>      .attr('y', yoff + d * (V.sy * (cs + pad) + dpad) + gyoff - 5)
+<span id="line119"></span>      .attr('font-size', 16)
+<span id="line120"></span>      .attr('fill', 'black')
+<span id="line121"></span>      .attr('style', 'font-family: courier;')
+<span id="line122"></span>      .text(vid + '[:,:,'+d+']');
+<span id="line123"></span>
+<span id="line124"></span>    for(var x = 0; x </span><span>&lt; </span><span>V.sx; x++) {
+<span id="line125"></span>      for(var y = 0; y </span><span>&lt; </span><span>V.sy; y++) {
+<span id="line126"></span>
+<span id="line127"></span>        var xcoord = xoff + x * (cs + pad);
+<span id="line128"></span>        var ycoord = yoff + y * (cs + pad) + d * (V.sy * (cs + pad) + dpad) + gyoff;
+<span id="line129"></span>
+<span id="line130"></span>        var thecol = col;
+<span id="line131"></span>        if(vid === 'x' &amp;&amp; (x === 0 || y === 0 || x === V.sx - 1 || y === V.sy - 1)) {thecol = '#DDD';}
+<span id="line132"></span>
+<span id="line133"></span>        svg.append('rect')
+<span id="line134"></span>          .attr('x', xcoord)
+<span id="line135"></span>          .attr('y', ycoord)
+<span id="line136"></span>          .attr('height', cs)
+<span id="line137"></span>          .attr('width', cs)
+<span id="line138"></span>          .attr('fill', thecol)
+<span id="line139"></span>          .attr('stroke', 'none')
+<span id="line140"></span>          .attr('stroke-width', '2')
+<span id="line141"></span>          .attr('id', vid+'_'+x+'_'+y+'_'+d)
+<span id="line142"></span>          .attr('class', vid);
+<span id="line143"></span>
+<span id="line144"></span>        svg.append('text')
+<span id="line145"></span>          .attr('x', xcoord + 5)
+<span id="line146"></span>          .attr('y', ycoord + 15)
+<span id="line147"></span>          .attr('font-size', 16)
+<span id="line148"></span>          .attr('fill', 'black')
+<span id="line149"></span>          .text(V.get(x,y,d).toFixed(0));
+<span id="line150"></span>
+<span id="line151"></span>      }
+<span id="line152"></span>    }
+<span id="line153"></span>  }
+<span id="line154"></span>}
+<span id="line155"></span>
+<span id="line156"></span>function draw() {
+<span id="line157"></span>  var d3elt = d3.select('#draw');
+<span id="line158"></span>  svg = d3elt.append('svg').attr('width', '100%').attr('height', '100%')
+<span id="line159"></span>        .append('g').attr('transform', 'scale(1)');
+<span id="line160"></span>
+<span id="line161"></span>  var yoff = 20;
+<span id="line162"></span>  // render input volume
+<span id="line163"></span>  renderVol(svg, X, 10, yoff, '#DDF', 'Input Volume (+pad 1)', 'x');
+<span id="line164"></span>
+<span id="line165"></span>  for(var i=0;i</span><span>&lt;W</span><span>s.length;i++) {
+<span id="line166"></span>    // render weights
+<span id="line167"></span>    renderVol(svg, Ws[i], 270 + i*170, yoff, '#FDD', 'Filter W'+i, 'w'+i);
+<span id="line168"></span>    // render biases
+<span id="line169"></span>    renderVol(svg, bs[i], 270 + i*170, 350 + yoff, '#FDD', 'Bias b'+i, 'b'+i);
+<span id="line170"></span>  }
+<span id="line171"></span>
+<span id="line172"></span>  // render output
+<span id="line173"></span>  renderVol(svg, O, 600, yoff, '#DFD', 'Output Volume', 'o');
+<span id="line174"></span>
+<span id="line175"></span>  // render controls
+<span id="line176"></span>  
+<span id="line177"></span>  svg.append('text')
+<span id="line178"></span>    .attr('x', 520)
+<span id="line179"></span>    .attr('y', 470)
+<span id="line180"></span>    .attr('font-size', 16)
+<span id="line181"></span>    .attr('fill', 'black')
+<span id="line182"></span>    .text('toggle movement');
+<span id="line183"></span>  svg.append('rect')
+<span id="line184"></span>    .attr('x', 500)
+<span id="line185"></span>    .attr('y', 450)
+<span id="line186"></span>    .attr('height', 30)
+<span id="line187"></span>    .attr('width', 150)
+<span id="line188"></span>    .attr('fill', "rgba(200, 200, 200, 0.1)")
+<span id="line189"></span>    .attr('stroke', 'black')
+<span id="line190"></span>    .attr('stroke-width', '2')
+<span id="line191"></span>    .attr('style', 'cursor:pointer;')
+<span id="line192"></span>    .on('click', function() {
+<span id="line193"></span>      // toggle 
+<span id="line194"></span>      if(iid === -1) {
+<span id="line195"></span>        iid = setInterval(focusCell, 1000);
+<span id="line196"></span>      } else {
+<span id="line197"></span>        clearInterval(iid);
+<span id="line198"></span>        iid = -1;
+<span id="line199"></span>      }
+<span id="line200"></span>    });
+<span id="line201"></span>}
+<span id="line202"></span>
+<span id="line203"></span>var fxg = 0;
+<span id="line204"></span>var fyg = 0;
+<span id="line205"></span>var fdg = 0;
+<span id="line206"></span>function focusCell() {
+<span id="line207"></span>  
+<span id="line208"></span>  // first unfocus all
+<span id="line209"></span>  for(var i=0;i</span><span>&lt;W</span><span>s.length;i++) {
+<span id="line210"></span>    d3.selectAll('.w'+i).attr('stroke', 'none');
+<span id="line211"></span>    d3.selectAll('.b'+i).attr('stroke', 'none');
+<span id="line212"></span>  }
+<span id="line213"></span>  d3.selectAll('.x').attr('stroke', 'none');
+<span id="line214"></span>  d3.selectAll('.o').attr('stroke', 'none');
+<span id="line215"></span>
+<span id="line216"></span>  var fx = fxg;
+<span id="line217"></span>  var fy = fyg;
+<span id="line218"></span>  var fd = fdg;
+<span id="line219"></span>
+<span id="line220"></span>  // highlight the output cell
+<span id="line221"></span>  var csel = d3.select('#o'+'_'+fx+'_'+fy+'_'+fd);
+<span id="line222"></span>  csel.attr('stroke', '#0A0');
+<span id="line223"></span>
+<span id="line224"></span>  // highlight the weights
+<span id="line225"></span>  d3.selectAll('.w'+fd).attr('stroke', '#A00');
+<span id="line226"></span>  // highlight the bias
+<span id="line227"></span>  d3.selectAll('.b'+fd).attr('stroke', '#A00');
+<span id="line228"></span>
+<span id="line229"></span>  d3.selectAll('.ll').remove();
+<span id="line230"></span>
+<span id="line231"></span>  // highlight the input cell
+<span id="line232"></span>  for(var d=0;d</span><span>&lt;D</span><span>1;d++) {
+<span id="line233"></span>    for(var x=0;x</span><span>&lt;F</span><span>;x++) {
+<span id="line234"></span>      for(var y=0;y</span><span>&lt;F</span><span>;y++) {
+<span id="line235"></span>        var ix = fx * S + x;
+<span id="line236"></span>        var iy = fy * S + y;
+<span id="line237"></span>        var id = d;
+<span id="line238"></span>        var csel = d3.select('#x'+'_'+ix+'_'+iy+'_'+id);
+<span id="line239"></span>        csel.attr('stroke', '#00A');
+<span id="line240"></span>
+<span id="line241"></span>        // connect with line
+<span id="line242"></span>        if(x === 0 &amp;&amp; y === 0) {
+<span id="line243"></span>          var wsel = d3.select('#w'+fd+'_'+x+'_'+y+'_'+d);
+<span id="line244"></span>          svg.append('line')
+<span id="line245"></span>            .attr('x1', csel.attr('x'))
+<span id="line246"></span>            .attr('y1', csel.attr('y'))
+<span id="line247"></span>            .attr('x2', wsel.attr('x'))
+<span id="line248"></span>            .attr('y2', wsel.attr('y'))
+<span id="line249"></span>            .attr('stroke', 'black')
+<span id="line250"></span>            .attr('stroke-width', '1')
+<span id="line251"></span>            .attr('class', 'll');
+<span id="line252"></span>        }
+<span id="line253"></span>        if(x === 0 &amp;&amp; y === (F-1)) {
+<span id="line254"></span>          var wsel = d3.select('#w'+fd+'_'+x+'_'+y+'_'+d);
+<span id="line255"></span>          svg.append('line')
+<span id="line256"></span>            .attr('x1', csel.attr('x'))
+<span id="line257"></span>            .attr('y1', parseFloat(csel.attr('y')) + cs)
+<span id="line258"></span>            .attr('x2', wsel.attr('x'))
+<span id="line259"></span>            .attr('y2', parseFloat(wsel.attr('y')) + cs)
+<span id="line260"></span>            .attr('stroke', 'black')
+<span id="line261"></span>            .attr('stroke-width', '1')
+<span id="line262"></span>            .attr('class', 'll');
+<span id="line263"></span>        }
+<span id="line264"></span>        if(x === (F-1) &amp;&amp; y === 0) {
+<span id="line265"></span>          var wsel = d3.select('#w'+fd+'_'+x+'_'+y+'_'+d);
+<span id="line266"></span>          svg.append('line')
+<span id="line267"></span>            .attr('x1', parseFloat(csel.attr('x')) + cs)
+<span id="line268"></span>            .attr('y1', csel.attr('y'))
+<span id="line269"></span>            .attr('x2', parseFloat(wsel.attr('x')) + cs)
+<span id="line270"></span>            .attr('y2', wsel.attr('y'))
+<span id="line271"></span>            .attr('stroke', 'black')
+<span id="line272"></span>            .attr('stroke-width', '1')
+<span id="line273"></span>            .attr('class', 'll');
+<span id="line274"></span>        }
+<span id="line275"></span>        if(x === (F-1) &amp;&amp; y === (F-1)) {
+<span id="line276"></span>          var wsel = d3.select('#w'+fd+'_'+x+'_'+y+'_'+d);
+<span id="line277"></span>          svg.append('line')
+<span id="line278"></span>            .attr('x1', parseFloat(csel.attr('x')) + cs)
+<span id="line279"></span>            .attr('y1', parseFloat(csel.attr('y')) + cs)
+<span id="line280"></span>            .attr('x2', parseFloat(wsel.attr('x')) + cs)
+<span id="line281"></span>            .attr('y2', parseFloat(wsel.attr('y')) + cs)
+<span id="line282"></span>            .attr('stroke', 'black')
+<span id="line283"></span>            .attr('stroke-width', '1')
+<span id="line284"></span>            .attr('class', 'll');
+<span id="line285"></span>        }
+<span id="line286"></span>        
+<span id="line287"></span>      }
+<span id="line288"></span>    }
+<span id="line289"></span>  }
+<span id="line290"></span>
+<span id="line291"></span>  // output focus cycle
+<span id="line292"></span>  fxg++;
+<span id="line293"></span>  if(fxg &gt;= O.sx) {
+<span id="line294"></span>    fxg = 0;
+<span id="line295"></span>    fyg++;
+<span id="line296"></span>    if(fyg &gt;=O.sy) {
+<span id="line297"></span>      fyg = 0;
+<span id="line298"></span>      fdg++;
+<span id="line299"></span>      if(fdg &gt;= O.depth) {
+<span id="line300"></span>        fdg = 0;
+<span id="line301"></span>      }
+<span id="line302"></span>    }
+<span id="line303"></span>  }
+<span id="line304"></span>
+<span id="line305"></span>}
+<span id="line306"></span>
+<span id="line307"></span>iid = -1;
+<span id="line308"></span>function start() {
+<span id="line309"></span>  O = conv_forward(X, Ws, bs, S);
+<span id="line310"></span>  draw();
+<span id="line311"></span>  iid = setInterval(focusCell, 1000);
+<span id="line312"></span>}
+<span id="line313"></span>
+<span id="line314"></span></span><span>&lt;/<span class="end-tag">script</span>&gt;</span><span>
+<span id="line315"></span>
+<span id="line316"></span>
+<span id="line317"></span>
+<span id="line318"></span></span><span>&lt;/<span class="end-tag">head</span>&gt;</span><span>
+<span id="line319"></span>
+<span id="line320"></span></span><span>&lt;<span class="start-tag">body</span> <span class="attribute-name">onload</span>="<a class="attribute-value">start()</a>"&gt;</span><span>
+<span id="line321"></span>
+<span id="line322"></span></span><span>&lt;<span class="start-tag">div</span> <span class="attribute-name">id</span>="<a class="attribute-value">draw</a>"&gt;</span><span>
+<span id="line323"></span></span><span>&lt;/<span class="end-tag">div</span>&gt;</span><span>
+<span id="line324"></span>
+<span id="line325"></span></span><span>&lt;/<span class="end-tag">body</span>&gt;</span><span>
+<span id="line326"></span></span><span>&lt;/<span class="end-tag">html</span>&gt;</span><span></span></pre><menu type="context" id="actions"><menuitem id="goToLine" label="转到指定行…" accesskey="L"></menuitem><menuitem id="wrapLongLines" label="长行自动换行" type="checkbox"></menuitem><menuitem id="highlightSyntax" label="语法高亮" type="checkbox" checked="true"></menuitem></menu></body></html>

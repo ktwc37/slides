@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./re_biasvariance_files/reveal.css">
+		<link rel="stylesheet" href="./re_biasvariance_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./re_biasvariance_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./re_biasvariance_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./re_biasvariance_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./re_biasvariance_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./正则化.html">Bias-Variance Trade-Off</a></h2>
+                    <ul>
+                        <li>过拟合和欠拟合</li>
+                        <li>Bias and Variance</li>
+                        <li>Bias-Variance decomposition</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>过拟合和欠拟合</h4>
+                    
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+                    <section>
+                        <div>
+                            <img src="./re_biasvariance_files/over_under_reg.png" height="400" width="800">
+                            <p>回归问题</p>
+                        </div>
+                    </section>
+                    <section>
+                        <div>
+                            <img src="./re_biasvariance_files/over_under_classification.png" height="400" width="800">
+                            <p>分类问题</p>
+                        </div>
+                    </section>
+
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>Bias and Variance Trade-Off</h4>
+                    <div style="font-size: 24px">
+                        <p>偏差与方差</p>
+					    <img src="./re_biasvariance_files/bias_variance.png" height="500" width="500">
+                    </div>
+				</section>
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>Bias-Variance decomposition</h4>
+                    <section>
+                        <p>$$y=f(x)+\epsilon,\ \epsilon \sim N(0,\sigma^2)$$
+                    </section>
+                    <section>
+                        <p>$$E[(y-\hat{f(x)})^2]=(Bias[\hat{f(x)}])^2+Var[\hat{f(x)}]+\sigma^2$$</p>
+                    </section>
+                    <section style="font-size: 24px">
+                        <p>$$E[(y-\hat{f})^2]=E[(f+\epsilon-\hat{f})^2]$$</p>
+                        <p>$$=E[(f+\epsilon-\hat{f}+E[\hat{f}]-E[\hat{f}])^2]$$</p>
+                        <p>$$=E[(f-E[\hat{f}])^2]+E[(E[\hat{f}]-\hat{f})^2]+E[\epsilon^2]$$</p>
+                        <p>$$+2E[(f-E[\hat{f}])\epsilon]+2E[\epsilon(E[\hat{f}]-\hat{f}])]+2E[(E[\hat{f}]-\hat{f}   )(f-E[\hat{f}])]$$</p>
+                        <br>
+                        <p>$$=(f-E[\hat{f}])^2+E[\epsilon^2]+E[(E[\hat{f}]-\hat{f})^2]$$</p>
+                        <p>$$+2(f-E[\hat{f}])E[\epsilon]+2E[\epsilon]E[E[\hat{f}]-\hat{f}]+2E[E[\hat{f}]-\hat{f}](f-E[\hat{f}])$$</p>
+                        <p>$$=(f-E[\hat{f}])^2+Var[y]+Var[\hat{f}]$$</p>
+                    </section>
+                    <section>
+                        <p>$$=Bias[\hat{f}]^2+\sigma^2+Var[\hat{f}]$$</p>
+                    </section>
+                </section>
+
+                
+                    
+                <!-- Model difficulties -->
+               
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./re_biasvariance_files/head.min.js.下载"></script>
+		<script src="./re_biasvariance_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./re_biasvariance_files/highlight.js.下载"></script><script type="text/javascript" src="./re_biasvariance_files/zoom.js.下载"></script><script type="text/javascript" src="./re_biasvariance_files/notes.js.下载"></script>
+
+	
+
+</body></html>

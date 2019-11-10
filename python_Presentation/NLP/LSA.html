@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html class="js no-mobile desktop no-ie ff ff65 root-section w-1680 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius no-cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded" id="index-page" lang="en"><head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+
+		<title>Topic Modeling Presentation</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.css">
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script async="" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/ga.js"></script><script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/paper.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]--><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/marked.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/markdown.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/highlight.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/search.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zoom.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/notes.js"></script>
+	<script id="_carbonads_projs" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/CKYI553M.json"></script>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+	<body style="transition: transform 0.8s ease 0s;">
+
+		<div class="reveal slide center has-vertical-slides has-horizontal-slides ready" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(1.25349);">
+				<section style="top: 106px; display: block;" class="past" aria-hidden="true" hidden="">
+					<h1>Topic Modeling</h1>
+					<p>
+						<small>Created by 马明</small>
+					</p>
+					<script async="" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/carbon.js" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-img" target="_blank" rel="noopener"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-text" target="_blank" rel="noopener">Focuse on Machine Learning, Quantitative Investment, Anomaly Detection</a></span><a href="http://carbonads.net/?utm_source=revealjscom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener">Fintech Scientist/Big Data System Architecture</a></span></div>
+				</section>
+				<section>
+					<style type="text/css">
+						#web_bg {
+							  position:fixed;
+							  top: 0;
+							  left: 0;
+							  width:100%;
+							  height:100%;
+							  min-width: 1000px;
+							  z-index:-10;
+							  zoom: 1;
+							  background-color: #fff;
+							  background-repeat: no-repeat;
+							  background-size: cover;
+							  -webkit-background-size: cover;
+							  -o-background-size: cover;
+							  background-position: center 0;
+							}
+
+					</style>
+					<div id='web_bg' style="background-image: url(topic_modeling.png);">
+					</div>
+				</section>
+
+				<section style="top: 188px; display: block;" class="present">
+					<h2>Content</h2>
+					<ul>
+						<li>LSA Introduction</li>
+						<li>LSA in detail</li>
+						<li>PLSA</li>
+						<li>LDA</li>
+					</ul>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section style="top: 32.5px; display: block;" class="" aria-hidden="true">
+						<h2>LSA Introduction</h2>
+						<ul>
+							<li>Latent Semantic Analysis is a technique for creating a vector representation of a document.</li>
+							<li>Often apply for text clustering, classification and Topic Modeling</li>
+						</ul>
+					</section>
+					<section class="future" aria-hidden="true" style="top: 215px; display: block;" hidden="">
+						<h2>What is Topic Modeling</h2>
+						<p>Basic assumption</p>
+						<ul>
+							<li>Each document consists of a mixture of topics</li>
+							<li>Each topic consists of a collection of words</li>
+						</ul>
+					</section>
+				    <section>
+				    	<p>What LSA can do?</p>
+				    	<img src="lsa1.png" width="600" height="300">
+				    </section>
+				    <section>
+				    	<img src="lsa0.png" width="600" height="300">
+				    </section>
+					<section>
+						<p>The key is <strong>Find the Latent Variable!!!</strong></p>
+					</section>
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h2>LSA In Detail</h2>
+					<section>
+						<p>Recall TF-IDF</p>
+						<img src="tfidf.png" width="600" height="300">
+						<P> We can get matrix A for words to documents, every cell is the tf-idf score</P>
+					</section>
+					<section>
+						<img src="lsa2.png" width="600" height="300">
+						<p style="font-size: 24px">Matrix A is sparse and noisy, we need dimensionality reduction on A</p>
+					</section>
+					<section>
+						<p>$$M=U\Sigma V^T$$</p>
+						<ul>
+    						<li>M is an m×m matrix</li>
+    						<li>U is a m×n left singular matrix</li>
+    						<li>Σ is a n×n diagonal matrix with non-negative real numbers.</li>
+    						<li>V is a m×n right singular matrix</li>
+						</ul>
+					</section>
+					<section>
+						<p>Truncated SVD</p>
+						<img src="tsvd.png" width="800" height="250">
+						<p style="font-size: 24px" align="left">With the document vectors and term vectors, we can apply measures such as cosine similarity to evaluate:</p>
+						<ul style="font-size: 20px">
+							<li>the similarity of different documents</li>
+							<li>the similarity of different words</li>
+							<li>the similarity of terms (or “queries”) and documents</li>
+						</ul>
+					</section>
+					<section>
+						<p>Determining optimum number of topics</p>
+						<br>
+						<ul style="font-size: 24px">
+							<li>Consider each topic as a cluster, find out the effectiveness of a cluster using the Silhouette coefficient</li>
+							<li>Topic coherence
+								<p>widely used metric to evaluate topic models</p>
+								<p>find average/median of pairwise word similarity scores of the words in a topic</p>
+							</li>
+							
+						</ul>
+					</section>
+					<section align="left">
+						<p>LSA is quick and efficient to use, but also with drawbacks:</p>
+						<ul>
+							<li>Lack of interpretable embeddings</li>
+							<li>Need for really large set of documents and vocabulary to get accurate results</li>
+							<li>Less efficient representation</li> 
+						</ul>
+					</section>
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h2>PLSA</h2>
+					<section>
+						<ul style="font-size: 30px">
+							<li><p>pLSA, or Probabilistic Latent Semantic Analysis, uses a probabilistic method instead of SVD</p></li>
+							<li><p>The core idea is to find a probabilistic model with latent topics that can generate the data we observe in our document-term matrix</p></li>
+							<li><p>$P(D,W)$ for any document $d$ and word $w$, $P(D,W)$ corresponds to that entry in the document-term matrix</p></li>
+						</ul>
+					</section>
+					<section>
+						<ul>
+							<li>given a document d, topic z is present in that document with probability P(z|d)</li>
+							<li>given a topic z, word w is drawn from z with probability P(w|z)</li>
+						</ul>
+						<img src="plsa0.gif.jpg" width="600" height="250">
+					</section>
+					<section>
+						<p>The joint probability of seeing a given document and word together:</p>
+						<br>
+						<p style="font-size: 30px">$$P(D,W)=P(D)\sum_{Z}P(Z|D)P(W|Z)$$</p>
+					</section>
+					<section>
+						<ul style="font-size: 30px">
+							<li><p>$P(D), P(Z|D), and\ P(W|Z)$ are parameters</p></li>
+							<li><p>$P(D)$ can be determined directly from our corpus</p></li>
+							<li><p>$P(Z|D)\ and\ P(W|Z)$ are modeled as multinomial distributions, and can be trained using the expectation-maximization algorithm (EM)</p></li>
+						</ul>
+					</section>
+					<section>
+						<p>$$P(D,W)=\sum_{Z}P(Z)P(D|Z)P(W|Z)$$</p>
+						<img src="plsa1.jpeg" width="400" height="300">
+					</section>
+					<section>
+						<p>Relation between pLSA and LSA</p>
+						<img src="plsa2.png" width="500" height="250">
+					</section>
+					<section>
+						<h4>Drawbacks of pLSA</h4>
+						<ul style="font-size: 30px">
+							<li><p>Because we have no parameters to model $P(D)$ , we don’t know how to assign probabilities to new documents.</p></li>
+    						<li><p>The number of parameters for pLSA grows linearly with the number of documents we have, so it is prone to overfitting</p></li>
+						</ul>
+					</section>
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h2>LDA</h2>
+					<section>
+						<ul style="font-size: 30px">
+							<li><p>LDA stands for Latent Dirichlet Allocation</p></li>
+							<li><p><strong>LDA is a Bayesian version of pLSA</strong></p></li>
+							<li><p>Dirichlet priors for the document-topic and word-topic distributions, lending itself to better generalization</p></li>
+							<li>Big Idea:
+								<p>Each document can be described by a distribution of topics</p>
+								<p>Each topic can be described by a distribution of words</p>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h4>What the LATENT means?</h4>
+						<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+                    	<br>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="lda_thread0.jpeg" width="600" height="230">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<ul>
+									<li>You have 1000 words and 1000 documents</li>
+									<li>Each document on average has 500 of these words appearing in each</li>
+								</ul>
+								<br>
+								<p>How can you understand what category each document belongs to?</p>
+								<p>500*1000 = 500,000 threads</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h4>The Topic is LATENT</h4>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="lda_thread1.jpeg" width="500" height="230">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+							<br><br>
+								<ul>
+									<li>Introducing LATENT layer with 5 topics</li>
+									<br>
+									<li>Reducing to 1000*5*2 = 10,000 threads</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<p style="font-size: 24px">What is the Dirichlet Distribution</h4>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="lda_0.gif" width="600" height="500">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<br>
+								<ul>
+									<li>The Dirichlet distribution defines a probability density for a vector</li>
+									<br>
+									<li>$x_1,\cdots,x_k$, where $x_i \in (0,1)$ and $\sum_{i=1}^k x_i =1$</li>
+									<li>$PDF=\frac{1}{B(\alpha)}\prod_{i=1}^{k} x_i^{\alpha_i-1}$</li>
+									<li>where $B(\alpha)=\frac{\prod_{i=1}^k\Gamma(\alpha_i)}{\Gamma(\sum_{i=1}^k \alpha_i)}$</li>
+									<li>where $\alpha=(\alpha_i,\cdots,\alpha_k)$</li>
+									<br>
+									<li>$E[x_i]=\frac{\alpha_i}{\sum_j \alpha_j}$</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section>					
+						<img src="dirichard.png" width="800" height="500">
+					</section>
+					<section>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="lda0.png" width="400" height="200">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<br>
+								<ul>
+									<li>$\theta_i \sim Dir(\alpha)$, $i=1,...,M$</li>
+									<li>$\theta_{i,k}=$ probability that document $i \in \{1,...,M\}$ has topic $k \in \{1,...,K\}$</li>
+									<br>
+									<li>$\phi_k \sim Dir(\beta), k=1,...,K$</li>
+									<li>$\phi_{k,v}=$ probability of word $v \in \{1,...,V\}$ in topic $k \in \{1,...,K\}$</li>
+									<br>
+									<li>Choose $z_{i,j} \sim Multinominal(\theta_i), z_{i,j} \in \{1,...,K\}$</li>
+									<li>Choose $w_{i,j} \sim Multinominal(\phi_{i,j}), w_{i,j} \in \{1,...,V\}$</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p style="font-size: 24px">How LDA imagine documents are generated?</p>
+						<img src="lda_arch.jpeg" width="800" height="500">
+					</section>
+					<section>
+						<img src="lda_visu.jpeg" width="800" height="400">
+					</section>
+					
+					<section>
+						<h4>How Do We Learn LDA</h4>
+						<br>
+						<p>$$P(\theta_{1:M},z_{1:M},\beta_{1:k}|D;\alpha_{1:M},\phi_{1:k})$$</p>
+						<br>
+						<ul style="font-size: 24px">
+							<li>$\alpha$: Distribution related parameter that governs what the distribution of topics is for all the documents </li>
+							<li>$\theta$: $\theta(i,j)$  represents the probability of the i th document to containing the j th topic.</li>
+							<li>$\phi$: Distribution related parameter that governs what the distribution of words in each topic</li>
+							<li>$\beta$: $\beta(i,j)$ represents the probability of i th topic containing the j th word</li>
+						</ul>
+					</section>
+					<section>
+						<h4>How to solve it?</h4>
+						<p>Variational inference</p>
+						<br>
+						<ul style="font-size: 24px">
+							<li><p>Approximate the messy intractable posterior with some known probability distribution that closely matches the true posterior</p></li>
+							<li><p>minimise the KL divergence</p></li>
+							<li><p>$\gamma^*,\phi^*,\lambda^*=argmin_{\gamma,\phi,\lambda}D(q(\theta,z,\beta|\gamma,\phi,\lambda)||p(\theta,z,\beta|D,\alpha,\eta))$</p></li>
+						</ul>
+					</section>
+				</section>
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h3>LDA in Deep Learning: lda2vec</h3>
+					<section>
+						<ul>
+							<p>lda2vec is an extension of word2vec and LDA that jointly learns word, document, and topic vectors.</p>
+						</ul>
+					</section>
+					<section>
+						<h4>Key points of lda2vec</h4>
+						<br>
+						<ul style="font-size: 24px">
+							<li>Leverage a context vector</li>
+							<li>The context vector = word vector + document vector
+								<p>word vector = skip-gram word2vec model<p></li>
+							<li><p>document weight vector: representing the “weights” of each topic in the document</p></li>
+							<li><p>topic matrix: representing each topic and its corresponding vector embedding</p></li> 
+						</ul>
+					</section>
+
+				</section>
+				<section data-background="white">
+					<img src="lda2vec.gif" width="600" height="500">
+				</section>
+
+				<section data-markdown="" data-markdown-parsed="true" style="top: 108.5px; display: none;" class="future" aria-hidden="true" hidden=""><h2 id="markdown-support">Markdown support</h2>
+<p>Write content using inline or external Markdown.
+Instructions and more info available in the <a href="https://github.com/hakimel/reveal.js#markdown">readme</a>.</p>
+<pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">data-markdown</span>&gt;</span></span>
+  ## Markdown support
+
+  Write content using inline or external Markdown.
+  Instructions and more info available in the [<span class="hljs-string">readme</span>](<span class="hljs-link">https://github.com/hakimel/reveal.js#markdown</span>).
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+</code></pre></section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section id="fragments" style="top: 168px; display: none;" class="" aria-hidden="true">
+						<h2>Fragments</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment" data-fragment-index="0">... to step through ...</p>
+						<p><span class="fragment" data-fragment-index="1">... a</span> <span class="fragment" data-fragment-index="2">fragmented</span> <span class="fragment" data-fragment-index="3">slide.</span></p>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section class="future" aria-hidden="true" style="top: 18.5px; display: none;" hidden="">
+						<h2>Fragment Styles</h2>
+						<p>There's different types of fragments, like:</p>
+						<p class="fragment grow" data-fragment-index="0">grow</p>
+						<p class="fragment shrink" data-fragment-index="1">shrink</p>
+						<p class="fragment fade-out" data-fragment-index="2">fade-out</p>
+						<p class="fragment fade-up" data-fragment-index="3">fade-up (also down, left and right!)</p>
+						<p class="fragment current-visible" data-fragment-index="4">current-visible</p>
+						<p>Highlight <span class="fragment highlight-red" data-fragment-index="5">red</span> <span class="fragment highlight-blue" data-fragment-index="6">blue</span> <span class="fragment highlight-green" data-fragment-index="7">green</span></p>
+					</section>
+				</section>
+
+				<section id="transitions" style="top: 215px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="https://revealjs.com/?transition=none#/transitions">None</a> -
+						<a href="https://revealjs.com/?transition=fade#/transitions">Fade</a> -
+						<a href="https://revealjs.com/?transition=slide#/transitions">Slide</a> -
+						<a href="https://revealjs.com/?transition=convex#/transitions">Convex</a> -
+						<a href="https://revealjs.com/?transition=concave#/transitions">Concave</a> -
+						<a href="https://revealjs.com/?transition=zoom#/transitions">Zoom</a>
+					</p>
+				</section>
+
+				<section id="themes" style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Themes</h2>
+					<p>
+						reveal.js comes with a few themes built in: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					</p>
+				</section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section data-background="#dddddd" style="top: 41.5px; display: none;" class="has-light-background" aria-hidden="true">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="navigate-down" disabled="disabled">
+							<img alt="Down arrow" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/arrow.png" data-lazy-loaded="" width="178" height="238">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" class="future" aria-hidden="true" style="top: 251px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Image Backgrounds</h2>
+						<pre><code class="hljs stylus">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>=<span class="hljs-string">"image.png"</span>&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px" class="future" aria-hidden="true" style="top: 242.5px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Tiled Backgrounds</h2>
+						<pre><code class="hljs xl" style="word-wrap: break-word;">&lt;section <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>=<span class="hljs-string">"image.png"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-repeat=<span class="hljs-string">"repeat"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-size=<span class="hljs-string">"100px"</span>&gt;</code></pre>
+					</section>
+					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000" class="has-dark-background future" aria-hidden="true" style="top: 350px; display: none;" hidden="">
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+							<h2>Video Backgrounds</h2>
+							<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-video=<span class="hljs-string">"video.mp4,video.webm"</span>&gt;</code></pre>
+						</div>
+					</section>
+					<section data-background="http://i.giphy.com/90F8aUepslB84.gif" class="future" aria-hidden="true" style="top: 350px; display: none;" data-background-image="http://i.giphy.com/90F8aUepslB84.gif" hidden="">
+						<h2>... and GIFs!</h2>
+					</section>
+				</section>
+
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
+					</p>
+					<pre><code class="hljs css"><span class="hljs-selector-tag">Reveal</span><span class="hljs-selector-class">.configure</span>({ <span class="hljs-attribute">backgroundTransition</span>: <span class="hljs-string">'zoom'</span> })</code></pre>
+				</section>
+
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom" style="top: 213.5px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						You can override background transitions per-slide.
+					</p>
+					<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-transition=<span class="hljs-string">"zoom"</span>&gt;</code></pre>
+				</section>
+
+				<section style="top: 33.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Pretty Code</h2>
+					<pre><code class="hljs javascript" data-trim="" contenteditable=""><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">linkify</span>(<span class="hljs-params"> selector </span>) </span>{
+  <span class="hljs-keyword">if</span>( supports3DTransforms ) {
+
+    <span class="hljs-keyword">var</span> nodes = <span class="hljs-built_in">document</span>.querySelectorAll( selector );
+
+    <span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = nodes.length; i &lt; len; i++ ) {
+      <span class="hljs-keyword">var</span> node = nodes[i];
+
+      <span class="hljs-keyword">if</span>( !node.className ) {
+        node.className += <span class="hljs-string">' roll'</span>;
+      }
+    }
+  }
+}</code></pre>
+					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
+
+				<section style="top: 170.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Marvelous List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section style="top: 198px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section style="top: 135.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Tabular Tables</h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Value</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Apples</td>
+								<td>$1</td>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>Lemonade</td>
+								<td>$2</td>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>Bread</td>
+								<td>$3</td>
+								<td>2</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section style="top: 8px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The nice thing about standards is that there are so many to choose from</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						“For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.”
+					</blockquote>
+				</section>
+
+				<section style="top: 202px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section style="top: 177.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Speaker View</h2>
+					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
+					<p>Press the <em>S</em> key to try it out.</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your 
+presentation, but you can see them if you open the speaker notes window 
+(hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section style="top: 25px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
+					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen="" width="445" height="355" frameborder="0"> </iframe>
+				</section>
+
+				<section style="top: 131px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the page background.
+					</p>
+				</section>
+
+				<section data-state="customevent" style="top: 157.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>State Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code class="javascript hljs" data-trim="" style="font-size: 18px;" contenteditable="">Reveal.addEventListener( <span class="hljs-string">'customevent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'"customevent" has fired'</span> );
+} );</code></pre>
+				</section>
+
+				<section style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Take a Moment</h2>
+					<p>
+						Press B or . on your keyboard to pause the presentation. This is 
+helpful when you're on stage and want to take distracting slides off the
+ screen.
+					</p>
+				</section>
+
+				<section style="top: 143px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Much more</h2>
+					<ul>
+						<li>Right-to-left support</li>
+						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
+					</ul>
+				</section>
+
+				<section style="text-align: left; top: 192.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h1>THE END</h1>
+					<p>
+						- <a href="https://slides.com/">Try the online editor</a> <br>
+						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					</p>
+				</section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background past" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="background: rgb(221, 221, 221) none repeat scroll 0% 0%; display: none;" data-background-hash="#ddddddnullnullnullnullnullnullnullnullnull" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.pngnullnullnullnullnullnullnullnullnull" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png100pxnullnullnullnullrepeatnullnullnull" data-background-size="100px" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-size: 100px auto; background-repeat: repeat; background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="0https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webmnull#000000nullnullnullnull" style="background-color: rgb(0, 0, 0); display: none;"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="http://i.giphy.com/90F8aUepslB84.gifnullnullnullnullnullnullnullnullnull" style="display: none;"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="background: rgb(77, 126, 101) none repeat scroll 0% 0%; display: none;" data-background-hash="#4d7e65nullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="background: rgb(181, 83, 60) none repeat scroll 0% 0%; display: none;" data-background-hash="#b5533cnullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="progress" style="display: block;"><span style="width: 52.5px;"></span></div><aside class="controls" style="display: block;" data-controls-layout="bottom-right" data-controls-back-arrows="faded"><button class="navigate-left enabled" aria-label="previous slide"><div class="controls-arrow"></div></button><button class="navigate-right enabled" aria-label="next slide"><div class="controls-arrow"></div></button><button class="navigate-up" aria-label="above slide" disabled="disabled"><div class="controls-arrow"></div></button><button class="navigate-down" aria-label="below slide" disabled="disabled"><div class="controls-arrow"></div></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe="" tabindex="0"></div><div class="pause-overlay"><button class="resume-button">Resume presentation</button></div><div style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);" id="aria-status-div" aria-live="polite" aria-atomic="true">
+					Hello There
+					
+						reveal.js enables you to create beautiful interactive slide decks 
+using HTML. This presentation will show you examples of what it can do.
+					
+				</div><div id="searchinputdiv" class="searchdiv" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: none;"><span><input type="search" id="searchinput" class="searchinput" style="vertical-align: top;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJiSURBVHjatFZNaxNBGH5md+Mmu92NVdKDRipSAyqCghgQD4L4cRe86UUtAQ+eFCxoa4/25EXBFi8eBE+eRPoDhB6KgiiixdAPCEkx2pjvTXadd9yNsflwuyUDD/O+u8PzzDPvzOwyx3EwyCZhwG3gAkp7MnpjgbopjsltcD4gjuXZZKeAR348MYLYTm3LzOs/y3j3JTfZxgXWXmTuwPHIc4VmoOmv5IrI53+AO2DdHLjkDWQ3GoEEVFXtXQOvkSnPWcyUceviLhwbDYv8/XIVj97kse7TodLvZXxYxrPUHkQ1ufXs3FEdybEIxucySOesoNvUgWU1cP3MkCBfTFdw9fGaAMVmRELq7LBw2Q3/FaAxxWIRpw+ZIr/7IouPqzUBiqmdHAv7EuhRAwf1er2Vy4x1jW3b2d5Jfvu5IPp7l2LYbcgCFFNb+FoJ7oBqEAqFMPNqFcmEgVMJDfMT+1tvN0pNjERlMS6QA5pFOKxiKVPFhakPeL3It+WGJUDxt2wFR+JhzI7v5ctkd8DXOZAkCYYxhO+lKm4+Xfqz/rIixBuNBl7eOYzkQQNzqX249mRl6zUgEcYkaJrGhUwBinVdh6IouPzwE6/DL5w4oLkH8y981aDf+uq6hlKpJESiUdNfDZi7/ehG9K6KfiA3pml0PLcsq+cSMTj2NL9ukc4UOmz7AZ3+crkC4mHujFvXNaMFB3bEr8xPS6p5O+jXxq4VZtaen7/PwzrntjcLUE0iHPS1Ud1cdiEJl/8WivZk0wXd7zWOMkeF8s0CcAmkNrC2nvXZDbbbN73ccYnZoH9bfgswAFzAe9/h3dbKAAAAAElFTkSuQmCC" id="searchbutton" class="searchicon" style="vertical-align: top; margin-top: -1px;"></span></div></div>
+
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/head.js"></script>
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				chalkboard: {
+        					},
+        		keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0//MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/chalkboard/chalkboard.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+		<!-- Everything below this point is only used for the reveal.js demo page -->
+
+		<a class="fork-reveal" style="display: block;" href="https://github.com/hakimel/reveal.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875.png" alt="Fork reveal.js on GitHub"></a>
+
+		<div class="share-reveal" style="display: block; position: absolute; bottom: 16px; left: 50%; margin-left: -139px; z-index: 20;">
+			<a class="share-reveal-editor" href="https://slides.com/">Enjoy Learning Thinking</a>
+		</div>
+
+		<style>
+			/* Social sharing */
+			.share-reveal a {
+				display: inline-block;
+				height: 34px;
+				line-height: 32px;
+				padding: 0 10px;
+				color: #fff;
+				font-family: Helvetica, sans-serif;
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 12px;
+				vertical-align: top;
+				text-transform: uppercase;
+				box-sizing: border-box;
+			}
+
+			.share-reveal .share-reveal-editor {
+				line-height: 30px;
+			}
+
+			.share-reveal svg {
+				vertical-align: middle;
+			}
+
+			.share-reveal a + a {
+				margin-left: 10px;
+			}
+
+			.share-reveal-editor {
+				border: 2px solid #fff;
+			}
+
+			.share-reveal-twitter,
+			.share-reveal-follow {
+				background-color: #00aced;
+			}
+
+			.share-reveal-facebook {
+				background-color: #4B71B8;
+			}
+
+			/* Advertising */
+			#carbonads {
+				width: 370px;
+				min-height: 100px;
+				font-size: 18px;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				padding: 10px;
+				margin: 40px auto 0 auto;
+				font-size: 16px;
+				z-index: 10;
+				text-align: left;
+			}
+
+			#carbonads .carbon-img img {
+				float: left;
+				margin: 0 10px 0 0;
+				border: 0;
+				box-shadow: none;
+			}
+
+			#carbonads .carbon-poweredby {
+				display: block;
+				margin-top: 10px;
+				color: #aaa;
+			}
+		</style>
+
+		<script>
+		var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+		(function(d, t) {
+		var g = d.createElement(t),
+			s = d.getElementsByTagName(t)[0];
+		g.async = true;
+		g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g, s);
+		})(document, 'script');
+		</script>
+
+		<script>
+			[].slice.call( document.querySelectorAll( '.share-reveal-facebook, .share-reveal-twitter' ) ).forEach( function( element ) {
+				element.addEventListener( 'click', function( event ) {
+					event.preventDefault();
+					var width = 500, height = 300;
+					var winTop = window.screenY + (window.screen.height / 2) - (height / 2);
+					var winLeft = window.screenX + (window.screen.width / 2) - (width / 2);
+					window.open(this.href, 'shre', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+				} );
+			} );
+
+			if( !navigator.userAgent.match( /(iphone|android)/gi ) && !!document.querySelector ) {
+				document.querySelector( '.share-reveal' ).style.display = 'block';
+				document.querySelector( '.fork-reveal' ).style.display = 'block';
+			}
+		</script>
+
+	
+
+</body></html>

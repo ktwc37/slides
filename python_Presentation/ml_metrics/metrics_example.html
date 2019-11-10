@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./re_metrics_files/reveal.css">
+		<link rel="stylesheet" href="./re_metrics_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./re_metrics_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./re_metrics_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./re_metrics_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./re_metrics_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./ml_metrics.html">夏普比率最大化分类器</a></h2>
+                    <ul>
+                        <li>线性回归简单介绍</li>
+                        <li>logistic函数的由来</li>
+                        <li>为什么称为夏普比率最大化分类器</li>
+                        <li>Pseudo R-Squared</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>线性回归回顾</h4>
+                    
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+
+                    <div class="container">
+
+                        <div class="col" align="left" style="font-size: 24px">
+                            <p>线性回归基本问题：</p>
+                            <p>随机变量$y$与多个变量$x_1,x_2,...,x_p$相关，我们感兴趣的是其线性关系：</p>
+                            <p>$$ y=b_0+b_1x_1+b_2x_2+...+b_px_p+\epsilon, \ \epsilon\sim N(0,\sigma^2) $$ </p>
+                            <p>采用极大似然估计来求出参数B，即$(b_0,b_1,b_2,...b_n)$</p>
+                            <p>$$\hat{B}=(X^TX)^{-1}X^TY$$ </p>
+                            <p>决定性系数(Coefficient of Determination, R-Squared):</p>
+                            <p>$$R^2=1-\frac{\sum (y_i-f(x_i))^2}{\sum (y_i-\bar{y})^2}$$</p>
+                        </div>
+
+                        <div class="col">
+                            <img src="./re_metrics_files/sq.errors-1.png" height="300" width="400">
+                            <img src="./re_metrics_files/regression0.png" height="300" width="400">
+                        </div>
+
+                    </div>
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>如何用线性回归模型来解决分类问题?</h4>
+                    <div style="font-size: 24px">
+                        <p>线性回归配合阈值建模的局限性和不足</p>
+					    <ul>
+                            <li>异常值问题</li>
+                            <li>线性模型的局限性</li>
+                            <li>回归值的值域问题</li>
+					   </ul>
+                    </div>
+				</section>
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>逻辑回归的由来</h4>
+                    <ul>
+                        <li>Odds=$\frac{p}{1-p}$</li>
+                        <li>Log Odds</li>
+                        <li>Sigmoid函数:$\ sigm(x)=\frac{1}{1+e^{-x}}$</li>
+                    </ul>
+                </section>
+
+                <!-- Regression -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h3>逻辑回归建模</h3>
+                    <br>
+                    <section>
+                        <h4>回归目标</h4>
+                        <div>
+                            <p>$$log(\frac{P(x)}{1-P(x)})=\sum_{i=0}^{n}\beta_ix_i, \  令z=\sum_{i=0}^{n}\beta_ix_i;$$</p>
+                            <p>$$P(z)=\frac{e^z}{1+e^z}=\frac{1}{1+e^{-z}}=e^z(1+e^z)^{-1}$$</p>
+                            <p>$$dP(z)/dz=P(z)(1-P(z))$$</p>
+                        </div>  
+                    </section>
+                    <section>
+                        <h4>最大似然估计</h4>
+                        <div align="left" style="font-size: 24px">
+                            <p>Bernoulli分布：$P(y=k)=p^k(1-p)^{1-k}, \ k=0或1$</p>
+                            <p>逻辑回归中我们需要预测的变量 $y$ 可以认为服从以 $p(y=1)$ 为参数的Bernoulli分布，</p>
+                            <p>其似然函数为: $L(\theta) = \prod\limits_{i=1}^{n}(sigm(\theta x^{(i)}))^{y^{(i)}}(1-sigm(\theta x^{(i)}))^{1-y^{(i)}}$</p>
+                            <p>对数似然函数为: $\mathcal{L}(\theta) = \sum\limits_{i=1}^{n}(y^{(i)}log(sigm(\theta x^{(i)}))+ (1-y^{(i)})log(1-sigm(\theta x^{(i)})))$</p>
+                            <p>损失函数为: $J(\theta)=-\mathcal{L}(\theta)$</p>
+                            <p>最大似然解即为使似然函数最大或者损失函数最小的$\theta$</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h4>梯度下降</h4>
+                        <div>
+                            采用梯度下降法求其损失函数的最小值，即求 $J(\theta)$ 的梯度，并按照梯度的负方向以学习率 $\alpha$ 来更新 $\theta$
+                            $$\theta=\theta-\alpha \sum_{i=1}^{n}(sigm(\theta x^{(i)})-y^{(i)})x^{(i)}$$
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <h3>*交叉熵损失函数*</h3>
+                    <section>
+                        <h4>信息论相关基础知识回顾</h4>
+                        <ul style="font-size: 24px">
+                            <li>信息量衡量一个随机事件所包含的信息大小：$I(X)=-log(p(X))$</li>
+                            <li>熵用来衡量随机变量所包含的信息的不确定性：$H(X)=E[-log(p(x_i))]=-\sum_{i=1}^{n}p(x_i)log(p(x_i))$</li>
+                            <li>推广到多个随机变量的联合熵：$H(X,Y)=-\sum_{i=1}^{n}p(x_i,y_i)log(p(x_i,y_i))$</li>
+                            <li>类似于条件概率，条件熵度量给定一个随机变量后另一个随机变量的不确定性：$H(Y|X)=-\sum_{i=1}^{n}p(x_i,y_i)log(p(y_i|x_i))$
+                                $$H(Y|X)=H(Y,X)-H(X)$$</li>
+                            
+                        </ul>
+                    </section>
+                    <section>
+                        <ul style="font-size: 24px">
+                            <li>相对熵 (Relative entropy)，也称KL散度 (Kullback–Leibler divergence)。设$p(x),q(x)$是离散随机变量的概率分布函数，则$p对q$的相对熵为：
+                            $$D_{KL}(p||q)=\displaystyle\sum_{x}p(x)log\frac{p(x)}{q(x)}=E_{p(x)}[log\frac{p(x)}{q(x)}]$$
+                            相对熵可以用来衡量两个概率分布之间的差异，上面公式的意义就是求p与q之间的对数差在p上的期望值</li>
+                            <li>交叉熵 (Cross entropy), 现在有关于样本集的两个概率分布p(x)和q(x)，其中p(x)为真实分布，q(x)为非真实分布，如果用非真实分布q(x)来表示p(x)，所需的编码长度定义为交叉熵：$$H(p,q)=\displaystyle\sum _{x}p(x)log\frac{1}{q(x)}$$
+                                $$D_{KL}(p||q)=H(p,q)-H(p)$$
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>信息论基本概念图解</h4>
+                        <img src="./re_metrics_files/entropy.png" height="400" width="800">
+                    </section>
+                    <section>
+                        <h4>逻辑回归中的损失函数即为交叉熵</h4>
+                        <div style="font-size: 24px">
+                            <p>回想逻辑回归中的损失函数：$$J(\theta)=-\sum\limits_{i=1}^{n}(y^{(i)}log(sigm(\theta x^{(i)}))+ (1-y^{(i)})log(1-sigm(\theta x^{(i)})))$$ </p>
+                            <p>交叉熵定义为：$$H(p,q)=\displaystyle\sum _{x}p(x)log\frac{1}{q(x)}$$</p>
+                            <p>广义线性模型解释
+                            $$\begin{align}f(y) &= p^y (1 - p)^{1 - y} \\&= (1 - p) \exp \left \{ y \log \left ( \frac{p}{1 - p} \right ) \right \} .\end{align}$$</p>
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <h3>从业务层面解释逻辑回归</h3>
+                    <div align="left" style="font-size: 24px">
+                        <p>在逻辑回归中，我们实际上是对$log(\frac{P(y=1|x)}{P(y=0|x)})$建模</p>
+                        <p>$P(y=1|x),P(y=0|x)$分别代表在给定输入特征$x$下，我们预测其为正样本或负样本的概率。</p>
+                        <p>一般的业务环境下，我们会对正样本更加感兴趣。正样本预测正确会给我们带来收益，同时预测错误会带来风险。</p>
+                        <p>所以，逻辑回归帮助我们对收益风险比建模，最小化损失函数也就意味着最大化收益风险比，这在金融领域有一个类似概念称为夏普比率。</p>
+                        <p>在企业用户价值评估模型中的评分卡模型；在互联网运营中的广告点击率预测中，逻辑回归都有着非常广泛的运用。</p>
+                    </div>
+                </section>
+                <section>
+                    <h4> $Pseudo-R^2$ </h4>
+                    <div align="left" style="font-size: 24px">
+                        <ul>
+                            <li>$R^2$ ，即决定性系数，用来衡量线性回归模型对待估测的随机变量拟合的好坏程度。</li>
+                            <li>一个通用的解释是：待估随机变量的波动性有百分之多少可以由模型解释。</li>
+                            <li>在逻辑回归中，由于引入了非线性转换，且所预测的是分类变量。所以引入了$pseudoR^2$的概念。</li>
+                            <li>$Pseudo-R^2$的一种常用计算方法为：$$Pseudo R^2=1-\frac{ln(L_M)}{ln(L_0)}$$，其中$L_M$指的是模型的最大似然值，$L_0$是指无模型的情况下的似然值。</li>
+                        </ul>
+                </section>         
+                <!-- Model difficulties -->
+               
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./re_metrics_files/head.min.js.下载"></script>
+		<script src="./re_metrics_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./re_metrics_files/highlight.js.下载"></script><script type="text/javascript" src="./re_metrics_files/zoom.js.下载"></script><script type="text/javascript" src="./re_metrics_files/notes.js.下载"></script>
+
+	
+
+</body></html>

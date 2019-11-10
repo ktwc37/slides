@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>CNN - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./nn_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./nn_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./nn_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./nn_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./nn_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./nn_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="future">
+					<h3><a href="./dnn_cnn_rnn.html">Convenlutional Neural Networks</a></h3>
+                    <ul align="left">
+                        <li>Overview</li>
+                        <li>Alternative View</li>
+                        <li>More detail about CNN</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>Basic Architecture</h4>                   
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+                    
+                    <section>
+                        <img src="./nn_introduction_files/cnn0.png" height="400" width="800">
+                    </section>
+                    <section>
+                        <p>Multi convolution layers</p>
+                        <img src="./nn_introduction_files/multi_conv.jpeg" height="300" width="800">
+                    </section>
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>Alternative Views</h4>
+                    <img src="./nn_introduction_files/elephant.jpeg" height="500" width="800">
+				</section>
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>Convelution Layer</h4>
+                    <section>
+                        <div class="container">
+                            <div class="col" style="font-size: 24px">
+                                <img src="./nn_introduction_files/conv0.png" height="150" width="150">
+                            </div>
+                            <div class="col">
+                                <img src="./nn_introduction_files/conv1.png" height="100" width="100">
+                            </div>
+                            <div class="col">
+                                <img src="./nn_introduction_files/conv2.png" height="100" width="100">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/conv3.png" height="400" width="400">
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/conv4.png" height="400" width="400">
+                            </div>
+                            <div class="col" align="right">
+                                <img src="./nn_introduction_files/conv5.png" height="400" width="400">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/conv6.png" height="400" width="400">
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/conv7.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/conv8.png" height="400" width="500">
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/conv.png" height="200" width="300">
+                        <img src="./nn_introduction_files/conv.gif" height="200" width="300">
+                    </section>
+                    <section>
+                        <h4> Stride and Padding </h4>
+                        <ul>
+                            <li> Stride is the number of pixels shifts over the input matrix. </li>
+                            <li> Padding: Pad the picture or drop parts to fit. </li>
+                        </ul>
+                        <a href="http://cs231n.github.io/assets/conv-demo/index.html">Convelution Demo</a>
+                    </section>
+                </section>
+                <!-- Regression -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h3>Pooling Layer</h3>
+                    <br>
+                    <section>
+                        <ul align="left">
+                            <li>Reduce the number of parameters</li>
+                            <li>Spatial pooling also called subsampling or downsampling which reduces the dimensionality of each map but retains the important information.
+                                <p>Max Pooling</p>
+                                <p>Average Pooling</p>
+                                <p>Sum Pooling</p>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col"  style="font-size: 24px">
+                                <img src="./nn_introduction_files/pool.jpeg" height="300" width="400">
+                            </div>
+                            <div class="col">
+                                <img src="./nn_introduction_files/maxpool.jpeg" height="300" width="400">
+                            </div>
+                        </div>
+                        
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h3>Regularization</h3>
+                    <ul>
+                        <li>Dropout</li>
+                        <li>Data Argument</li>
+                        <li>Early Stopping</li>
+                    </ul>
+                </section>
+                <section>
+                    <p>Dropout: A Simple Way to Prevent Neural Networks from Overfitting</p>
+                    <section>
+                        <div class="container">
+                            <div class="col"  style="font-size: 24px">
+                                <img src="./nn_introduction_files/dropout.png" height="400" width="600">
+                            </div>
+                            <div class="col"  style="font-size: 24px">
+                                <ul>
+                                    <li>Ignoring units (i.e. neurons) with probability $1-p$ during the training phase of certain set of neurons which is chosen at random</li>
+                                    <li>These units are not considered during a particular forward or backward pass</li>
+                                </ul>
+                                <br>
+                                <ul>
+                                    <li>Learn more robust features that are useful in conjunction with many different random subsets of the other neurons.</li>
+                                    <li>Roughly doubles the number of iterations required to converge. However, training time for each epoch is less</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/dropout.gif" height="400" width="600">
+                    </section>
+                </section>
+                <section>
+                    <h4>Data Argument</h4>
+                    <img src="./nn_introduction_files/dataargument.png" height="400" width="1000">
+                </section>
+                <section>
+                    <h4>Early Stopping</h4>
+                    <img src="./nn_introduction_files/early_stopping.gif" height="450" width="800">
+                </section>
+                <section>
+                    <h3>Well Known ConvNets</h3>
+
+                    <ul>
+                        <li>LeNet</li>
+                        <li>AlexNet</li>
+                        <li>ZF Net</li>
+                        <li>GoogleNet</li>
+                        <li>VGGNet</li>
+                        <li>ResNet</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Application</h3>
+                    <img src="./nn_introduction_files/convnet.jpeg" height="500" width="1000">
+
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>* More detail about CNN *</h4>
+                    <section>
+                        <img src="nn_introduction_files/cnn_logo.gif" width="800" height="500"/>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/digit_structure.png" height="480" width="800">
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/kernel_conv.gif" height="450" width="800">
+                        <p>$G(m,n)=(f*h)[m,n]=\sum_{j}\sum_k h(j,k)f[m-j,n-k]$
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/edge_detection.gif" height="480" width="600">
+                    </section>
+                    <section>
+                        <p>Padding: $p = (f-1)/2$</p>
+                        <img src="./nn_introduction_files/pixel_position.gif" height="480" width="800">
+                    </section>
+                    <section>
+                        <p>Striding</p>
+                        <img src="./nn_introduction_files/stride_conv.gif" height="450" width="800">
+                        <p>$n_{out}=\lfloor\frac{n_{in}+2p-f}{s}+1\rfloor$</p>
+                    </section>
+                    <section>
+                        <p>The third dimension</p>
+                        <img src="./nn_introduction_files/volume_conv.png" height="450" width="800">
+                    </section>
+                    <section>
+                        <p>Tensors Dimensions</p>
+                        <img src="./nn_introduction_files/tensors_dimensions.png" height="450" width="800">
+                    </section>
+                    <section>
+                        <p>Connections Cutting and Parameters Sharing</p>
+                        <div class="container">
+                            <div class="col"  style="font-size: 24px">
+                                <img src="./nn_introduction_files/params_shering.gif" height="400" width="550">
+                            </div>
+                            <div class="col"  style="font-size: 24px">
+                                <br><br>
+                                <p> Two important features of CNN </p>
+                                <ol>
+                                    <li>Connections Cutting</li>
+                                    <li>Parameters Sharing</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Convolutional Layer Backpropagation</p>
+                        <img src="./nn_introduction_files/conv_backpropagation.png" height="450" width="800">
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/conv_backpropagation.gif" height="400" width="700">
+                        <p  style="font-size: 24px">$dZ^{[l]}=dA^{[l]}*g^{'}(Z^{[l]})$</p>
+                        <p  style="font-size: 24px">$dA+=\sum_{m=0}^{n_h}\sum_{n=0}^{n_w}W\cdot dZ[m,n]$</p>
+                    </section>
+                    <section>
+                        <p>Pooling Layer</p>
+                        <img src="./nn_introduction_files/pooling_layer.gif" height="450" width="800">
+                    </section>
+                    <section>
+                        <p>Pooling Layers Backpropagation</p>
+                        <img src="./nn_introduction_files/pl_bakpropagation.gif" height="480" width="600">
+                    </section>
+                </section>
+               
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./nn_introduction_files/head.min.js.下载"></script>
+		<script src="./nn_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./nn_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

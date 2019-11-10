@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./dr_linear_files/reveal.css">
+		<link rel="stylesheet" href="./dr_linear_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./dr_linear_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./dr_linear_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./dr_linear_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./dr_linear_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./dimsreduction.html">降维技术简介</a></h2>
+                    <ul>
+                        <li>降维的本质</li>
+                        <li>维度灾难</li>
+                        <li>降维的好处</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>思考</h3>
+                    <section>
+                        1. 如果你是一个炒股者，大神告诉你某只股票的涨幅只和油价有关，你会怎么做？
+                    </section>
+                    <section>
+                        2. 如果这只股票的涨跌和油价，大宗商品，GDP,GNP,CPI,PPI等宏观经济指标有关？
+                    </section>
+                    <section>
+                        3. 上帝告诉你实际上股价和市场的每个参与者都是有关的？
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>降维的本质</h4>
+                    <ul>
+                        <li>寻找可解释数据的信息最小集</li>
+                        <li>奥卡姆剃刀：关注主要问题</li>
+                    </ul>
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4> 维度灾难 </h4>
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+
+                    <section>
+                        <ul>
+                            <li>考虑一个近邻问题，输入数据是在$p$维度上均匀分布</li>
+                            <li>假设我们需要寻找某一目标点的所有近邻，占所有数据的比例为$r$</li>
+                        </ul>
+					</section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <ul>
+                                    <li>在每个维度上的期望边长为$E_p(r)=r^{1/p}$</li>
+                                    <br>
+                                    <li>$E_{10}(0.01)=0.63,\ E_{10}(0.1)=0.8$</li>
+                                    <br>
+                                    <li>如果取1%或10%的数据做一个“本地”平均的化，需要覆盖63%或80%的数据范围</li>
+                                    <br>
+                                    <li>大幅度降低$r$也不能很好的缓解这个问题</li>
+                                </ul>
+                            </div>
+
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/curse_of_dims0.png" height="300" width="600">
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section>
+                        <p>Hughes Phenomenon</p>
+                        <br>
+                        <img src="./dr_linear_files/hushes.png" height="300" width="600">
+                    </section>
+				</section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>Story about The curse of dimensionality</h4>
+                    <section>
+                        <p>想象我们需要建立一个分辨猫和狗的图片分类器</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/1Dproblem.png" height="150" width="400" backgroud="white">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/2Dproblem.png" height="400" width="400">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>把特征增加到3维</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/3Dproblem.png" height="400" width="400" >
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/3Dproblem_separated.png" height="400" width="400">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>分析</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/problem.png" height="300" width="300" >
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br><br>
+                                <ul>
+                                    <li>1D case:  sample density was 10/5=2 samples/interval</li>
+                                    <li>2D case:  sample density was 10/25 = 0.4 samples/interval</li>
+                                    <li>3D case:  sample density was 10/125 = 0.08 samples/interval</li>
+                                </ul>
+                                <br>
+                                <p>Get sparser and sparser</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Overfitting and Bestfitting</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/best.png" height="300" width="300" >
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br>
+                                <p>Simple classifier generalizes much better to unseen data because it did not learn specific exceptions that were only in our training data by coincidence</p>
+                                <br>
+                                <p>By using less features, the curse of dimensionality was avoided such that the classifier did not overfit the training data</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>More explaination</p>
+                        <img src="./dr_linear_files/curseofdimensionality.png" height="300" width="800" >
+                        <p style="font-size: 24px">If we keep adding dimensions, the amount of training data needs to grow exponentially fast to maintain the same coverage and to avoid overfitting</p>
+                    </section>
+                    <section>
+                        <p>Deep further</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/cod1.png" height="300" width="300" >
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br><br>
+                                <p>Training samples that fall outside the unit circle are in the corners of the feature space and are more difficult to classify than samples near the center of the feature space.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>How the volume of the circle (hypersphere) changes relative to the volume of the square (hypercube) when we increase the dimensionality of the feature space.</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/hypersphere.png" height="300" width="300" >
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br><br>
+                                <p>$$V(d)=\frac{\pi^{d/2}}{\Gamma(\frac{d}{2}+1)}0.5^d$$</p>
+                                <p>With $radius=0.5$</p>
+                                <p>The volume of the hypersphere tends to zero as the dimensionality tends to infinity</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/cod2.png" height="300" width="800" >
+                        <br>
+                        <p align="left" style="font-size: 24px">For an 8-dimensional hypercube, about 98% of the data is concentrated in its 256 corners.</p>
+                        <p align="left" style="font-size: 24px">The ratio of the difference in minimum and maximum Euclidean distance from sample point to the centroid, and the minimum distance itself, tends to zero:
+                            $$\lim_{n\to\infty}\frac{dist_{max}-dist_{min}}{dist_{min}}\to 0$$
+                        </p>
+                            
+                    </section>
+                </section>
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>降维的好处</h4>
+                    <ul>
+                        <li>信息压缩</li>
+                        <li>简化问题</li>
+                        <li>提高信息抽取效率</li>
+                    </ul>
+                </section>
+
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./dr_linear_files/head.min.js.下载"></script>
+		<script src="./dr_linear_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./dr_linear_files/highlight.js.下载"></script><script type="text/javascript" src="./dr_linear_files/zoom.js.下载"></script><script type="text/javascript" src="./dr_linear_files/notes.js.下载"></script>
+
+	
+
+</body></html>

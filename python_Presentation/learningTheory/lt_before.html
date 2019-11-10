@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./lt_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./lt_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./lt_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./lt_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./lt_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./lt_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h3><a href="./learningtheory.html">Hypothesis Class, Training Error, and Expected Error</a></h3>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">Definitions</li>
+                        <li class="fragment" data-fragment-index="1">Hoeffding不等式</li>
+                        <li class="fragment" data-fragment-index="2">训练误差与测试误差的距离上界</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>Hypothesis Class</h3>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0"> The Hypothese Class $\mathcal{H}$ is a space of functions. </li>
+                        <li class="fragment" data-fragment-index="1"> The learning algorithm learns a function (hypothesis) $h\in\mathcal{H}$ </li>
+                        <li class="fragment" data-fragment-index="2"> 我们假设$D$为具有$N$个数据点的数据集，训练样本记为$(x_n,y_n)_{n=1}^{N}$，符合分布$P(x,y)$，也记为$D\sim P^N$</li> 
+                    </ul>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Train Error and Expect Error</h3>
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+
+                    <div class="container">
+
+                        <div class="col" align="left" style="font-size: 24px">
+                            <p> 0-1 Train Error </p>
+                            <br>
+                            <p>$\mathcal{L}_D(h)=\frac{1}{N}\sum_{n=1}^{N}\mathcal{I}(h(x_n)\neq y_n)$</p>
+                        </div>
+                        <div class="col" aligh="right" style="font-size: 24px">
+                            <p> 0-1 Expect Error/True Error </p>
+                            <br>
+                            <p>$\mathcal{L}_P(h)=E_{(x,y)\sim P}[\mathcal{I}(h(x_n)\neq y_n)]$</p>
+                        </div>
+                    </div>
+                    <p>在一般情况下，Expect Error > Train Error </p>
+                    <p>我们想要知道Expect Error和Train Error之间会相差多少？</p>
+				</section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h3>Hoeffding不等式</h3>
+                    <br>
+                    <div style="font-size: 24px">
+                        <p> 如果$X_1,X_2,...,X_n$为一组独立同分布的参数为 $p$ 的伯努利分布随机变量，$n$ 为随机变量的个数。定义这组随机变量的均值为：</p>
+                        <p>$$\bar{X}=\frac{X_1+X_2+...+X_n}{n}$$</p>
+                        <p>对于任意 $\delta\gt0$ ，Hoeffding不等式为：</p>
+                        <p>$$P(|\bar{X}-E(\bar{X})|\ge\delta)\le 2exp(-2\delta^2n)$$</p>
+                    </div>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h3>训练误差与测试误差的距离上界</h3>
+                    <section>
+                        <p>对于整个假设空间，也就是这 $M$ 个假设函数，可以得到：</p>
+                        <br>
+                        <p style="font-size: 20px">$$P[(|L_{P}(h_1)-L_{D}(h_1)|>\epsilon) \cup (|L_{P}(h_2)-L_{D}(h_2)|>\epsilon)...(|L_{P}(h_m)-L_{d}(h_m)|>\epsilon)]$$</p>
+                        <p style="font-size: 20px">$$\le P[|L_{P}(h_1)-L_{D}(h_1)|>\epsilon] + P[|L_{P}(h_2)-L_{D}(h_2)|>\epsilon]+ ...+ P[|L_{P}(h_m)-L_{D}(h_m)|>\epsilon]$$</p>
+                        <p>$$\le 2M exp(-2\epsilon^2 N)$$</p>
+                    </section>
+                    <section>
+                        <p>对于$h\in \mathcal{H}:$</p>
+                        <div style="font-size: 24px">
+                            <p>$P[(L_{P}(h)-L_{D}(h))>\epsilon] \le exp(-2\epsilon^2 N)$</p>
+                            <p>令 $M exp(-2\epsilon^2 N)\le \delta$   (failure probability)</p>
+                            <p>$\delta$ 即训练误差和测试误差的差异 $\epsilon \ge \sqrt{(log(M)+log(\frac{1}{\delta}))/2N}$ 的概率</p>
+                            <p>得到：$N \ge\frac{1}{2\epsilon^2}(log(M)+log(\frac{1}{\delta}))$</p>
+                            <p>在 $1-\delta$ 的概率下，$L_P(h)\le L_D(h)+\sqrt{\frac{log(M)+log(\frac{1}{\delta})}{2N}}$
+                            <p>上式表明：当 $N$ 足够大时，train loss 和 true loss将非常接近</p>
+                        </div>
+                    </section>
+                    
+                    <section>
+                        <ul>
+                            <li>Question: 如果 $M$ 是无限大，怎么办？</li>
+                        </ul>
+                    </section>
+                </section>
+
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./lt_introduction_files/head.min.js.下载"></script>
+		<script src="./lt_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./lt_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./lt_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./lt_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

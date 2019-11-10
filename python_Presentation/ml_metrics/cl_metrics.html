@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./re_metrics_files/reveal.css">
+		<link rel="stylesheet" href="./re_metrics_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./re_metrics_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./re_metrics_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./re_metrics_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./re_metrics_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./ml_metrics.html">分类模型评价指标</a></h2>
+                    <ul align="left">
+                        <li>Confusion Matrix</li>
+                        <li>Precison-Recall</li>
+                        <li>ROC/AUC</li>
+                        <li>Gain Lift Chart</li>
+                        <li>GINI Coefficient</li>
+                        <li>Kolmogorov-Smirnov Chart</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>思考</h3>
+                    <section>
+                        1. 我们该用什么来评价一个分类模型的优劣？
+                    </section>
+                    <section>
+                        2. 在不同的应用场景下是否会有所不同？
+                    </section>
+                    <section>
+                        3. 在不同的数据集下是否会有所区别？
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+					<h4>Confusion Matrix</h4>
+                    <section>
+                        <div class="container">
+
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./re_metrics_files/confusion_matrix0.png" height="200" width="500">
+                                <ul>
+                                    <li>Accuracy</li>
+                                    <li>Positive Predictive Value </li>
+                                    <li>Negative Predictive Value </li>
+                                </ul>
+                            </div>
+
+                            <div class="col" style="font-size: 24px">
+                                <img src="./re_metrics_files/confusion_matrix1.png" height="200" width="500">
+                                <ul>
+                                    <li>Sensitivity or Recall </li>
+                                    <li>Specificity </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </section>
+                </section>
+
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4> Precision and Recall</h4>
+                    <section>
+                        <img src="./re_metrics_files/precision_recall1.png" height="300" width="600">
+					</section>
+                    <section>
+                        <img src="./re_metrics_files/precision_recall.png" height="500" width="600">
+                    </section>
+                    <section>
+                        <h5> F1 Score </h5>
+                        <img src="./re_metrics_files/f1.jpg" height="400" width="500">
+                    </section>
+				</section>
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>ROC and AUC</h4>
+                    <section>
+                        <div class="container">
+
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./re_metrics_files/roc_auc0.png" height="500" width="500">
+                            </div>
+
+                            <div class="col" style="font-size: 24px">
+                                <br><br><br>
+                                <ul>
+                                    <li>在不同的阈值下的点(fpr,tpr)组成ROC</li>
+                                    <li>AUC=Area under ROC</li>
+                                    <li>一般来说，AUC大的模型具备更好的性能</li>
+                                </ul>
+                                <br>
+                                <p> 但是AUC到底代表了什么? </p>
+
+                            </div>
+
+                        </div>
+                    </section>
+                    <section>
+                        <h5> AUC的概率解释 </h5>
+                        <p align="left" style="font-size: 24px"> AUC是随机抽取一个正样本和负样本，正样本的评分>负样本的评分的概率</p>
+                        
+                            <div align="left" style="font-size: 20px">
+                                <p>假设:</p>
+                                <ul>
+                                    <li>$A$是模型预测为真正样本的点的评分的分布.</li>
+                                    <li>$B$是模型预测为真负样本的点的评分的分布.</li>
+                                    <li>$\tau$为阈值</li>
+                                </ul>
+                                <p>$TPR=P(A>\tau),\ FPR=P(B>\tau)$</p>
+                                <p>$AUC = \int_0^1 TPR(x)dx =  \int_0^1 P(A>\tau(x))dx$, 这里$x$是FPR</p>
+                                <p>如果认为$x \sim U[0,1)$, $AUC = E_x[P(A>\tau(x))] \tag{1}$</p>
+                                <p>$x=FPR = P(B>\tau(x))$</p>
+                                <p>$P(B>\tau(x)) \sim U$</p>
+                                <p>$=> P(B<\tau(x)) \sim (1-U) \sim U$</p>
+                                <p>$\begin{equation}=> F_B(\tau(x)) \sim U \tag{2}\end{equation}$</p>
+                            </div>
+                    </section>
+                    <section>
+                        <div style="font-size: 20px">
+                            <p>$F_X(X)=P(F_X(x)<{X})$</p>
+                            <p>$=P(X\lt F_X^{-1}(X))$</p>
+                            <p>$=F_XF_X^{-1}(X)=X$</p>
+                            <p>得到$\tau(x) \sim B$</p>
+                            <p>最后：$AUC=E_x(P(A>B))=P(A>B)$</p>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/auc1.png" height="300" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/auc2.png" height="300" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/auc3.png" height="300" width="500">
+                    </section>
+                    
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h4> Gain Lift Chart</h4>
+                    <section>
+                        <img src="./re_metrics_files/Gain_chart_1.png" height="400" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/Chart_gain_3.png" height="400" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/Chart_lift.png" height="400" width="500">
+                    </section>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h4> Kolmogorov-Smirnov Chart </h4>
+                    <section>
+                        <img src="./re_metrics_files/Chart_ks.png" height="400" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/Chart_ks_1.png" height="400" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/ks.png" height="400" width="500">
+                    </section>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h4> GINI coefficient </h4>
+                    <section>
+                        <img src="./re_metrics_files/gini.png" height="400" width="500">
+                    </section>
+                    <section>
+                        <img src="./re_metrics_files/gini_auc.png" height="400" width="500">
+                    </section>
+                </section>
+        
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./re_metrics_files/head.min.js.下载"></script>
+		<script src="./re_metrics_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./re_metrics_files/highlight.js.下载"></script><script type="text/javascript" src="./re_metrics_files/zoom.js.下载"></script><script type="text/javascript" src="./re_metrics_files/notes.js.下载"></script>
+
+	
+
+</body></html>

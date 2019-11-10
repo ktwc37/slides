@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html class="js no-mobile desktop no-ie ff ff65 root-section w-1680 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius no-cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded" id="index-page" lang="en"><head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+
+		<title>Word2Vec</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.css">
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script async="" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/ga.js"></script><script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/paper.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]--><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/marked.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/markdown.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/highlight.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/search.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zoom.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/notes.js"></script>
+	<script id="_carbonads_projs" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/CKYI553M.json"></script>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+	<body style="transition: transform 0.8s ease 0s;">
+
+		<div class="reveal slide center has-vertical-slides has-horizontal-slides ready" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(1.25349);">
+				<section style="top: 106px; display: block;" class="past" aria-hidden="true" hidden="">
+					<h1>Word2vec</h1>
+					<h3>Word Embedding</h3>
+					<p>
+						<small>Created by 马明</small>
+					</p>
+					<script async="" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/carbon.js" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-img" target="_blank" rel="noopener"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-text" target="_blank" rel="noopener">Focuse on Machine Learning, Quantitative Investment, Anomaly Detection</a></span><a href="http://carbonads.net/?utm_source=revealjscom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener">Fintech Scientist/Big Data System Architecture</a></span></div>
+				</section>
+
+				<section style="top: 188px; display: block;" class="present">
+					<h2>Content</h2>
+					<ul>
+						<li>What is Word Embedding</li>
+						<li>Word2Vec in detail</li>
+						<li>GloVe</li>
+					</ul>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section style="top: 32.5px; display: block;" class="" aria-hidden="true">
+						<h2>What is Word Embedding</h2>
+						<ul>
+							<li>The Big Idea: Turn text into numbers</li>
+							<li>Map words or phrases from a vocabulary to a corresponding vector of real numbers</li>
+							<li>Compare to bag of words, create a vector representation with a much lower dimensional space.</li>
+						</ul>
+					</section>
+					<section>
+						<h4>Recall Bag Of Words</h4>
+						<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Bag of Words</p>
+                            	<img src="queen_bag.png" width="400" height="300">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Word Embedding</p>
+                            	<img src="word2vec-plural-relation.png" width="400" height="300">
+                            </div>
+                        </div>
+
+					</section>
+					<section>
+						<h2>2 key advantages</h2>
+						<ul>
+							<li>Dimensionality Reduction: Efficient</li>
+							<li>Contextual Similarity: Expressive</li>
+						</ul>
+					</section>
+				    <section>
+				    	<p>Simple visualization</p>
+				    	<img src="word2vec1.jpeg" width="800" height="500">
+				    </section>
+				    <section>
+				    	<h4> 2 ways to implement word2vec </h4>
+				    	<ul>
+				    		<li>CBOW (Continuous Bag-Of-Words)</li>
+				    		<li>Skip-Gram</li>
+				    	</ul>
+				    </section>
+				    <section>
+				    	<h4>CBOW vs Skip-Gram</h4>
+				    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<img src="cbow.png" width="400" height="400">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<img src="skipgram.png" width="400" height="400">
+                            </div>
+                        </div>
+				    </section>
+					<section>
+						<h4>Word2vec architect</h4>
+						<img src="word2vec2.png" width="700" height="400">
+						<ul style="font-size: 24px">
+							<li>Single hidden layer</li>
+							<li>Just to learn the weights of the hidden layer which is the "word vector"</li>
+						</ul>
+					</section>
+					<section>
+						<img src="training_data.png" width="800" height="350">
+					</section>
+					<section>
+						<h4> Why Named Word2Vec</h4>
+						<img src="word2vec3.png" width="600" height="300">
+						<p> Speedy O(1) lookup with word2vec</p>
+					</section>
+					<section>
+						<h4>Output Layer</h4>
+						<img src="wordvec_math.png" width="600" height="200">
+					</section>
+					<section>
+						<h4> Contextual Similarity Visuliazation </h4>
+						<img src="word2vec4.png" width="800" height="400">
+					</section>
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h3>Negative Sampling</h3>
+					<section>
+						<p align="left">Question: <br>    With 300 features and 10,000 words, how many weights exist in the hidden layers and output layers each?</p>
+					</section>	
+					<section>
+						<p align="left">The problem was resolved by two approaches</p>
+						<ol style="font-size: 24px">
+							<li class="fragment" data-fragment-index="0">Subsampling frequent words to decrease the number of training examples.</li>
+							<li class="fragment" data-fragment-index="1">Modifying the optimization objective with a technique called “Negative Sampling”, which causes each training sample to update only a small percentage of the model’s weights.</li>
+						</ol>
+						<p class="fragment" data-fragment-index="2">Both two not only reduced the compute burden of the training process, but also improved the quality of their resulting word vectors as well.</p>
+					</section>
+					<section>
+						<p>Subsampling rate</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<ul>
+									<li>$w_i$ is the word, and $z(w_i)$ is the fraction.</li>
+									<li>$P(w_i)$ is the probability of keeping the word:
+										<p>$P(w_i) = (\sqrt{\frac{z(w_i)}{0.001}} + 1) \cdot \frac{0.001}{z(w_i)}$</p>
+									</li>
+								</ul>
+								<img src="sampling_rate.png" width="600" height="300">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<br>
+								<ul>
+									<li> <p class="fragment" data-fragment-index="0">$P(w_i)=1.0$ (100% chance of being kept) when $z(w_i)<=0.0026$.</p></li>
+									<li> <p class="fragment" data-fragment-index="1">$P(w_i)=0.5$ (50% chance of being kept) when $z(w_i)<=0.00746$.</p></li>
+									<li> <p class="fragment" data-fragment-index="2">$P(w_i)=0.033$ (3.3% chance of being kept) when $z(w_i)<=1.0$.</p></li> 
+								</ul>
+							</div>
+						</div>
+					</section>	
+					<section>
+						<div class="container">
+							
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<br><br>
+								<ul >
+									<li> <p class="fragment" data-fragment-index="0">Skip-gram neural network has a tremendous number of weights, all of which would be updated slightly by every one of our billions of training samples!</p></li>
+									<li> <p class="fragment" data-fragment-index="1">Negative sampling addresses this by having each training sample only modify a small percentage of the weights, rather than all of them.</p></li>
+								</ul>
+								<p class="fragment" data-fragment-index="7">Note: Alternative approach is Hierachical Softmax</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p class="fragment" data-fragment-index="2">How to do it?</p>
+								<ul>
+									<li><p class="fragment" data-fragment-index="3">Randomly select just a small number of “negative” words (let’s say 5) to update the weights.
+										<p class="fragment" data-fragment-index="3">5~20 words for small datasets; 2~5 words for large</p></li>
+									<li> <p class="fragment" data-fragment-index="4">Also still update the weights for our “positive” word</p> </li>
+									<li> <p class="fragment" data-fragment-index="5">Only 0.06% of the 3M weights in the output layer!</p> </li>
+									<li><p class="fragment" data-fragment-index="6">The “negative samples” are selected using a “unigram distribution”</p></li>
+									<li><p class="fragment" data-fragment-index="6">$P(w_i) = \frac{  {f(w_i)}^{3/4}  }{\sum_{j=0}^{n}\left(  {f(w_j)}^{3/4} \right) }$</p></li>
+								</ul>
+							</div>
+						</div>
+					</section>						
+				</section>
+
+				<section data-transition="slide"  data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>GloVe</h2>
+					<section>
+						<p>Global Vectors for word representation</p>
+						<p>Combines the benefits of the word2vec skip-gram model when it comes to word analogy tasks, with the benefits of matrix factorization methods that can exploit global statistical information</p>
+					</section>
+					<section>
+						<h4>GloVe VS Word2Vec</h4>
+						<div class="container">							
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Word2Vec</p>
+                            	<ul>
+                            		<li>Predictive Model
+                            			<p class="fragment" data-fragment-index="0">Improve their predictive ability of Loss</p> 
+                            		</li>
+                            		<li class="fragment" data-fragment-index="2">Capture co-corrence one window at atime</li>
+                            		<li class="fragment" data-fragment-index="4">Shallow-window methods learn word representations from local context windows</li>
+                            	</ul>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>GloVe</p>
+                            	<ul>
+                            		<li>Counting-Based Model
+                            			<p class="fragment" data-fragment-index="1">Doing dimensionality reduction on the co-occurrence counts matrix</p> 
+                            		</li>
+                            		<li class="fragment" data-fragment-index="3">Capture the counts of overall statistics how often it appears</li>
+                            		<li class="fragment" data-fragment-index="5">Matrix factorization methods use low-rank approximations to decompose large matrices capturing statistical information about a corpus</li>
+                            	</ul>
+                            </div>
+                        </div>
+					</section>
+					<section>
+						<div class="container">							
+                            <div class="col" align="left" style="font-size: 24px">
+								<p class="fragment" data-fragment-index="0">Matrix factorization</p>
+								<img src="matrix_factor.png" width="450" height="400">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<ul>
+									<li>
+										<p class="fragment" data-fragment-index="1">Co-occurrence Probability</p> 
+									    <p class="fragment" data-fragment-index="2">$P_{ij}=P(j|i)=\frac{X_{ij}}{X_i}=\frac{X_{ij}}{\sum_k X_{ik}}$</p>
+									    <p class="fragment" data-fragment-index="2">$X_{ij}$ = number of times word $j$ occurs in the context of word $i$.</p>
+									</li>
+									<li>
+										<p class="fragment" data-fragment-index="3">Naive Model: $F(w_i,w_j,\tilde{w_k})=\frac{P_{ik}}{P_{jk}}$</p>
+									</li>
+									<li>
+										<p class="fragment" data-fragment-index="3">Vector Model: $F(w_i-w_j,\tilde{w_k})=\frac{P_{ik}}{P_{jk}}$</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Example from original paper</p>
+						<ul style="font-size: 24px">
+							<li><p class="fragment" data-fragment-index="0">Suppose we wish to study the relationship between two words, $i = ice$ and $j = steam$</p></li>
+							<li><p class="fragment" data-fragment-index="1">We’ll do this by examining the co-occurrence probabilities of these words with various “probe” words $k$.</p></li>
+						</ul>
+						<img class="fragment" data-fragment-index="2" src="co_prob.png" width="600" height="150">
+						<p style="font-size: 24px" class="fragment" data-fragment-index="3"> The ratio between co-occurrence probabilities helps filter out noise points</p>
+					</section>
+					<section>
+						<p>Deep in</p>
+						<ul style="font-size: 24px">
+							<li><p class="fragment" data-fragment-index="0"> we’re attempting to design a function which maps word vectors to ratios of co-occurrence probabilities</p></li>
+							<li><p class="fragment" data-fragment-index="1">Scale-Input model: $F((w_i-w_j)^T\tilde{w_k})=\frac{P_{ik}}{P_{jk}}$</p></li>
+							<li><p class="fragment" data-fragment-index="2">$F((w_i-w_j)^T\tilde{w_k})=\frac{F(w_i^T\tilde{w_k})}{F(w_j^T\tilde{w_k})}$</p></li>
+							<li><p class="fragment" data-fragment-index="3">$F$ to be exponential function, and $w_i^T\tilde{w_k}=log P_{ik}=log(\frac{X_{ik}}{X_i}) = log X_{ik}-log X_i$</p></li>
+							<li><p class="fragment" data-fragment-index="4"> “exchange” symmetry of our function: $w_i^T\tilde{w_k}+b_i+\tilde{b_k}=log X_{ik}$</p></li>
+						</ul>
+					</section>
+					<section>
+						<p>Finally</p>
+						<p style="font-size: 24px" class="fragment" data-fragment-index="0">$$J=\sum_{i,j=1}^Vf(X_{ij})(w_i^T\tilde{w_k}+b_i+\tilde{b_k}-log X_{ik})^2$$</p>
+								<img class="fragment" data-fragment-index="1" src="weighting_function.png" width="400" height="220">
+								<p style="font-size: 24px" class="fragment" data-fragment-index="2">Weighting function $f$ with $\alpha=3/4$</p>
+					</section>
+					<section>
+						<p>Summary</p>
+						<p style="font-size: 24px" class="fragment" data-fragment-index="0">The training objective of GloVe is to learn word vectors such that their dot product equals the logarithm of the words’ probability of co-occurrence</p>
+						<img class="fragment" data-fragment-index="1" src="glove_sum.png" width="800" height="300">
+					</section>
+				</section>
+
+				<section data-markdown="" data-markdown-parsed="true" style="top: 108.5px; display: none;" class="future" aria-hidden="true" hidden=""><h2 id="markdown-support">Markdown support</h2>
+<p>Write content using inline or external Markdown.
+Instructions and more info available in the <a href="https://github.com/hakimel/reveal.js#markdown">readme</a>.</p>
+<pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">data-markdown</span>&gt;</span></span>
+  ## Markdown support
+
+  Write content using inline or external Markdown.
+  Instructions and more info available in the [<span class="hljs-string">readme</span>](<span class="hljs-link">https://github.com/hakimel/reveal.js#markdown</span>).
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+</code></pre></section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section id="fragments" style="top: 168px; display: none;" class="" aria-hidden="true">
+						<h2>Fragments</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment" data-fragment-index="0">... to step through ...</p>
+						<p><span class="fragment" data-fragment-index="1">... a</span> <span class="fragment" data-fragment-index="2">fragmented</span> <span class="fragment" data-fragment-index="3">slide.</span></p>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section class="future" aria-hidden="true" style="top: 18.5px; display: none;" hidden="">
+						<h2>Fragment Styles</h2>
+						<p>There's different types of fragments, like:</p>
+						<p class="fragment grow" data-fragment-index="0">grow</p>
+						<p class="fragment shrink" data-fragment-index="1">shrink</p>
+						<p class="fragment fade-out" data-fragment-index="2">fade-out</p>
+						<p class="fragment fade-up" data-fragment-index="3">fade-up (also down, left and right!)</p>
+						<p class="fragment current-visible" data-fragment-index="4">current-visible</p>
+						<p>Highlight <span class="fragment highlight-red" data-fragment-index="5">red</span> <span class="fragment highlight-blue" data-fragment-index="6">blue</span> <span class="fragment highlight-green" data-fragment-index="7">green</span></p>
+					</section>
+				</section>
+
+				<section id="transitions" style="top: 215px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="https://revealjs.com/?transition=none#/transitions">None</a> -
+						<a href="https://revealjs.com/?transition=fade#/transitions">Fade</a> -
+						<a href="https://revealjs.com/?transition=slide#/transitions">Slide</a> -
+						<a href="https://revealjs.com/?transition=convex#/transitions">Convex</a> -
+						<a href="https://revealjs.com/?transition=concave#/transitions">Concave</a> -
+						<a href="https://revealjs.com/?transition=zoom#/transitions">Zoom</a>
+					</p>
+				</section>
+
+				<section id="themes" style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Themes</h2>
+					<p>
+						reveal.js comes with a few themes built in: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					</p>
+				</section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section data-background="#dddddd" style="top: 41.5px; display: none;" class="has-light-background" aria-hidden="true">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="navigate-down" disabled="disabled">
+							<img alt="Down arrow" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/arrow.png" data-lazy-loaded="" width="178" height="238">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" class="future" aria-hidden="true" style="top: 251px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Image Backgrounds</h2>
+						<pre><code class="hljs stylus">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>=<span class="hljs-string">"image.png"</span>&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px" class="future" aria-hidden="true" style="top: 242.5px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Tiled Backgrounds</h2>
+						<pre><code class="hljs xl" style="word-wrap: break-word;">&lt;section <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>=<span class="hljs-string">"image.png"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-repeat=<span class="hljs-string">"repeat"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-size=<span class="hljs-string">"100px"</span>&gt;</code></pre>
+					</section>
+					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000" class="has-dark-background future" aria-hidden="true" style="top: 350px; display: none;" hidden="">
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+							<h2>Video Backgrounds</h2>
+							<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-video=<span class="hljs-string">"video.mp4,video.webm"</span>&gt;</code></pre>
+						</div>
+					</section>
+					<section data-background="http://i.giphy.com/90F8aUepslB84.gif" class="future" aria-hidden="true" style="top: 350px; display: none;" data-background-image="http://i.giphy.com/90F8aUepslB84.gif" hidden="">
+						<h2>... and GIFs!</h2>
+					</section>
+				</section>
+
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
+					</p>
+					<pre><code class="hljs css"><span class="hljs-selector-tag">Reveal</span><span class="hljs-selector-class">.configure</span>({ <span class="hljs-attribute">backgroundTransition</span>: <span class="hljs-string">'zoom'</span> })</code></pre>
+				</section>
+
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom" style="top: 213.5px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						You can override background transitions per-slide.
+					</p>
+					<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-transition=<span class="hljs-string">"zoom"</span>&gt;</code></pre>
+				</section>
+
+				<section style="top: 33.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Pretty Code</h2>
+					<pre><code class="hljs javascript" data-trim="" contenteditable=""><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">linkify</span>(<span class="hljs-params"> selector </span>) </span>{
+  <span class="hljs-keyword">if</span>( supports3DTransforms ) {
+
+    <span class="hljs-keyword">var</span> nodes = <span class="hljs-built_in">document</span>.querySelectorAll( selector );
+
+    <span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = nodes.length; i &lt; len; i++ ) {
+      <span class="hljs-keyword">var</span> node = nodes[i];
+
+      <span class="hljs-keyword">if</span>( !node.className ) {
+        node.className += <span class="hljs-string">' roll'</span>;
+      }
+    }
+  }
+}</code></pre>
+					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
+
+				<section style="top: 170.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Marvelous List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section style="top: 198px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section style="top: 135.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Tabular Tables</h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Value</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Apples</td>
+								<td>$1</td>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>Lemonade</td>
+								<td>$2</td>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>Bread</td>
+								<td>$3</td>
+								<td>2</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section style="top: 8px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The nice thing about standards is that there are so many to choose from</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						“For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.”
+					</blockquote>
+				</section>
+
+				<section style="top: 202px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section style="top: 177.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Speaker View</h2>
+					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
+					<p>Press the <em>S</em> key to try it out.</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your 
+presentation, but you can see them if you open the speaker notes window 
+(hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section style="top: 25px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
+					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen="" width="445" height="355" frameborder="0"> </iframe>
+				</section>
+
+				<section style="top: 131px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the page background.
+					</p>
+				</section>
+
+				<section data-state="customevent" style="top: 157.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>State Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code class="javascript hljs" data-trim="" style="font-size: 18px;" contenteditable="">Reveal.addEventListener( <span class="hljs-string">'customevent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'"customevent" has fired'</span> );
+} );</code></pre>
+				</section>
+
+				<section style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Take a Moment</h2>
+					<p>
+						Press B or . on your keyboard to pause the presentation. This is 
+helpful when you're on stage and want to take distracting slides off the
+ screen.
+					</p>
+				</section>
+
+				<section style="top: 143px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Much more</h2>
+					<ul>
+						<li>Right-to-left support</li>
+						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
+					</ul>
+				</section>
+
+				<section style="text-align: left; top: 192.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h1>THE END</h1>
+					<p>
+						- <a href="https://slides.com/">Try the online editor</a> <br>
+						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					</p>
+				</section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background past" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="background: rgb(221, 221, 221) none repeat scroll 0% 0%; display: none;" data-background-hash="#ddddddnullnullnullnullnullnullnullnullnull" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.pngnullnullnullnullnullnullnullnullnull" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png100pxnullnullnullnullrepeatnullnullnull" data-background-size="100px" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-size: 100px auto; background-repeat: repeat; background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="0https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webmnull#000000nullnullnullnull" style="background-color: rgb(0, 0, 0); display: none;"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="http://i.giphy.com/90F8aUepslB84.gifnullnullnullnullnullnullnullnullnull" style="display: none;"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="background: rgb(77, 126, 101) none repeat scroll 0% 0%; display: none;" data-background-hash="#4d7e65nullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="background: rgb(181, 83, 60) none repeat scroll 0% 0%; display: none;" data-background-hash="#b5533cnullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="progress" style="display: block;"><span style="width: 52.5px;"></span></div><aside class="controls" style="display: block;" data-controls-layout="bottom-right" data-controls-back-arrows="faded"><button class="navigate-left enabled" aria-label="previous slide"><div class="controls-arrow"></div></button><button class="navigate-right enabled" aria-label="next slide"><div class="controls-arrow"></div></button><button class="navigate-up" aria-label="above slide" disabled="disabled"><div class="controls-arrow"></div></button><button class="navigate-down" aria-label="below slide" disabled="disabled"><div class="controls-arrow"></div></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe="" tabindex="0"></div><div class="pause-overlay"><button class="resume-button">Resume presentation</button></div><div style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);" id="aria-status-div" aria-live="polite" aria-atomic="true">
+					Hello There
+					
+						reveal.js enables you to create beautiful interactive slide decks 
+using HTML. This presentation will show you examples of what it can do.
+					
+				</div><div id="searchinputdiv" class="searchdiv" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: none;"><span><input type="search" id="searchinput" class="searchinput" style="vertical-align: top;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJiSURBVHjatFZNaxNBGH5md+Mmu92NVdKDRipSAyqCghgQD4L4cRe86UUtAQ+eFCxoa4/25EXBFi8eBE+eRPoDhB6KgiiixdAPCEkx2pjvTXadd9yNsflwuyUDD/O+u8PzzDPvzOwyx3EwyCZhwG3gAkp7MnpjgbopjsltcD4gjuXZZKeAR348MYLYTm3LzOs/y3j3JTfZxgXWXmTuwPHIc4VmoOmv5IrI53+AO2DdHLjkDWQ3GoEEVFXtXQOvkSnPWcyUceviLhwbDYv8/XIVj97kse7TodLvZXxYxrPUHkQ1ufXs3FEdybEIxucySOesoNvUgWU1cP3MkCBfTFdw9fGaAMVmRELq7LBw2Q3/FaAxxWIRpw+ZIr/7IouPqzUBiqmdHAv7EuhRAwf1er2Vy4x1jW3b2d5Jfvu5IPp7l2LYbcgCFFNb+FoJ7oBqEAqFMPNqFcmEgVMJDfMT+1tvN0pNjERlMS6QA5pFOKxiKVPFhakPeL3It+WGJUDxt2wFR+JhzI7v5ctkd8DXOZAkCYYxhO+lKm4+Xfqz/rIixBuNBl7eOYzkQQNzqX249mRl6zUgEcYkaJrGhUwBinVdh6IouPzwE6/DL5w4oLkH8y981aDf+uq6hlKpJESiUdNfDZi7/ehG9K6KfiA3pml0PLcsq+cSMTj2NL9ukc4UOmz7AZ3+crkC4mHujFvXNaMFB3bEr8xPS6p5O+jXxq4VZtaen7/PwzrntjcLUE0iHPS1Ud1cdiEJl/8WivZk0wXd7zWOMkeF8s0CcAmkNrC2nvXZDbbbN73ccYnZoH9bfgswAFzAe9/h3dbKAAAAAElFTkSuQmCC" id="searchbutton" class="searchicon" style="vertical-align: top; margin-top: -1px;"></span></div></div>
+
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/head.js"></script>
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				chalkboard: {
+        					},
+        		keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0//MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/chalkboard/chalkboard.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+		<!-- Everything below this point is only used for the reveal.js demo page -->
+
+		<a class="fork-reveal" style="display: block;" href="https://github.com/hakimel/reveal.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875.png" alt="Fork reveal.js on GitHub"></a>
+
+		<div class="share-reveal" style="display: block; position: absolute; bottom: 16px; left: 50%; margin-left: -139px; z-index: 20;">
+			<a class="share-reveal-editor" href="https://slides.com/">Enjoy Learning Thinking</a>
+		</div>
+
+		<style>
+			/* Social sharing */
+			.share-reveal a {
+				display: inline-block;
+				height: 34px;
+				line-height: 32px;
+				padding: 0 10px;
+				color: #fff;
+				font-family: Helvetica, sans-serif;
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 12px;
+				vertical-align: top;
+				text-transform: uppercase;
+				box-sizing: border-box;
+			}
+
+			.share-reveal .share-reveal-editor {
+				line-height: 30px;
+			}
+
+			.share-reveal svg {
+				vertical-align: middle;
+			}
+
+			.share-reveal a + a {
+				margin-left: 10px;
+			}
+
+			.share-reveal-editor {
+				border: 2px solid #fff;
+			}
+
+			.share-reveal-twitter,
+			.share-reveal-follow {
+				background-color: #00aced;
+			}
+
+			.share-reveal-facebook {
+				background-color: #4B71B8;
+			}
+
+			/* Advertising */
+			#carbonads {
+				width: 370px;
+				min-height: 100px;
+				font-size: 18px;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				padding: 10px;
+				margin: 40px auto 0 auto;
+				font-size: 16px;
+				z-index: 10;
+				text-align: left;
+			}
+
+			#carbonads .carbon-img img {
+				float: left;
+				margin: 0 10px 0 0;
+				border: 0;
+				box-shadow: none;
+			}
+
+			#carbonads .carbon-poweredby {
+				display: block;
+				margin-top: 10px;
+				color: #aaa;
+			}
+		</style>
+
+		<script>
+		var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+		(function(d, t) {
+		var g = d.createElement(t),
+			s = d.getElementsByTagName(t)[0];
+		g.async = true;
+		g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g, s);
+		})(document, 'script');
+		</script>
+
+		<script>
+			[].slice.call( document.querySelectorAll( '.share-reveal-facebook, .share-reveal-twitter' ) ).forEach( function( element ) {
+				element.addEventListener( 'click', function( event ) {
+					event.preventDefault();
+					var width = 500, height = 300;
+					var winTop = window.screenY + (window.screen.height / 2) - (height / 2);
+					var winLeft = window.screenX + (window.screen.width / 2) - (width / 2);
+					window.open(this.href, 'shre', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+				} );
+			} );
+
+			if( !navigator.userAgent.match( /(iphone|android)/gi ) && !!document.querySelector ) {
+				document.querySelector( '.share-reveal' ).style.display = 'block';
+				document.querySelector( '.fork-reveal' ).style.display = 'block';
+			}
+		</script>
+
+	
+
+</body></html>

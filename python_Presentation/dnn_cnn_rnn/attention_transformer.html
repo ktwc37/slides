@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Transformer</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./nn_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./nn_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./nn_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./nn_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./nn_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./nn_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./dnn_cnn_rnn.html">Attention and Transformer</a></h2>
+                    <ul>
+                        <li>Problems of LSTM</li>
+                        <li>Sequence To Sequence Model</li>               
+                        <li>Attention</li>
+                        <li>Sequence To Sequence Model with Attention</li>
+                        <li>Transformer</li>
+                    </ul>
+				</section>
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>The problems of LSTM</h3>
+                    <ul>
+                        <li>When sentences are too long LSTMs still don’t do too well.
+                            <p style="font-size: 24px">The probability of keeping the context from a word that is far away from the current word being processed decreases exponentially with the distance from it</p> 
+                        </li>
+                        <li>Sequential computation inhibits parallelization</li>
+                        <li>No explicit modeling of long and short range dependencies</li>
+                        <li>“Distance” between positions is linear</li>
+                    </ul>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Sequence To Sequence Model</h3>
+                    <section>
+                    	<p>Overview</p>
+                        <video width="800" height="400" controls="controls">
+                            <source src="./nn_introduction_files/seq2seq_5.mp4" type="video/mp4"/>
+                        </video>
+                        <p style="font-size: 24px">Sequence-to-Sequence tasks are performed using an encoder-decoder model</p>
+                    </section>
+                    <section>
+                    	<p>Alternative View</p>
+                        <video width="800" height="400" controls="controls">
+                            <source src="./nn_introduction_files/seq2seq_6.mp4" type="video/mp4"/>
+                        </video>
+                        <p style="font-size: 24px">Both encoder and decoder are RNN cells(eg. LSTM or GRU)</p>
+                    </section>
+                    <section>
+                    	<p style="font-size: 24px">S2S basic architecture</p>
+                    	<img src="./nn_introduction_files/EncoderDecoder_MC.png" height="300" width="600">
+                    	<p style="font-size: 24px">Seq2seq modeling is a synonym of recurrent neural network based encoder-decoder architectures</p>
+                    	<p style="font-size: 24px">$input:(x_1, \dots, x_m) \xrightarrow[\text{maps}]{\text{encoder}} z=(z_1,\dots,z_m)\xrightarrow[\text{generates}]{\text{decoder}} output: (y_1,\dots, yn)$</p>
+                    </section>                  
+                    <section>
+                    	<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+                    	<p>Context Vector</p>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<img src="./nn_introduction_files/encoder_decoder.png" height="240" width="450">
+                            	<ul>
+                            		<li><p>The encoder compiles and compress the information it captures into a <strong>context vector</strong></p></li>
+                            		<li><p>This representation is expected to be a good summary of the meaning of the whole source sequence</p></li>
+                            	</ul>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<img src="./nn_introduction_files/embedding.png" height="240" width="450">
+                            	<ul>
+                            		<li><p>A decoder is initialized with the context vector to emit the transformed output</p></li>
+                            		<li><p>Fixed-length context vector design is incapability of remembering long sentences</p></li>
+                            	</ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Sequence to Sequence With Attention</p>
+                        <video width="800" height="400" controls="controls">
+                            <source src="./nn_introduction_files/seq2seq_7.mp4" type="video/mp4"/>
+                        </video>
+                    </section>                                   
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                        <p>Context Vector TO Attention</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/additive_attention.png" height="350" width="600">
+                                <p>Essentially the context vector consumes three pieces of information:</p>
+                                <ul>
+                                    <li>encoder state</li>
+                                    <li>decoder state</li>
+                                    <li>alignment between source and target</li>
+                                </ul>
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <ul>
+                                	<li><p>The attention mechanism was born to help memorize long source sentences in neural machine translation (NMT)</p></li>
+                                	<li><p>Rather than building a single context vector out of the encoder’s last hidden state, attention is to create shortcuts between the context vector and the entire source input</p></li>
+                                	<li><p>$% <![CDATA[
+											\begin{aligned}
+											\mathbf{x} &= [x_1, x_2, \dots, x_n] \\
+											\mathbf{y} &= [y_1, y_2, \dots, y_m]
+											\end{aligned} %]]>$</p></li>
+									<li><p>The encoder : $\boldsymbol{h}_i = [\overrightarrow{\boldsymbol{h}}_i^\top; \overleftarrow{\boldsymbol{h}}_i^\top]^\top, i=1,\dots,n$</p></li>
+									<li>The decoder : $s_t=f(s_{t−1},y_{t−1},c_t)$ 
+										<p>$\mathbf{c}_t = \sum_{i=1}^n \alpha_{t,i} \boldsymbol{h}_i$</p>
+										<p>$\alpha_{t,i} = \text{align}(y_t, x_i) = \frac{\exp(\text{score}(\boldsymbol{s}_{t-1}, \boldsymbol{h}_i))}{\sum_{i'=1}^n \exp(\text{score}(\boldsymbol{s}_{t-1}, \boldsymbol{h}_{i'}))}$</p></li>
+									<li><p>$\text{score}(\boldsymbol{s}_t, \boldsymbol{h}_i) = \mathbf{v}_a^\top \tanh(\mathbf{W}_a[\boldsymbol{s}_t; \boldsymbol{h}_i])$</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                	<p>Summary of Attention Mechanisms</p>
+                	<div class="container">
+                        <div class="col" align="left" style="font-size: 24px">
+                			<img src="./nn_introduction_files/attention_summary.png" height="400" width="700">
+                		</div>
+                		<div class="col" align="left" style="font-size: 24px">
+                			<br>
+                			<p>Scaled Dot-Product Attention</p>
+                			<ul>
+                				<li><p>$$\begin{eqnarray} Attention (Q,K,V) = softmax \Big( \frac{QK^T}{\sqrt{d_k}} \Big) V \end{eqnarray}$$</p></li>
+                				<li><p>scaling factor $1/\sqrt{n}$, motivated by the concern when the input is large, the softmax function may have an extremely small gradient, hard for efficient learning</p></li>
+                			</ul>
+                		</div>
+                	</div>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                        <p>Convolution seq2seq</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/MultiStepAttention.gif" height="400" width="600">
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <br><br><br>
+                                <ul>
+                                    <li>Positional embeddings
+                                    	<p>Added to the input embeddings, capturing a sense of order in a sequence</p></li>
+                                    <li>Multi-step attention
+                                    	<p>Attention is computed with current decoder state and embedding of previous target word token</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Attention</h3>
+                    <section>
+                    	<p>What is Attention</p>
+                    	<img src="./nn_introduction_files/attention_example.png" height="120" width="400">
+                    	<p style="font-size: 24px" align="left">An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key</p>
+                    	<p style="font-size: 24px" align="left">$\begin{eqnarray} A(q, \{(k,v)\} ) \xrightarrow[\text{output}]{\text{maps as}} \sum_{i=1}^k{\overbrace{f_c(q,k_i)}^{\theta_i}}v_i, q \in Q, k \in K, v \in V \end{eqnarray}$</p>
+                    	<p style="font-size: 24px" align="left">Q, K, V – vector space, f_c- compatibility function</p>
+                    </section>
+                    <section>
+                    	<p>Attention Categories</p>
+                    	<div class="container">
+                        	<div class="col" align="left" style="font-size: 24px">
+                    			<img src="./nn_introduction_files/cheng2016-fig1.png" height="350" width="600">
+                    		</div>
+                    		<div class="col" align="left" style="font-size: 24px">
+                    			<br>
+                    			<ul>
+                    				<li><p>Soft VS Hard Attention</p></li>
+                    				<li><p>Global VS Local Attention</p></li>
+                    				<li><p>Self-Attention</p>
+                    					<p>Self-Attention, also known as intra-attention, mechanism relating different positions of a single sequence in order to compute a representation of the same sequence</p> 
+                    					<p>Learn the correlation between the current words and the previous part of the sentence</p>
+                    				</li>
+                    			</ul>            			
+                    		</div>
+                    	</div>
+                    </section>
+                    <section>
+                    	<p>"A women is throwing a frisbee in a park"</p>
+                    	<img src="./nn_introduction_files/xu2015-fig6b.png" height="400" width="800">
+                    </section>
+                    <section>
+                    	<p>Example</p>
+                    	<img src="./nn_introduction_files/EncDecAttention.gif" height="400" width="800">
+                    	<p style="font-size: 24px">An attention mechanism is distribution of weights over the input states</p>
+                    </section>
+                    <section>
+                        <video width="800" height="400" controls="controls">
+                            <source src="./nn_introduction_files/seq2seq_9.mp4" type="video/mp4"/>
+                        </video>
+                    </section>
+                    <section>
+                        <p style="font-size: 24px">Attention is a technique for <strong>paying attention to specific words</strong></p>
+                        <video width="800" height="400" loop="" autoplay="" controls="">
+                            <source src="./nn_introduction_files/attention_process.mp4" type="video/mp4"/>
+                        </video>
+                    </section>                    
+                    <section>
+                        <video width="800" height="400" controls="controls">
+                            <source src="./nn_introduction_files/attention_tensor_dance.mp4" type="video/mp4"/>
+                        </video>
+                    </section>
+                    <section>
+                        <p>But How to resolve other problems of RNN?</p>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                	<section>
+                        <p>With CNN we can:</p>
+                        <ul>
+                            <li>Trivial to parallelize (per layer)</li>
+                            <li>Exploits local dependencies</li>
+                            <li>Distance between positions is logarithmic</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>CNN for Sequence</h4>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/attention_conv.gif" height="400" width="600">
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                            	<br><br>
+                                <ul>
+                                    <li>Words on the input can be processed at the same time</li>
+                                    <li>The “distance” between the output word and any input for a CNN is in the order of log(N)</li> 
+                                </ul>
+                                <br>
+                                <ul>
+                                    <li>Convolutional Neural Networks do not necessarily help with the problem of figuring out the problem of dependencies when translating sentences</li>
+                                    <li>That’s why <strong>Transformers</strong> were created, they are a combination of both <strong>CNNs with attention</strong>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Transformer</h3>
+                    <section>
+                    	<p style="font-size: 24px">Flow Chat Description</p>
+                    	<img src="./nn_introduction_files/transform20fps.gif" height="480" width="600">
+                    </section>
+                    <section>
+                        <div class="container">                          
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br>
+                                <p>Seq2Seq model</p>
+                                <br>
+                                <ol>
+                                    <li><p>Fixed-size vector representation which loose some information</p></li>
+                                    <li><p>Recurrent models due to sequential nature are not allowing for parallelization along training</p></li>
+                                </ol>
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <br>
+                                <p>Transformer</p>
+                                <br>
+                                <ul>
+                                    <li><p>The Transformer architecture is aimed at the problem of sequence transduction.</p></li>                       
+                                    <li><p>Multi-head attention mechanism that allows to model dependencies regardless of their distance in input or output sentence</p></li>
+                                    <li><p>Modeling 3 major dependencies</p>
+                                    	<ol>
+                                    		<li>the input and output tokens</li>
+                                    		<li>the input tokens themselves</li>
+                                    		<li>the output tokens themselces</li>
+                                    	</ol>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/transformer.png" height="220" width="500">
+                                <ul>
+                                    <li>Transformer reduces the number of sequential operations to relate two symbols from input/output sequences to a constant O(1) number of operations</li>
+                                    <li>With the multi-head attention mechanism</li>
+                                    <li>More space for parallelization</li>
+                                    <li>Based on Encoder-Decoder:
+                                        <p>multi-head self-attention mechanism</p>
+                                        <p>position-wise fully connected FFN</p>
+                                    </li>
+                                <ul>
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                            	<br>
+                                <ul>
+                                    <li>Apps includes speech recognition, text-to-speech transformation, machine translation, protein secondary structure prediction, Turing machines etc.</li>
+                                    <li>Hitorically,complex RNN and CNN based on encoder-decoder scheme are dominating transduction models:<p>Recurrent models due to sequential nature but not allow for parallelization along training</p><p>CNN-based approaches like  Wavenet  Bytenet  or ConvS2S harder to learn dependencies on distant positions</p></li> 
+                                    <li><p>In addition to attention, the Transformer uses layer normalization and residual connections to make optimization easier</p></li>
+                                    <li><p>Transformer uses explicit position encodings are added to the input embeddings</p></li> 
+                                </ul>
+                            </div>
+                        </div>
+                    </section>    
+                    
+                    <section>
+                        <p>Transformer Basic Architecture</p>
+                        <img src="./nn_introduction_files/transformer1.png" height="300" width="800">
+                        <p>Transformer consists of six encoders and six decoders</p>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/transformer2.png" height="300" width="500">
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <br>
+                                <ul>
+                                    <li><p>Each encoder is very similar to each other</p></li>
+                                    <li>Each encoder consists of two layers: <p><strong>Self-attention</strong> and a feed Forward Neural Network</p></li>
+                                    <li><p>Decoders share the same property</p></li>
+                                    <li><p>$FFN(x) = max(0, xW_1+b_1) W_2 + b_2$</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                     <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/transformer3.png" height="300" width="400">
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <br>
+                                <ul>
+                                    <li><p>The decoder has both those layers</p></li>
+                                    <li><p>Between them is an attention layer that helps the decoder focus on relevant parts of the input sentence</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/encoder_with_tensors_2.png" height="300" width="600">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/transformer_decoder.png" height="220" width="500">
+                                <p>The embedding only happens in the bottom-most encoder</p>
+                                <p>In other encoders, it would be the output of the encoder that’s directly below</p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Self Attention</h3>
+                    <section>
+                        <p>High Level Overview</p>
+                        <br><br>
+                        <p>”The animal didn't cross the street because <strong>it</strong> was too tired”</p>
+                    </section>
+                    <section>                       
+                        <img src="./nn_introduction_files/transformer_self-attention_visualization.png" height="400" width="400">
+                        <p align="left" style="font-size: 24px">Self-attention is the method the Transformer uses to bake the “understanding” of other relevant words into the one we’re currently processing</p>
+                    </section>
+                    <section>
+                        <p>Analysis of Encoder</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/transformer4.png" height="400" width="800">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br>
+                                <ul>
+                                    <li><p>Word in each position flows through its own path in the encoder</p></li>
+                                    <li><p>There are dependencies between these paths in the self-attention layer</p></li>
+                                    <li><p>Various paths can be executed in parallel while flowing through the feed-forward layer.</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Attention again</p>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/self_attention.png" height="400" width="600">
+                    </section>
+                    <section>
+                        <p>How self-attention works</p>
+                        <div class="container">
+                            
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/self_attention1.png" height="400" width="600">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br>
+                                <p>Step 1:</p>
+                                <ul>
+                                    <li>Create three vectors from each of the encoder’s input vectors:<p><strong>Query vector, a Key vector, and a Value vector</strong></p></li>
+                                    <li><p>These new vectors are smaller in dimension than the embedding vector</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                    	<p>How self-attention works</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<img src="./nn_introduction_files/self_attention2.png" height="400" width="600">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<br>
+                        		<p>Step 2:</p>
+								<ul>        
+                        			<li><p>Calculating self-attention is to calculate a score</p></li>
+                        			<li><p>The score determines how much focus to place on other parts of the input sentence as we encode a word at a certain position</p></li>
+                        		</ul>
+                        	</div>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                
+                                <img src="./nn_introduction_files/self_attention3.png" height="400" width="600">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br>
+                                <p>Step 3 and Step 4</p>
+                                <ul>
+                                    <li><p>Divide the scores by 8 (the square root of the dimension of the key vectors)</p></li>
+                                    <li><p>This leads to having more stable gradients</p></li>
+                                    <li><p>Softmax normalizes the scores so they’re all positive and add up to 1</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">      
+                                <img src="./nn_introduction_files/self_attention4.png" height="450" width="600">
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br>
+                                <p>Step 5 and Step 6</p>
+                                <ul>
+                                    <li><p>Multiply each value vector by the softmax score</p></li>
+                                    <li><p>Keep intact the values of the word(s) we want to focus on, and drown-out irrelevant words</p></li>
+                                    <li><p>Sum up the weighted value vectors</p></li>
+                                </ul>
+                            </div>
+                        </div>                       
+                    </section>
+                    <section>
+                    	<p>Self Attention Matrix Form</p>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                    			<img src="./nn_introduction_files/self-attention-matrix-calculation.png" height="450" width="600">
+                    		</div>
+                    		<div class="col" align="left" style="font-size: 24px">
+                    			<br>
+                    			<ul>
+                    				<li><p>The first step is to calculate the Query, Key, and Value matrices</p></li>
+                    				<li><p>Every row in the X matrix corresponds to a word in the input sentence</p></li>
+                    				<li><p>Packing our embeddings into a matrix X, and multiplying it by the weight matrices we’ve trained (WQ, WK, WV)</p></li>
+                    			</ul>	
+                    		</div>
+                    	</div>
+                    </section>
+                    <section>
+                        <p>Self Attention Matrix Form</p>
+                        <p>Finally:</p>
+                        <img src="./nn_introduction_files/self-attention-matrix-calculation-2.png" height="300" width="600">
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Multihead Attention</h3>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/multihead1.png" height="400" width="600">
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                            	<br>
+                                <ul>
+                                    <li><p>Pay different attention to each word based on the type of question that you are asking</p></li>
+                                    <li><p>Expands the model’s ability to focus on different positions</p></li>
+                                    <li><p>Gives the attention layer multiple “representation subspaces”</p></li>
+                                </ul>
+                            </div>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/Multihead.png" height="480" width="800">
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <ul>
+                                    <li><p>$head_i = Attention(Q W^Q_i, K W^K_i, V W^V_i) , i=1,\dots,h$</p></li>
+                                    <li><p>$W^Q_i, W^K_i\in\mathbb{R}^{d_{model}\times d_k}, W^V_i\in\mathbb{R}^{d_{model}\times d_v}$</p></li>
+                                    <li><p>$MultiHeadAttention(Q,K,V) = Concat(head_1,\dots,head_h) W^O$</p>
+                                    	<p>$W^0\in\mathbb{R}^{d_{hd_v}\times d_{model}}$</p>
+                                    </li>
+                                </ul>
+                                <br>
+                                <ul>
+                                	<li><p>the <strong>query</strong> is usually the hidden state of the decoder</p></li>
+                                	<li><p>the <strong>key</strong> is the hidden state of the encoder</p></li>
+                                	<li><p>the corresponding <strong>value</strong> is normalized weight, representing how much attention a <strong>key</strong> gets</p></li>
+                                </ul>
+                            </div>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/mutlihead3.png" height="300" width="500">
+                            </div>
+                            <div class="col">
+                                <img src="./nn_introduction_files/multihead2.png" height="300" width="500">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Multihead Attention explaination</p>
+                        <img src="./nn_introduction_files/transformer_attention_heads_qkv.png" height="350" width="800">
+                        <p style="font-size: 24px">With multi-headed attention we have not only one, but multiple sets of Query/Key/Value weight matrices (the Transformer uses eight attention heads, so we end up with eight sets for each encoder/decoder)</p>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/transformer_attention_heads_z.png" height="350" width="800">
+                        <p style="font-size: 24px">If we do the same self-attention calculation we outlined above, just eight different times with different weight matrices, we end up with eight different Z matrices</p>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/transformer_attention_heads_weight_matrix_o.png" height="400" width="800">
+                        <ul style="font-size: 24px">
+                        	<li>The feed-forward layer is not expecting eight matrices</li>
+                        	<li>We need a way to condense these eight down into a single matrix</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/transformer_multi-headed_self-attention-recap.png" height="400" width="800">
+                        <p style="font-size: 24px">Put all in one</p>
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./nn_introduction_files/transformer_self-attention_visualization_2.png" height="400" width="500">
+                                <p style="font-size: 24px">As we encode the word "it", one attention head is focusing most on "the animal", while another is focusing on "tired"</p>
+                            </div>
+                            <div class="col">
+                                <img src="./nn_introduction_files/transformer_self-attention_visualization_3.png" height="400" width="500">
+                                <p style="font-size: 24px">We add all the attention heads to the picture</p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Positional Encoding</h3>
+                    <section>
+                        <ul align="left">
+                            <li>When encoding each word. Encoding the position of each word is relevant, since the position of each word is relevant to the translation.</li>
+                            <li>The transformer adds a vector account for the order of the words in the input sequence to each input embedding</li>
+                            <li>These vectors determine the position of each word, or the distance between different words in the sequence</li>
+                            <li>Provides meaningful information of distances between the embedding vectors</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/transformer_positional_encoding_vectors.png" height="400" width="800">
+                        <p style="font-size: 24px">To give the model a sense of the order of the words, we add positional encoding vectors</p>
+                    </section>
+                    <section>
+                    	<p style="font-size: 24px">Assumed the embedding has a dimensionality of 4, the actual positional encodings would look like this:</p>
+                    	<img src="./nn_introduction_files/transformer_positional_encoding_example.png" height="350" width="800">
+
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <ul>
+                                    <li>$\begin{eqnarray} PE_{(pos,2i)} = sin(pos/10000^{2i/d_{model}}) \end{eqnarray}$</li>
+                                    <li>$\begin{eqnarray} PE_{(pos,2i+1)} = cos(pos/10000^{2i/d_{model}})\end{eqnarray}$</li>
+                                </ul>
+                            </div>
+                            <div class="col" style="font-size: 24px">
+                                <ul>
+                                    <li>Sinusoidal method allows the model to extrapolate to longer sequence lengths</li>
+                                    <li>Fixed variant using $sin$ and $cos$ functions</li>
+                                    <li>Enabling model to generalize to sequences longer than ones encountered during training</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                         		<img src="./nn_introduction_files/transformer_positional_encoding_large_example.png" height="500" width="800">
+                         	</div>
+                         	<div class="col" align="left" style="font-size: 24px">
+                         		<br>
+                         		<ul>
+                         			<li><p>Each row corresponds the a positional encoding of a vector</p></li>
+                         			<li><p>It appears split in half down the center</p></li>
+                         			<li><p>Gives the advantage of being able to scale to unseen lengths of sequences</p></li>
+                         		</ul>
+                         	</div>
+                         </div>
+                    </section>
+                    
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Other Detail</h3>
+                    <section>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                        		<img src="./nn_introduction_files/transformer_resideual_layer_norm_2.png" height="420" width="500">
+                        	</div>
+                        	<div class="col" align="left" style="font-size: 24px">
+                        		<br>
+                        		<p>The residual</p>
+                        		<br>
+                        		<ul>
+                        			<li><p>Each sub-layer (self-attention, ffnn) in each encoder has a residual connection around it</p></li>
+                        			<li><p>It is followed by a layer-normalization step.</p></li>
+                        		</ul>
+                        	</div>
+                        </div>
+                    </section>
+                    <section>
+                    	<p style="font-size: 24px">Transformer of 2 stacked encoders and decoders, it would look something like this:</p>
+                        <img src="./nn_introduction_files/transformer_resideual_layer_norm_3.png" height="420" width="800">
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>The Decoder Side</h3>
+                    <section>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                         		<img src="./nn_introduction_files/transformer_decoding_1.gif" height="420" width="600">
+                         	</div>
+                         	<div class="col" align="left" style="font-size: 24px">
+                         		<br>
+                         		<p style="font-size: 24px">Step 1:</p>
+                         		<br>
+                         		<ol>
+                         			<li><p>The encoder start by processing the input sequence.</p></li>
+                         			<li><p>The output of the top encoder is then transformed into a set of attention vectors K and V.</p></li>
+                         			<li><p>These are to be used by each decoder in its “encoder-decoder attention” layer which helps the decoder focus on appropriate places in the input sequence</p></li>
+                         		</ol>
+                         	</div>
+                    </section>
+                    <section>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                         		<img src="./nn_introduction_files/transformer_decoding_2.gif" height="450" width="700">
+                         	</div>
+                         	<div class="col" align="left" style="font-size: 24px">
+                         		<br>
+                         		<p style="font-size: 24px">Step 2~6:</p>
+                         		<br>
+                         		<ul>
+                         			<li><p>The following steps repeat the process until a special symbol is reached indicating the transformer decoder has completed its output</p></li>
+                         			<li><p>The output of each step is fed to the bottom decoder in the next time step</p></li>
+                         			<li><p>The decoders bubble up their decoding results just like the encoders did</p></li>
+                         			<li><p>Embed and add positional encoding to those decoder inputs to indicate the position of each word</p></li>
+                         		</ul>
+                         	</div>
+                         </div>
+                    </section>
+                    <section>
+                    	<ul style="font-size: 24px">
+                    		<li>Self Attention Layer
+                    			<p>The self attention layers in the decoder operate in a slightly different way than the one in the encoder</p>
+                    			<p>In the decoder, the self-attention layer is only allowed to attend to earlier positions in the output sequence</p>
+                    			<p>This is done by masking future positions (setting them to -inf) before the softmax step in the self-attention calculation</p>
+                    		</li>
+                    		<li>Encoder-Decoder Attention
+                    			<p>The “Encoder-Decoder Attention” layer works just like multiheaded self-attention</p>
+                    			<p>Except it creates its Queries matrix from the layer below it</p>
+                    			<p>Takes the Keys and Values matrix from the output of the encoder stack</p>
+                    		</li>
+                    	<ul>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>The Final Linear and Softmax Layer</h3>
+                    <div class="container">
+                        <div class="col" align="left" style="font-size: 24px">
+                    		<img src="./nn_introduction_files/transformer_decoder_output_softmax.png" height="450" width="700">
+                    	</div>
+                    	<div class="col" align="left" style="font-size: 24px">
+                    		<br>
+                    		<p>The Linear layer is a simple fully connected neural network that projects the vector produced by the stack of decoders, into a much, much larger vector called a logits vector.</p>
+                    		<p>The softmax layer then turns those scores into probabilities (all positive, all add up to 1.0)</p>
+                    		<p>The cell with the highest probability is chosen, and the word associated with it is produced as the output for this time step</p>
+                    	</div>
+                    </div>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Summary</h3>
+                    <img src="./nn_introduction_files/encoder.png" height="450" width="800">
+                </section>
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./nn_introduction_files/head.min.js.下载"></script>
+		<script src="./nn_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				width: 1260,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./nn_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

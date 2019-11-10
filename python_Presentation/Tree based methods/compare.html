@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./decision_tree_files/reveal.css">
+		<link rel="stylesheet" href="./decision_tree_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./decision_tree_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./decision_tree_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./decision_tree_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./decision_tree_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./tree.html">Xgboost VS LightGBM VS Catboost</a></h2>
+                    <ul>
+                    	<li>Overview</li>
+                    	<li>Structural Differences in LightGBM and XGBoost</li>
+                        <li>CatBoost</li>
+                        <li>Comparision</li>
+                    </ul>
+				</section>
+                <section>
+                	<style>
+	                    .container{
+	                        display: flex;
+	                        }
+	                    .col{
+	                        flex: 1;
+	                        }
+                    </style>
+                    <h4>Overview</h4>
+                    <section>
+                        <img src="./decision_tree_files/comparision0.png" height="320" width="800">
+                        <p align="left">The main differences between the 3 famous boosting tree algorithms</p>
+                        <div align="left">
+	                        <ul>
+	                        	<li>How to optimize the model</li>
+	                        	<li>How to handle category variables</li>
+	                        </ul>
+	                    </div>
+                    </section>
+                    <section>
+                    	<p align="left">Level-wise VS Leaf-wise</p>
+                    	<img src="./decision_tree_files/DecisionTrees_3_thumb.png" height="200" width="600">
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Level-wise</p>
+                    			<ul>
+                    				<li>Level-wise strategy maintains a balanced tree</li>
+                    				<li>Level-wise training can be seen as a form of regularized training</li>
+                    			</ul>
+                    		</div>
+                    		<div class="col" align="left" style="font-size: 24px">
+                    			<p>Leaf-wise</p>
+                    			<ul>
+                    				<li>Leaf-wise strategy splits the leaf that reduces the loss the most</li>
+                    				<li>Leaf-wise training is more prone to overfitting but is more flexible</li>
+                    				<li>Better choice for large datasets and is the only option available in lightGBM</li>
+                    			</ul>
+                    		</div>
+                    	</div>
+                    </section>
+                    <section>
+                    	<p>What the key challenge in training a GBDT?</p>
+                    	<br>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                    			<p>Finding the best split for each leaf is the key challenge</p>
+                    			<p>xgboost and lightGBM present are methods of finding the approximate best split</p>
+                    		</div>
+                    		<div class="col" align="left" style="font-size: 24px">
+                    		</div>
+                    	</div>
+                    </section>
+                    <section>
+                    	<p>Two key common features of XGBoost and LightGBM</p>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Histogram-based methods</p>
+                    			<img src="./decision_tree_files/binned_split_gbdt.png" height="160" width="400">
+                    		</div>
+                    		<div class="col" align="left" style="font-size: 24px">
+                    			<p>Ignoring sparse inputs</p>
+                    			<img src="./decision_tree_files/sparse_split_gbdt.png" height="160" width="400">
+                    		</div>
+                    	</div>
+                    </section>
+
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>Structural Differences in LightGBM and XGBoost</h4>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Gradient-based One-Side Sampling (lightGBM)</p>
+                            	<ul>
+                            		<li>NOT all data points contribute equally to training</li>
+                            		<li>Data points with small gradients tend to be more well trained (close to a local minima)</li>
+                            		<li>More efficient to concentrate on data points with larger gradients</li>
+                            		<li>Has the risk of leading to biased sampling, changing the distribution of data
+                            			<p>LightGBM increases the weight of the samples with small gradients when computing their contribution to the change in loss </p>
+                            		</li>
+                            	</ul>
+                            </div>
+                            <div class="col" align="left" style="font-size: 24px">
+                            	<p>Exclusive Feature Bundling (lightGBM)</p>
+                            	<ul>
+                            		<li>Approximate algorithm for feature bundling</li>
+                            		<li>Combine multi-features to one feature without loss information</li>
+                            	</ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                    	<p>How catboost treats Categorical Variables?</p>
+                    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<ul>
+	                    			<li>CatBoost has the flexibility of giving indices of categorical columns so that it can be encoded as one-hot encoding using one_hot_max_size.</li>
+	                    			<br>
+	                    			<li>For remaining categorical columns which have unique number of categories greater than one_hot_max_size, CatBoost uses an efficient method of encoding which is similar to mean encoding but reduces overfitting</li>
+	                    			<br>
+	                    			<li>Core idea: stimates the expected target $y$ conditioned by the category:
+	                    				<p>$\hat{x}_k^i \approx \mathbb{E}(y|x^i=x_k^i)$</p>
+	                    			</li>
+	                    				
+	                    		</ul>
+	                    	</div>
+                    		<div class="col" align="left" style="font-size: 24px">
+                    			<p>The process goes like this:
+                    				<ol>
+                    					<li><p>Permuting the set of input observations in a random order. Multiple random permutations are generated</p></li>
+                    					<li><p>Converting the label value from a floating point or category to an integer</p></li>
+                    					<li><p>All categorical feature values are transformed to numeric values using the following formula: $$avg\_target=\frac{countInClass+prior}{totalCount+1}$$</p></li>
+                    				</ol>
+                    		</div>
+                    	</div>
+                    </section>
+                    <section>
+                    	<p>How LightGBM treats Categorical Variables</p>
+                    	<div align="left" style="font-size: 30px">
+	                    	<ul>
+	                    		<li><p>Similar to CatBoost, LightGBM can also handle categorical features by taking the input of feature names</p></li>
+	                    		<li><p>LGBM uses a special algorithm to find the split value of categorical features</p>
+	                    			<p>Grouping on maximum homogeneity:</p>
+	                    			<p>$K$ elements, each assigned a weight $w_i$ and a numerical measure $a_i$, given a positive integer less than $K$, grouping the $K$ elements to $G$ subsets, try to minimize $$D=\sum_{i=1}^{K}w_i(a_i-\bar{a_i})^2$$</p>
+	                    		</li>
+	                    	</ul>
+	                    </div>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                	<h4>Comparision</h4>
+                	<section>
+                		<p>Parameters</p>
+                		<img src="./decision_tree_files/params_compare.png" height="480" width="800">
+                    </section>
+                    <section>
+                    	<p>Performance</p>
+                    	<img src="./decision_tree_files/performance_compare.png" height="480" width="800">
+                    </section>
+                    
+                </section>
+                
+                
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./decision_tree_files/head.min.js.下载"></script>
+		<script src="./decision_tree_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				width: 1280,
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./decision_tree_files/highlight.js.下载"></script><script type="text/javascript" src="./decision_tree_files/zoom.js.下载"></script><script type="text/javascript" src="./decision_tree_files/notes.js.下载"></script>
+
+	
+
+</body></html>

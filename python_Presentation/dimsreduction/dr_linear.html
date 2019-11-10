@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./dr_linear_files/reveal.css">
+		<link rel="stylesheet" href="./dr_linear_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./dr_linear_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./dr_linear_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./dr_linear_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./dr_linear_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./dimsreduction.html">线性降维</a></h2>
+                    <ul>
+                        <li>简单EDA降维</li>
+                        <li>Principal Component Analysis</li>
+                        <li>Independent Component Analysis</li>
+                        <li>Linear Discrimitive Analysis</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h4>简单EDA降维</h4>
+                    <div style="font-size: 24px">
+                        <ul>
+                            <li>Missing Value Ratio</li>
+                            <li>Low Variance Filter</li>
+                            <li>High Correlation Filter</li>
+                       </ul>
+                    </div>
+                </section>
+
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>Principal Component Analysis</h4>
+                    
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+                    <section>
+                        <p>2维</p>
+                        <img src="./dr_linear_files/pca0.gif" height="300" width="400">
+                        <p>PCA即最大方差线性投影</p>
+                    </section>
+                    <section>
+                        <p>3维</p>
+                        <img src="./dr_linear_files/pca.gif" height="300" width="400">
+                    </section>
+                    <section>
+                        <p> PCA is just the SVD! </p>
+                        <br>
+                        <p> $$A=U\Sigma V^T$$ </p>
+                    </section>
+                    <section>
+                        <p> SVD is nothing more than decomposing vectors onto orthogonal axes! </p>
+                        <img src="./dr_linear_files/svd0.gif" height="300" width="400">
+                    </section>
+                    <section>
+                        <p>恭喜，您已经掌握了神奇的SVD的核心!!!</p>
+                    </section>
+
+				</section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>Understanding Singular Value Decomposition</h4>
+                    <section>
+                        <p>向量投影</p>
+                        <div class="container">
+
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/svd2.png" height="300" width="400">
+                            </div>
+                            <div class="col">
+                                <img src="./dr_linear_files/svd3.png" height="150" width="600">
+                                <img src="./dr_linear_files/svd4.png" height="100" width="600">
+                                
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>矩阵相乘</p>
+                        <div class="container">
+
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/svd6.png" height="300" width="400">
+                            </div>
+                            <div class="col">
+                                <img src="./dr_linear_files/svd5.png" height="100" width="600">
+                                <img src="./dr_linear_files/svd7.png" height="150" width="600">
+                                <ul style="font-size: 24px">
+                                    <li>n = no. of points, d = no. of dimensions</li>
+                                    <li>A = matrix containing points</li>
+                                    <li>V = matrix containing the decomposition axes</li>
+                                    <li>S = matrix containing lengths of projection</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </section>
+                    <section>
+                        <p>Vectors dot TO matrix multiply</p>
+                        <img src="./dr_linear_files/svd1.gif" height="150" width="600">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd8.png" height="300" width="600">
+                        <p>$$A=SV^{-1}=SV^{T}$$</p>
+                        <p>But we need this:$$A=U\Sigma V^{T}$$</p>
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd9.png" height="300" width="600">
+                        <p>令$$\sigma_1^2=s_{a1}^2+s_{b1}^2$$<br>
+                             $$\sigma_2^2=s_{a2}^2+s_{b2}^2$$</p>
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd10.png" height="300" width="600">
+                        <p>最后，$$A=U\Sigma V^{T}$$</p>
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd11.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd2.gif" height="300" width="400">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd12.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/svd13.png" height="400" width="600">
+                    </section>
+                </section>
+
+				
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>Independent Component Analysis</h4>
+                    <section>
+                        <p>ICA vs PCA</p>
+                        <img src="./dr_linear_files/pca_ica.png" height="400" width="600">
+                    </section>
+                    <section>
+                        <div align="left">
+                            <p>假设有如下数据或信号$S=[S_1(t),S_2(t),...,S_n(t)]$</p>
+                            <p>信号的线性组合为$Y(t)=AS(t)$</p>
+                            <p>ICA试图从$Y$中恢复原始信号$S$</p>
+                        </div>
+                        <br>
+                        <ul>
+                            <li>最小化互信息</li>
+                            <li>最大化非高斯统计特性</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>ICA试图寻找：</p>
+                        <ul>
+                            <li>各成分之间统计独立</li>
+                            <li>每个成分具备非高斯分布特性</li>
+                        </ul>
+                        <br>
+                        <p>主要算法:</p>
+                        <ol>
+                            <li>FastICA</li>
+                            <li>InfoMax</li>
+                        </ol>
+
+                    </section>
+                    <section>
+                        <ul>
+                            <li>$$\max_{{\bf a}: \| {\bf a}\| =1} \frac1n \sum_i \bigl[ {\bf a}'({\bf x}_i-\bar {\bf x})\bigr]^4$$</li>
+                            <li>最小化$E[X_iX_j]-E[X_i]E[X_j]$</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/ica1.png" height="200" width="400">
+                        <br>
+                        <img src="./dr_linear_files/ica2.png" height="200" width="400">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/ica0.png" height="500" width="600">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/ica_pca.png" height="400" width="800">
+                    </section>
+                </section>
+
+                <!-- Regression -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h3>Linear Discrimitive Analysis</h3>
+                    <br>
+                    <section>                    
+                        <img src="./dr_linear_files/lda0.png" height="400" width="800">
+                    </section>
+                    <section>
+                        <ul>
+                            <li>类间方差：$S_b=\sum_{i=1}^g N_i(\bar{x_i}-\bar{x})(\bar{x_i}-\bar{x})^T$</li>
+                            <br>
+                            <li>类内方差：$S_w=\sum_{1=1}^g \sum_{j=1}^{N_i}(x_{i,j}-\bar{x_i})(x_{i,j}-\bar{x_i})^T$</li>
+                            <br>
+                            <li>$$P_{lda}=argmax\frac{|P^TS_bP|}{|P^TS_wP|}$$
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/Linear-Discriminant-Analysis-for-Machine-Learning.jpg" height="500" width="800">
+                    </section>
+                    
+                </section>
+                
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./dr_linear_files/head.min.js.下载"></script>
+		<script src="./dr_linear_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./dr_linear_files/highlight.js.下载"></script><script type="text/javascript" src="./dr_linear_files/zoom.js.下载"></script><script type="text/javascript" src="./dr_linear_files/notes.js.下载"></script>
+
+	
+
+</body></html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./decision_tree_files/reveal.css">
+		<link rel="stylesheet" href="./decision_tree_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./decision_tree_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./decision_tree_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./decision_tree_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./decision_tree_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./tree.html">Bagging Method</a></h2>
+                    <ul>
+                        <li>What is Bagging</li>
+                        <li>Random Forest</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>What is Bagging?</h3>
+                    <section>
+                        <p align="left">1. Bootstrap aggregation, or bagging is a general-purpose procedure for reducing the variance of a statistical learning method.</p>
+                    </section>
+                    <section>
+                        <p align="left">2. Given a set of $n$ independent observations $Z_1,...,Z_n$ , each with variance $\sigma^2$ , the variance of the mean ̄$Z$ of the observations is given by $\sigma^2/n$</p>
+                    </section>
+                    <section>
+                        <p align="left">3. In other words, <strong>averaging a set of observations reduces variance</strong>.</p>  
+                        <p align="left">Of course, this is not practical because we generally do not have access to multiple training sets</p>
+                    </section>
+                    <section>
+                    	<ul>
+                        	<li><p align="left">Instead, we can bootstrap, by taking repeated samples from the (single) training data set</p></li>
+                        	<li><p align="left">we generate $B$ different bootstrapped training data sets</p></li>
+                        	<li><p align="left">We then train our method on the $bth$ bootstrapped training set in order to get $\hat{f}^{*b}(x)$</p></li>
+                        	<li><p align="left">We then average all the predictions to obtain: $$\hat{f}_{bag}(x)=\frac{1}{B}\sum_{b=1}^B \hat{f}^{*b}(x)$$</p></li>
+                        </ul>
+                        <p>This is called Bagging!</p>
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>Random Forest</h4>
+					<section>
+						<img src="./decision_tree_files/tree.jpg" height="400" width="800">
+					</section>
+                    <section>
+                        <div align="left">
+                            <p>Random Forest is an extension over bagging</p>
+                            <p>It takes one extra step where in addition to taking the random subset of data</p>
+                            <p>It also takes the random selection of features rather than using all features to grow trees</p>
+                        </div>
+                    </section>
+                    <section>
+                        <div align="left" style="font-size: 30px">
+                        	<ol>
+                        		<li><p>Suppose there are $N$ observations and $M$ features in training data set. First, a sample from training data set is taken randomly with replacement.</p></li>
+                        		<li><p>A subset of M features are selected randomly and whichever feature gives the best split is used to split the node iteratively.</p></li>
+                        		<li><p>The tree is grown to the largest.</p></li>
+                        		<li><p>Above steps are repeated and prediction is given based on the aggregation of predictions from n number of trees</p></li>
+                        	</ol>
+                        </div>
+                    </section>
+                    <section>
+                    		<p>Advantages:
+                    			<ul>
+                    				<li>Handles higher dimensionality data very well.</li>
+                    				<li>Handles missing values and maintains accuracy for missing data.</li>
+                    			</ul>
+                    		</p>
+                    		<p>Disadvantages:
+                    			<ul>
+                    				<li>Since final prediction is based on the mean predictions from subset trees, it won’t give precise values for the regression model</li>
+                    			</ul>
+                    		</p>
+                    </section>                   
+				</section>
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./decision_tree_files/head.min.js.下载"></script>
+		<script src="./decision_tree_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./decision_tree_files/highlight.js.下载"></script><script type="text/javascript" src="./decision_tree_files/zoom.js.下载"></script><script type="text/javascript" src="./decision_tree_files/notes.js.下载"></script>
+
+	
+
+</body></html>

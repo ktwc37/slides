@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./me_tradeoff_files/reveal.css">
+		<link rel="stylesheet" href="./me_tradeoff_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./me_tradeoff_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./me_tradeoff_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./me_tradeoff_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./me_tradeoff_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h3><a href="./model_explaination.html">Classic Model Accuracy VS Model Interpretability Trade-off</a></h3>
+                    <br>
+                    <ul>
+                        <li>The Importance of XAI</li>
+                        <li>Traditional Techniques for Model Interpretation</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>The Importance of XAI</h4>
+                    
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <br><br>
+                                <ul>
+                                    <li class="fragment" data-fragment-index="0"> Business and AI </li>
+                                    <li class="fragment" data-fragment-index="1"> How can I trust your model? </li>
+                                    <li class="fragment" data-fragment-index="2"> How does your model really make its decisions? </li>
+                                </ul>
+                            </div>
+                            <div class="col">
+                                <img src="./me_tradeoff_files/me_tradeoff1.png" height="500" width="400">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Key Point: Model performance is not the run-time or execution performance.</li>
+                            <br>
+                            <li>You might need to sacrifice model performance since they always do not yield the best results due to inherent problems of high bias (linear models) or high variance, leading to overfitting.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>Understanding Machine Learning Model Interpretation</p>
+                        <ul>
+                            <li>Fairness: What drives model predictions?</li>
+                            <li>Accountability: Why did the model take a certain decision? </li>
+                            <li>Transparency: How can we trust model predictions?</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>A famous example: White Guy Problem</p>
+                        <img src="./me_tradeoff_files/white_guy_problem.jpg" height="500" width="500">
+                    </section>
+
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>Traditional Techniques for Model Interpretation</h4>
+                    <section>
+                        <div>
+					       <ul>
+                                <li>Exploratory analysis and visualization techniques: <br> Clustering and Dimension Reduction .etc </li>
+                                <br>
+                                <li>Model performance evaluation metrics: <br> Precision, Recall .etc</li>
+					       </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>TSNE Visualization</p>
+                        <div class="container">
+                            <div class="col">
+                                <img src="./me_tradeoff_files/tsne_txt.png" height="500" width="400">
+                            </div>
+                            <div class="col">
+                                <img src="./me_tradeoff_files/tsne_digit.png" height="500" width="400">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>Other Visualization</p>
+                        <div class="container">
+                            <div class="col">
+                                <img src="./me_tradeoff_files/PCA.png" height="500" width="400">
+                            </div>
+                            <div class="col">
+                                <img src="./me_tradeoff_files/tree.png" height="500" width="400">
+                            </div>
+                        </div>
+                    </section>
+				</section>
+
+                
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>Limitations of Traditional Techniques</h4>
+                    <br>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">Good at : Data, Features, model evaluation</li>
+                        <li class="fragment" data-fragment-index="1">Limit on : Human-interpretable ways of how a model works</li>
+                        <li class="fragment" data-fragment-index="2">Model’s performance often decreases due to variability in data features.</li>
+                    </ul>
+                </section>
+
+                <!-- Regression -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4> Business Views </h4>
+                    <section>
+                        <p> Just telling the business, “I have a model with 90% accuracy” is not sufficient information for them to start trusting the model when deployed in the real world.</p>
+                    </section>
+                    <section>
+                        <p class="fragment" data-fragment-index="0"> We need human-interpretable interpretations (HII) of a model’s decision policies which could be explained with proper and intuitive inputs and outputs.</p>
+                        <br>
+                        <p class="fragment" data-fragment-index="1"> This would enable insightful information to be easily shared with peers (analysts, managers, data scientists, data engineers).</p>
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>The Accuracy vs. Interpretability Trade-off</h4>
+                    <img src="./me_tradeoff_files/performance_vs_interpretability.png" height="500" width="600">
+                </section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./me_tradeoff_files/head.min.js.下载"></script>
+		<script src="./me_tradeoff_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./me_tradeoff_files/highlight.js.下载"></script><script type="text/javascript" src="./me_tradeoff_files/zoom.js.下载"></script><script type="text/javascript" src="./me_tradeoff_files/notes.js.下载"></script>
+
+	
+
+</body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./imbl_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./imbl_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./imbl_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./imbl_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./imbl_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./imbl_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./imbl.html">Up Sampling</a></h2>
+                    <ul>
+                        <li>SMOTE
+                            <p>regular SMOTE</p>
+                            <p>borderline-SMOTE</p>
+                            <p>borderline-SMOTE2</p>
+                            <p>SVM SMOTE
+                        </li>
+                        <li>ADASYN</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>SMOTE</h4>
+                    <section>
+                        <p>Synthetic Minority Over-sampling Technique</p>
+                        <img src="./imbl_introduction_files/smote.png" height="420" width="800">
+                        <style>
+                            .container{
+                                display: flex;
+                                }
+                            .col{
+                                flex: 1;
+                                }
+                        </style>
+                    </section>
+                    <section>
+                        <div class="container" style="font-size: 24px">
+                            <div class="col" align="left">
+                                <p><strong>Regular SMOTE</strong></p>
+                                <p>$s_i=x_i+(x_{zi}-x_i)\times\lambda,\ \lambda \in [0,1]$</p>
+                                <br>
+                                <img src="./imbl_introduction_files/smote_regular.png" height="220" width="470">
+
+                            </div>
+                            <div class="col">
+                                <p><strong>Borderline SMOTE</strong></p>
+                                <p>$s_i=x_i+(p_i^{'}-x_i)\times\lambda,\ \lambda \in [0,1]$</p>
+                                <br>
+                                <img src="./imbl_introduction_files/borderline_smote.png" height="220" width="470">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>SVM SMOTE</p>
+                        <div class="container" style="font-size: 24px">
+                            <div class="col" align="left">
+                                
+                                <p>$s_i=sv_i+(sv_i-x_{im})\times\lambda,\ \lambda \in [0,1]$</p>
+                                <br>
+                                <img src="./imbl_introduction_files/svm_smote1.png" height="220" width="470">
+
+                            </div>
+                            <div class="col">
+                                
+                                <p>$s_i=sv_i+(x_{im}-sv_i)\times\lambda,\ \lambda \in [0,1]$</p>
+                                <br>
+                                <img src="./imbl_introduction_files/svm_smote2.png" height="220" width="470">
+                            </div>
+                        </div>
+                    </section>
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>ADASYN</h4>
+                    <p>Adaptive Synthetic Sampling Approach for Imbalanced Learning</p>
+                    <br><br>
+                    <ul>
+                        <li>same as SMOTE just with a minor improvement</li>
+                        <li>adds a random small values to the points thus making it have a little more variance</li>
+                        <li>uilizes the density distribution of a minority sample as criteria for how much synthetic data should be created.</li>
+                        <li>helps focus attention on minority examples depending on how difficult they are to learn</li>
+                    </ul>   
+				</section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h4>More detail about ADASYN</h4>
+                    <div class="container" style="font-size: 24px">
+                        <div class="col" align="left">
+                            <img src="./imbl_introduction_files/adasyn.png" height="220" width="470">
+                        </div>
+                        <div class="col">
+                            <p>$r_i=\frac{\Delta_i}K,\ i=1,2,...m_s$</p>
+                            <p>$\hat{r_i}=r_i/\sum_{i=1}^{m_s}r_i$</p>
+                            <p>$g_i=\hat{r_i}\times G$</p>
+                            <ul>
+                                <li>$\Delta_i$: $x_i$的KNN中少数类的数量</li>
+                                <li>$m_s, \ m_l$: 分别代表少数类和多数类的数量</li>
+                                <li>不平衡度 $d=m_s/m_l$ </li>
+                                <li>少数类需要生成的样本数为： $G=(m_l-m_s)\times \beta$</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+                    <h3>Summary</h3>
+                    <ul>
+                        <li>Naïve Bayes was best paired with ADASYN.</li>
+                        <li>Logistic regression and SVM were best paired with borderline-SMOTE2.</li>
+                    </ul>
+                </section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./imbl_introduction_files/head.min.js.下载"></script>
+		<script src="./imbl_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./imbl_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./imbl_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./imbl_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

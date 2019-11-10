@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./mz_overview_files/reveal.css">
+		<link rel="stylesheet" href="./mz_overview_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./mz_overview_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./mz_overview_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./mz_overview_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./mz_overview_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./model_zoo.html">HMM vs MEMM vs CRF</a></h2>
+                    <ul>
+                        <li>Maximum Entropy Markov Model Recap</li>
+                        <li>Labeling Bias problem aoubt MEMM</li>
+                        <li>Conditional Random Field</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>MEMM Recap</h3>
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+                    <div class="container">
+                        <div class="col" align="left" >
+                            <img src="./mz_overview_files/memm_general.png" height="200" width="500">
+                        </div>
+                        <div class="col" style="font-size: 24px">
+                            <br><br>
+                            <ul>
+                                <li>MEMM考虑了上一个状态</li>
+                                <li>MEMM考虑了整个观测序列</li>
+                                <li>更强的表达能力</li>
+                                <li>并不需要为 $P(X)$ 建模</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <section>
+                        <h4>MEMM Labeling Bias</h4>
+                        <img src="./mz_overview_files/memm_general1.png" height="400" width="600">
+                    </section>                   
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>Conditional Random Field</h4>
+                    <section>
+                        <ul style="font-size: 24px">
+                            <li><p>CRFs avoid the label bias problem a weakness exhibited by Maximum Entropy Markov Models (MEMM) and eliminates 2 unreasonable assumption in HMM.</p> </li>
+                            <li><p>MEMM is locally renormalized and suffers from the label bias problem, while CRFs are globally re-normalized.</p></li>
+                            <li><p>HMM and MEMM are a directed graph, while CRF is an undirected graph</p></li>
+                            <li><p>Output transition and observation probabilities are not modelled separately.</p></li>
+                            <li><p>The inference algorithm in CRF is again based on Viterbi algorithm.</p></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>The definition of CRF</p>
+                        <br>
+                        <ul style="font-size: 24px">
+                            <li><p>图： $G(V,E)$ ; 随机变量 $Y=(Y_v),\ v \in V$</p></li>
+                            <li><p>$(X,Y)$ 成为一个条件随机场，当 $Y_v$ 中的任何一个随机变量条件于 $X$ 上服从图马尔可夫属性：$P(Y_{v} \mid X, Y_{w}, w \neq v) = P(Y_{v} \mid X, Y_{w}, w \sim v)$</p>
+                                <p> $w \sim v$ 是指 $w$和$v$ 在图 $G$ 中是邻居关系</p>
+                            </li>
+                            <li><p>条件随机场即全局条件依赖于观测值 $X$ 的随机场</p></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <br>
+                        <p>Linear chain CRF</p>
+                        <br>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <p>Chain-strucutred CRFs globally conditioned on X</p>
+                                <img src="./mz_overview_files/Conditional_Random_Fields.png" height="200" width="400">
+                            </div>
+                            <div class="col" >
+                                <br>
+                                <ul>
+                                    <li>$P(\bar{y} \mid \bar{x}; \bar{w}) = \frac{\exp(\bar{w} \cdot F(\bar{x},\bar{y}))}{\sum\limits_{\bar{y}' \in Y} \exp(\bar{w} \cdot F(\bar{x},\bar{y}'))}$</li>
+                                    <li>$F (\bar{x},\bar{y}) = \sum\limits_{i} f(y_{i-1}, y_{i}, \bar{x}, i)$</li>
+                                    <li>$F$ will represent a global feature vector defined by a set of feature functions $f1,...,fd$</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>More detail on CRF</p>
+                        <img src="./mz_overview_files/CRF_Equation.png" height="400" width="700">
+                    </section>
+                    <section>
+                        <p>HMM vs MEMM vs CRF</p>
+                        <img src="./mz_overview_files/HMM-MEMM-CRF.png" height="200" width="700">
+                        <ul style="font-size: 24px">
+                            <li><strong>HMM</strong>: $P(\bar{y}, \bar{x}) = \prod\limits_{i=1}^{|\bar{y}|} P(y_{i} \mid y_{i-1}) \cdot P(x_{i} \mid y_{i})$</li>
+                            <li><strong>MEMM</strong>: $P(\bar{y}, \bar{x}) = \prod\limits_{i=1}^{|\bar{y}|} P(y_{i} \mid y_{i-1}, x_{i}) = \prod\limits_{i=1}^{|\bar{y}|} \frac{1}{Z(x,y_{i-1})}\  \exp\bigg( \sum_{j=1}^{N} w_{j} \cdot f_{j}(x,y_{i-1}) \bigg)$</li>
+                            <li><strong>CRF</strong>: $P(\bar{y} \mid \bar{x}, \bar{w}) = \frac{\exp(\bar{w} \cdot F(\bar{x},\bar{y}))}{\sum\limits_{\bar{y}' \in Y} \exp(\bar{w} \cdot F(\bar{x},\bar{y}'))}$</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>* CRF Inference *</h4>
+                    <br>
+                    <p align="left" style="font-size: 24px">计算 $\bar{y}$ 序列以最大化如下等式：</p>
+                    <p style="font-size: 24px">$\hat{\bar{y}} = \underset{\bar{y}}{\arg\max}\ P(\bar{y} \mid \bar{x}; \bar{w}) = \frac{\exp(\bar{w} \cdot F(\bar{x},\bar{y}))}{\sum\limits_{\bar{y}' \in Y} \exp(\bar{w} \cdot F(\bar{x},\bar{y}'))}$</p>
+                    <p>得到：$\hat{\bar{y}} = \underset{\bar{y}}{\arg\max}\ \sum\limits_{i} \bar{w}\ f (y_{i-1}, y_{i}, \bar{x}, i)$</p>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>* CRF Parameters Estimation *</h4>
+                    <br>
+                    <p align="left" style="font-size: 24px">给定训练数据 $\{(\bar{x}_{1}, \bar{y}_{1}), \ldots , (\bar{x}_{m}, \bar{y}_{m})\}$ ,寻找最适合的参数 $\bar{w}$ 就是最大化：</p>
+                    <p>$L(\bar{w}) = \sum\limits_{i=1}^{m} \log p( \bar{x}_{1} | \bar{y}_{1}, \bar{w} )$</p>
+                    <p>得到： $\bar{w}^* = \underset{\bar{w}\ \in {\rm \ I\!R}^{d}} {\arg\max}\ \sum\limits_{i=1}^{m} \log p( \bar{x}_{i} | \bar{y}_{i}, \bar{w}) - \frac{\lambda}{2} \| \bar{w} \| ^{2}$</p> 
+                </section>
+                <section>
+                    <h3>思考：</h3>
+                    <p>HMM与RNN有什么不同？</p>
+                </section>
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./mz_overview_files/head.min.js.下载"></script>
+		<script src="./mz_overview_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./mz_overview_files/highlight.js.下载"></script><script type="text/javascript" src="./mz_overview_files/zoom.js.下载"></script><script type="text/javascript" src="./mz_overview_files/notes.js.下载"></script>
+
+	
+
+</body></html>

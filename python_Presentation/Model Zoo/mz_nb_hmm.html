@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./mz_overview_files/reveal.css">
+		<link rel="stylesheet" href="./mz_overview_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./mz_overview_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./mz_overview_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./mz_overview_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./mz_overview_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./model_zoo.html">NB and HMM</a></h2>
+                    <ul>
+                        <li>Naive Bayes Model</li>
+                        <li>Hidden Markov Model</li>
+                        <li>More detail about HMM</li>
+                        <li>NB -> HMM</li>                        
+                    </ul>
+				</section>
+                <section class="present" style="top: 163.5px; display: block;">
+                    <h3>Naive Bayes Review</h3>
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+                    <div class="container">
+                        <div class="col" align="left" style="font-size: 24px">
+                            <p>Model (x - feature vector, y - one label)</p>
+                            <p>$$p(y,x)=p(y)\prod_{k=1}^{K} p(x_k|y)$$</p>
+                            <ul>
+                                <li>Training: estimate probabilities by likelihood maximization</li>
+                                <li>Inference: $y*=argmax[p(x,y)]$</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <img src="./mz_overview_files/model_nb.png" height="200" width="300">
+                        </div>
+                    </div>
+                </section>
+                <section class="present" style="top: 163.5px; display: block;" >
+                    <p align="left" style="font-size: 24px">如果是在一系列观测序列 $x=(x_{1}, \dots, x_{n})$ 的基础上来预测一个类别序列 $y=(y_{1}, \dots, y_{n})$, 我们可以建立一个简单的序列模型：把单一的NB模型乘起来</p>
+                    <p style="font-size: 24px">$p(\vec{y} \mid \vec{x}) = \prod_{i=1}^{n} p(y_{i}) \cdot p(x_{i} \mid y_{i})$</p>
+                    <ul style="font-size: 24px">
+                        <li>序列中的每一个位置只有一个Feature, 条件依赖于类别 $y_i$</li>
+                        <li>并不能捕获观测变量 $x_i$ 之间的交织关系</li>
+                    </ul>
+                </section>
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h3>Hidden Markov Model Review</h3>
+                    <div class="container">
+                        <div class="col" align="left" style="font-size: 24px">
+                            <p>Model:</p>
+                            <p>$$p(y,x)=\prod_{t=1}^{T} p(y_t|y_{t-1})p(x_t|y_t)$$</p>
+                            <ul>
+                                <li>
+                                    <ul>Training: Baum-Welch algorithm.
+                                        <li>E-step: Forward-Backward (expectation over hidden variables)</li>
+                                        <li>M-stem: Likelihood maximization (update parameters)</li>
+                                    </ul>
+                                </li>
+                                <li>Inference: Viterbi algorithm</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <img src="./mz_overview_files/model_hmm.png" height="200" width="300">
+                        </div>
+                    </div>            
+
+				</section>
+
+                <!-- Summary of web applications -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 162px; display: block;">
+					<h4>More detail about HMM</h4>
+                    <section>
+                        <p>HMM Frameword definition</p>
+                        <br>
+                        <ul>
+                            <li>states (e.g., labels): $T=t_1, t_2, ...,t_N$</li>
+                            <li>observations (e.g., words) : $W=w_1, w_2, ..., w_N$</li>
+                            <li>two special states: $t_{start}$ and $t_{end}$ which are not associated with the observation.</li>
+                        </ul>
+
+					</section>
+                    <section>
+                        <p>Probabilities relating states and observations</p>
+                        <br>
+                        <ul>
+                            <li><strong>Initial probability</strong>: an initial probability distribution over states</li>
+                            <li><strong>Final probability</strong>: a final probability distribution over states</li>
+                            <li><strong>Transition probability</strong>: a matrix A with the probabilities from going from one state to another</li>
+                            <li><strong>Emission probability</strong>: a matrix B with the probabilities of an observation being generated from a state</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>Transition Matrix</p>
+                        <img src="./mz_overview_files/transition.png" height="450" width="600">
+                    </section>
+                    <section>
+                        <p>First-order Hidden Markov Model assumptions</p>
+                        <ul>
+                            <li><strong>Markov Assumption</strong>: the probability of a particular state is dependent only on the previous state. Formally: $P(t_i|t_1,...,t_{i-1})=P(t_i|t_{i-1})$</li>
+                            <br>
+                            <li><strong>Output Independence</strong>: the probability of an output observation $w_i$ depends only on the state that produced the observation $t_i$ and not on any other states or any other observations. Formally: $$P(w_{i} \mid t_{1} \ldots q_{i}, \ldots, q_{T} ,o_{1}, \ldots,o_{i}, \ldots,o_{T} ) = P(o_{i} \mid q_{i})$$</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="./mz_overview_files/HMM.png" height="200" width="400">
+                        <p>3 major problems of HMM</p>
+                        <ol style="font-size: 24px">
+                            <li>给定一个模型，如何计算某个特定的输出序列的概率: Forward-Backward算法</li>
+                            <li>给定一个模型和某个特定的输出序列，如何找到最可能产生这个输出的状态序列: Viterbi算法</li>
+                            <li>给定足够量的观测数据，如何估计隐含马尔可夫模型的参数：鲍姆-韦尔奇算法</li>
+                        </ol>
+                    </section>
+                    <section>
+                        <p> Disvantages of HMM </p>
+                        <ul>
+                            <li>HMM is only dependent on every state and its corresponding observed object</li>
+                            <li>The sequence labeling, in addition to having a relationship with individual words, also relates to such aspects as the observed sequence length, word context and others</li>
+                            <li>The target function and the predicted target function do not match: 
+HMM acquires the joint distribution $P(Y, X)$ of the state and the observed sequence, while in the estimation issue, we need a conditional probability $P(Y|X)$.</li>
+                        </ul>
+                    </section>
+
+				</section>
+
+                <!-- Classification -->
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>*Viterbi算法*</h4>
+                    <br>
+                    <section>
+                        <p>动态规划算法</p>
+                        <p>最可能的在位置 $i$ ,以状态 $t$ 结束：$$\delta_{i}(t) = \underset{t_{0},\ldots,t_{i-1},t}{\max} \ \ P(t_{0},\ldots,t_{i-1},t,w_{1},\ldots,w_{i-1})$$</p>
+                        <p>通过马尔可夫假设，</p>
+                        <p>$$\delta_{i}(t) = \underset{t_{i-1}}{\max} \ \ P(t \mid t_{i-1}) \cdot P(w_{i-1} \mid t_{i-1})  \cdot \delta_{i}(t_{i-1})$$</p>
+                        <p></p>
+                        <p>最可能的前一个状态：$$\Psi_{i}(t) = \underset{t_{i-1}}{\arg\max} \ \ P(t \mid t_{i-1}) \cdot P(w_{i-1} \mid t_{i-1})  \cdot \delta_{i}(t_{i-1})$$</p>
+                    </section>
+                    <section>
+                        <p>An unfilled trellis representation of an HMM</p>
+                        <img src="./mz_overview_files/Viterbi1.png" height="200" width="400">
+                        <ul>
+                            <li>Viterbi sequence: ABB</li>
+                            <li>$P(ABB,xyy) = 0.00185522$</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>Word Emission and State Transitions probabilities matrices</p>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./mz_overview_files/Viterbi_Emission.png" height="200" width="400">
+                            </div>
+                            <div class="col">
+                                <img src="./mz_overview_files/Viterbi_State_Transitions.png" height="200" width="400">
+                            </div>
+                        </div>
+                        <img src="./mz_overview_files/Viterbi2.png" height="300" width="500">
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>*Forward Algorithm*</h4>
+                    <p>模型 $\lambda=(A,B,\pi)$</p>
+                    <ul style="font-size: 24px">
+                        <li>定义“前向概率”来定义动态规划的局部状态; 定义时刻 $t$ 时隐藏状态为 $q_i$, 观测状态的序列为 $o_1,o_2,...o_t$ 的概率为前向概率, 记为:
+                            <p>$\alpha_t(i)=P(O_1,O_2,...O_t,x_t=q_i|\lambda)$</p>
+                        </li>
+                        <li>初始值: $\alpha_0(i)=\pi_ib_i(O_0)$</li>
+                        <li>递推式：$\alpha_t(i)=[\sum_{j=0}^{N-1}\alpha_{t-1}(j)a_{ji}]b_i(O_t)$</li>
+                        <li>$P(O|\lambda) = \sum\limits_{i=1}^N\alpha_T(i)$</li>
+                    </ul>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <h4>*Backward Algorithm*</h4>
+                    <p>模型 $\lambda=(A,B,\pi)$</p>
+                    <ul style="font-size: 24px">
+                        <li>定义“后向概率”; 定义时刻 $t$ 时隐藏状态为 $q_i$, 从时刻 $t+1$ 到最后时刻 $T$ 的观测状态的序列为 $O_{t+1},O_{t+2},...O_{T}$ 的概率为后向概率, 记为:
+                            <p>$\beta_t(i)=P(O_{t+1},O_{t+2},...O_T|i_t=q_i,\lambda)$</p>
+                        </li>
+                        <li>递推式：$\beta_t(i)=\sum_{j=1}^{N}a_{ij}b_j(O_{t+1})\beta_{t+1}(j)$</li>
+                        <li>$P(O|\lambda) = \sum\limits_{i=1}^N\pi_ib_i(o_1)\beta_1(i)$</li>
+                    </ul>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <p>HMM中单个状态</p>
+                    <br>
+                    <p>给定模型 $\lambda$ 和观测序列 $O$ ,在时刻 $t$ 处于状态 $q_i$ 的概率记为:</p>
+                    <p>$\gamma_t(i) = P(i_t = q_i | O,\lambda) = \frac{P(i_t = q_i ,O|\lambda)}{P(O|\lambda)}$</p>
+                    <p>$P(i_t = q_i ,O|\lambda) = \alpha_t(i)\beta_t(i)$</p>
+                    <p>$\gamma_t(i) = \frac{ \alpha_t(i)\beta_t(i)}{\sum\limits_{j=1}^N \alpha_t(j)\beta_t(j)}$</p>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+                    <p>HMM中多个个状态</p>
+                    <br>
+                    <p>给定模型 $\lambda$ 和观测序列 $O$,在时刻 $t$ 处于状态 $q_i$，且时刻 $t+1$ 处于状态 $q_j$ 的概率记为:</p>
+                    <p>$$\xi_t(i,j) = P(i_t = q_i, i_{t+1}=q_j | O,\lambda) = \frac{ P(i_t = q_i, i_{t+1}=q_j , O|\lambda)}{P(O|\lambda)}$$</p>
+                    <p>而 $P(i_t = q_i, i_{t+1}=q_j , O|\lambda) = \alpha_t(i)a_{ij}b_j(o_{t+1})\beta_{t+1}(j)$</p>
+                    <p>得到 $\xi_t(i,j) = \frac{\alpha_t(i)a_{ij}b_j(o_{t+1})\beta_{t+1}(j)}{\sum\limits_{r=1}^N\sum\limits_{s=1}^N\alpha_t(r)a_{rs}b_s(o_{t+1})\beta_{t+1}(s)}$</p>
+                </section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./mz_overview_files/head.min.js.下载"></script>
+		<script src="./mz_overview_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./mz_overview_files/highlight.js.下载"></script><script type="text/javascript" src="./mz_overview_files/zoom.js.下载"></script><script type="text/javascript" src="./mz_overview_files/notes.js.下载"></script>
+
+	
+
+</body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://pieroit.github.io/machine-learning-open-course/index.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Introduction</title>
+
+		<meta name="description" content="Machine Learning open course">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+        
+		<link rel="stylesheet" href="./imbalance_learning_files/reveal.css">
+		<link rel="stylesheet" href="./imbalance_learning_files/moon.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./imbalance_learning_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script id="twitter-wjs" src="./imbalance_learning_files/widgets.js.下载"></script><script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./imbalance_learning_files/paper.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/javascript" charset="utf-8" async="" src="./imbalance_learning_files/button.56dc123afbb0751e96ef7a8b31bd56e2.js.下载"></script></head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+                
+                <!-- Intro -->
+				<section class="present" style="top: 0px; display: block;">
+					<h2>不平衡数据集学习问题</h2>
+                    <h4><a href="./imbl_introduction.html">Imbalance Learning Introduction</a></h4>
+                    <h4><a href="./imbl_downsampling.html">Imbalance learning - Down sampling</a></h4>
+                    <h4><a href="./imbl_upsampling.html">Imbalance learning - Up sampling</a></h4>
+					
+                    <p>  
+                        <br>
+                        Slides by <a>马明，Principal Fintech Scientist</a>
+                        <br>
+                        Focus on <a> Quantitative Investment and Machine Learning, Time Series Analysis and Anomaly Detection.</a>
+                    </p>
+				</section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div></div><div class="progress" style="display: block;"><span></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Introduction
+                    Applications
+                    
+                        Javascript · WordPress · Spark
+					
+                      
+                        
+                            
+                        
+                        
+                        Slides by pieroit
+                        
+                        @_pieroit_!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                    
+                    
+                        Running on reveal.js by Hakim El Hattab
+					
+				</div></div>
+
+		<script src="./imbalance_learning_files/head.min.js.下载"></script>
+		<script src="./imbalance_learning_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./imbalance_learning_files/highlight.js.下载"></script><script type="text/javascript" src="./imbalance_learning_files/zoom.js.下载"></script><script type="text/javascript" src="./imbalance_learning_files/notes.js.下载"></script>
+
+	
+
+<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./imbalance_learning_files/saved_resource.html"></iframe></body></html>

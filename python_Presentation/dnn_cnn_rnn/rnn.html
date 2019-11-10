@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>RNN - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./nn_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./nn_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./nn_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./nn_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./nn_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./nn_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./dnn_cnn_rnn.html">Recursive Neural Networks</a></h2>
+                    <ul align="left">
+                        <li>RNN</li>
+                        <li>LSTM</li>
+                        <li>GRU</li>
+                    </ul>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>RNN</h4>
+                    <section>
+                        <p>Recurrent Neural Network</p>
+                        <img src="./nn_introduction_files/rnn0.png" height="300" width="400">
+                        <p>$h_t = f(x_t, h_{t-1})$</p>
+                        <p>核心思想：结合当前信息和历史信息</p>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/rnn1.png" height="300" width="800">
+                        <p>Unrolled RNN</p>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/rnn2.png" height="300" width="800">
+                        <p>Capture short term information</p>
+                    </section>
+                    
+                    <section>
+                        <img src="./nn_introduction_files/lstm.gif" height="300" width="800">
+                        <p>RNN 逐个处理输入向量</p>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/lstm2.gif" height="200" width="600">
+                        <img src="./nn_introduction_files/lstm1.gif" height="200" width="600">
+                        <p>将输入和先前隐藏状态组合成向量，向量经过激活函数 tanh之后，输出的是新的隐藏状态或网络记忆</p>
+                    </section>
+                    <section>
+                        <p>Tanh active function</p>
+                        <img src="./nn_introduction_files/tanh.gif" height="300" width="500">
+                    </section>
+                    <section>
+                        <p>Vector transfer without Tanh active function</p>
+                        <img src="./nn_introduction_files/no_tang.gif" height="200" width="800">
+                        <p>Vector transfer with Tanh active function</p>
+                        <img src="./nn_introduction_files/with_tanh.gif" height="200" width="800">
+                    </section>
+                    <section>
+                        <p>Sigmoid active function</p>
+                        <img src="./nn_introduction_files/sigmoid.gif" height="300" width="500">
+                    </section>
+                    <section>
+                        <video width="800" height="400" controls="controls">
+                            <source src="./nn_introduction_files/RNN_1.mp4" type="video/mp4"/>
+                        </video>
+                    </section>
+                    <section>
+                        <img src="./nn_introduction_files/rnn3.png" height="300" width="800">
+                        <p>As that gap grows, RNNs become unable to learn to connect the information</p>
+                    </section>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <section>
+                        <h4>LSTM and GRU</h4>
+                        <img src="./nn_introduction_files/lstm_gru.png" height="400" width="800">
+                    </section>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>LSTM</h4>
+                    <section>
+                        <img src="./nn_introduction_files/LSTM3-chain.png" height="400" width="800">
+                    </section>
+                    <section>
+                        <p>Forget Gate</p>
+                        <img src="./nn_introduction_files/forget_gate.gif" height="400" width="800">
+                    </section>
+                    <section>
+                        <p>Input Gate</p>
+                        <img src="./nn_introduction_files/input_gate.gif" height="400" width="800">
+                    </section>
+                    <section>
+                        <p>Cell State</p>
+                        <img src="./nn_introduction_files/cell_state.gif" height="400" width="800">
+                    </section>
+                    <section>
+                        <p>Output Gate</p>
+                        <img src="./nn_introduction_files/output_gate.gif" height="400" width="800">
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>Core Idea of LSTM</h4>
+                    <section>
+                        <p>Cell State</p>
+                        <img src="./nn_introduction_files/LSTM3-C-LINE.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <p>Forget Gate</p>
+                        <img src="./nn_introduction_files/LSTM3-focus-f.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <p>Input Gate and Condidate Layer</p>
+                        <img src="./nn_introduction_files/LSTM3-focus-i.png" height="300" width="800">
+                    </section>
+                    <section>
+                        <p>Cell State Update</p>
+                        <img src="./nn_introduction_files/LSTM3-focus-C.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <p>Output Gate</p>
+                        <img src="./nn_introduction_files/LSTM3-focus-o.png" height="300" width="800">
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>LSTM Variants</h4>
+                    <section>
+                        <p>Add peepholes connection to all gates</p>
+                        <img src="./nn_introduction_files/LSTM3-var-peepholes.png" height="300" width="800">
+                    </section>
+                    <section>
+                        <p>Use coupled forget and input gates</p>
+                        <img src="./nn_introduction_files/LSTM3-var-tied.png" height="300" width="800">
+                    </section>
+                    <section>
+                        <p>Gated Recurrent Unit: Combines the forget and input gates into a single “update gate.”</p>
+                        <img src="./nn_introduction_files/LSTM3-var-GRU.png" height="300" width="800">
+                    </section>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h4>Summary</h4>
+                    <section>
+                        <p>Vanilla RNN</p>
+                        <img src="./nn_introduction_files/Vanilla_rnn.gif" height="480" width="700">
+                    </section>
+                    <section>
+                        <p>LSTM</p>
+                        <img src="./nn_introduction_files/lstm_all.gif" height="480" width="700">
+                    </section>
+                    <section>
+                        <p>GRU</p>
+                        <img src="./nn_introduction_files/gru_all.gif" height="480" width="700">
+                    </section>
+                </section>
+                
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./nn_introduction_files/head.min.js.下载"></script>
+		<script src="./nn_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./nn_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./nn_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

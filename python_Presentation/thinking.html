@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./QIANOVA_files/reveal.css">
+		<link rel="stylesheet" href="./QIANOVA_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./QIANOVA_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./QIANOVA_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script src="./QIANOVA_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./QIANOVA_files/paper.css">
+        <script>
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            }
+        });
+    </script>
+    
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h1><a href="./数据分析技术分享.html">一种思考</a></h1>
+				</section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 185px; display: block;">
+					<h2>思考:</h2>
+                    <br>
+					<p>如果员工工作效率低，主要责任是在管理层还是员工本身？</p>
+				</section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 185px; display: block;">
+                    <ul>
+                        <li>我们知道公司、机构等组织的形成都是由于合作的需要。人与人之间、部门与部门之间、公司与公司之间的合作都非常重要。</li>
+                        <li>所谓管理，其目的就是使每个员工能最大程度发挥效率，而使部门和企业达到其目标。</li>
+                    </ul>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 185px; display: block;">
+                    <h4>建立模型</h4>
+                    <ul>
+                        <li>假设有两个个体A,B，他们为了共赢而产生合作关系:
+                            <br>A所投入的资源和精力为a<br>B所投入的资源和精力为b
+                        </li>
+                        <li>他们的总共收益设为：<br><p>$$4(a+b+k*a*b)$$<br>这里的k可以认为是耦合程度，即两人合作所带来的额外好处。例如一个历史学家和一个政治学家合作写一本书，可能对政治历史的观点更为精辟。</p></li>
+                    </ul>
+                </section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 185px; display: block;">
+                  <ul>
+                    <li>每个人的利润为</li>
+                    <p>$$ A = 2(a+b+k*a*b) - a^2 $$</p>
+                    <p>$$ B = 2(a+b+k*a*b) - b^2 $$</p>
+                    <li>这里平方项表示其成本。成本不是简单的投入时间精力，还包括机会成本、情绪等等。</li>
+                  </ul>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 185px; display: block;">
+                  <ul>
+                    <li>每个个体都追求个人利益最大化，所以我们需要求上面两个公式的最大值。</li>
+                    <p>$$ a \in [0,4], b \in [0,4], k = 1/4 $$</p>
+                    <li>得到：</li>
+                    <p>$$ a_{max} = 1 + k*b $$</p>
+                    <p>$$ b_{max} = 1 + k*a $$</p>
+                    <p>$$ a_{max} = b_{max} = 1/(1-k) = 4/3 $$</p>
+                  </ul>
+                </section>
+
+                <section hidden="" aria-hidden="true" class="future" style="top: 185px; display: block;">
+                    <p>我们可以看到，合作方的每个个体在追求其利益最大化的前提下都不会完全投入，也就是说其效率不会达到最高值。</p>
+                    <p>Why?</p>
+                </section>
+                <!-- Summary of web applications -->
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./QIANOVA_files/head.min.js.下载"></script>
+		<script src="./QIANOVA_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./QIANOVA_files/highlight.js.下载"></script><script type="text/javascript" src="./QIANOVA_files/zoom.js.下载"></script><script type="text/javascript" src="./QIANOVA_files/notes.js.下载"></script>
+
+	
+
+</body></html>

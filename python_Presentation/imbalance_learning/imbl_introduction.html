@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./imbl_introduction_files/reveal.css">
+		<link rel="stylesheet" href="./imbl_introduction_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./imbl_introduction_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./imbl_introduction_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./imbl_introduction_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./imbl_introduction_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./imbl.html">Imbalance Learning Introduction</a></h2>
+                    <ul>
+                        <li>基本问题介绍</li>
+                        <li>常用方法</li>
+                    </ul>
+				</section>
+                <section class="present" style="top: 163.5px; display: block;">
+                    <h3>基本问题介绍</h3>
+                    <section>
+                        <div align="left">
+                            <ul>
+                                <li>不平衡数据集在实际问题中是比较常见的情况。</li>
+                                <li>大多数情况下，占少数的正样本是我们比较关心的。</li>
+                                <li>由于样本的不平衡，将会导致我们在模型选择、评价和模型指标的解读上都会有所调整。</li>
+                                <li>样本不平衡所到来的三个主要问题：
+                                    <ol>
+                                        <li>The machine problem</li>
+                                        <li>The intrinsic problem</li>
+                                        <li>The human problem</li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>                    
+                </section>
+                <section class="present" style="top: 163.5px; display: block;">
+                    <style>
+                        .container{
+                            display: flex;
+                                }
+                        .col{
+                             flex: 1;
+                                }
+                    </style>
+                    <section>
+                        <h4>Think about the problem</h4>
+                        <div class="container" style="font-size: 24px">
+                            <div class="col" align="left">
+                                <img src="./imbl_introduction_files/imbl_problem1.jpeg" height="300" width="600">
+                            </div>
+                            <div class="col">
+                                <br><br>
+                                <ul>
+                                    <li>Class C0:C1 = 9:1</li>
+                                    <li>C0 : Gaussian distribution of mean 0 and variance 4</li>
+                                    <li>C1 : Gaussian distribution of mean 2 and variance 1</li>
+                                </ul>
+                                <p>$$P(C_0|x)>P(C_1|x)$$</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h4>About the separability</h4>
+                        <div class="container" style="font-size: 24px">
+                            <div class="col" align="left">
+                                <img src="./imbl_introduction_files/imbl_problem2.jpeg" height="370" width="600">
+                            </div>
+                            <div class="col">
+                                <br><br>
+                                <ul>
+                                    <li>Class C0:C1 = 9:1</li>
+                                    <li>C0 : Gaussian distribution of mean 0 and variance 4</li>
+                                    <li>C1 : Gaussian distribution of mean 10 and variance 1</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h4>Theoretical minimal error probability</h4>
+                        <img src="./imbl_introduction_files/imbl_problem3.jpeg" height="400" width="800">
+                        <p style="font-size: 20px">$P(wrong|x)=min(P(C0|x),P(C1|x))=\frac{min(P(x|C0)P(C0),p(x|C1)P(C1))}{P(x)}$</p>
+                        <p style="font-size: 20px">$P(wrong)=\int_\mathcal{R} P(wrong|x)P(x)dx=\int_\mathcal{R}min(P(x|C0)P(C0),P(x|C1)P(C1))$</p>                    
+                    </section>
+                    <section>
+                        <h4>Reworking On Data</h4>
+                        <div class="container" style="font-size: 24px">
+                            <div class="col" align="left">
+                                <img src="./imbl_introduction_files/imbl_problem4.jpeg" height="500" width="600">
+                            </div>
+                            <div class="col">
+                                <br><br>
+                                <ul>
+                                    <li>modifying the dataset with resampling-like methods is changing the reality</li>
+                                    <li>requires to be careful</li>
+                                </ul>
+                            </div>                   
+                    </section>
+                </section>
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">					
+                    <section>
+                        <h4>常用方法</h4>
+                        <div align="left">
+                            <ul>
+                                <li>Algorithm approach
+                                    <p>Weighting Balance</p></li>
+                                <li>Data approach
+                                    <ol>
+                                        <li>SMOTE over-sampling technique</li>
+                                        <li>ADASYN over-sampling technique</li>
+                                        <li>EditedNearestNeighbours with “Balanced” class_weight</li>
+                                        <li>NearMiss 3 with “Balanced” class_weight</li>
+                                    </ol>
+                                </li>
+                                <li>Anomaly Detection and Change Detection</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h4>Over and Under Sampling</h4>
+                        <div>
+                            <img src="./imbl_introduction_files/under_over_sampling.png" height="300" width="600">
+                        </div>
+                    </section>
+
+				</section>
+                <section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+                    <h3>Imbalance Data Example</h3>
+                    <img src="./imbl_introduction_files/imbl_example.png" height="400" width="800">
+                </section>
+                <!-- Summary of web applications -->
+				
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./imbl_introduction_files/head.min.js.下载"></script>
+		<script src="./imbl_introduction_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./imbl_introduction_files/highlight.js.下载"></script><script type="text/javascript" src="./imbl_introduction_files/zoom.js.下载"></script><script type="text/javascript" src="./imbl_introduction_files/notes.js.下载"></script>
+
+	
+
+</body></html>

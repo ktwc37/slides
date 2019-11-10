@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html class="js no-mobile desktop no-ie ff ff65 root-section w-1680 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius no-cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded" id="index-page" lang="en"><head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+
+		<title>Machine Learning And Business</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.css">
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script async="" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/ga.js"></script><script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/paper.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]--><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/marked.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/markdown.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/highlight.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/search.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/zoom.js"></script><script type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/notes.js"></script>
+	<script id="_carbonads_projs" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/CKYI553M.json"></script>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+	<body style="transition: transform 0.8s ease 0s;">
+
+		<div class="reveal slide center has-vertical-slides has-horizontal-slides ready" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(1.25349);">
+				<section style="top: 106px; display: block;" class="past" aria-hidden="true" hidden="">
+					<h1>Machine Learning And Business</h1>
+					<p>
+						<small>Created by 马明</small>
+					</p>
+					<script async="" type="text/javascript" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/carbon.js" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-img" target="_blank" rel="noopener"><a href="https://srv.carbonads.net/ads/click/x/GTND42QMCVBDPK3WCKBLYKQMCW7DPK7ICKSI5Z3JCWBI62QUCEYDV5QKC6BIPKJWFT7DTK3EHJNCLSIZ?segment=placement:revealjscom;" class="carbon-text" target="_blank" rel="noopener">Focuse on Machine Learning, Quantitative Investment, Anomaly Detection</a></span><a href="http://carbonads.net/?utm_source=revealjscom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener">Fintech Scientist/Big Data System Architecture</a></span></div>
+				</section>
+				<section>
+					<style type="text/css">
+						#web_bg {
+							  position:fixed;
+							  top: 0;
+							  left: 0;
+							  width:100%;
+							  height:100%;
+							  min-width: 1000px;
+							  z-index:-10;
+							  zoom: 1;
+							  background-color: #fff;
+							  background-repeat: no-repeat;
+							  background-size: cover;
+							  -webkit-background-size: cover;
+							  -o-background-size: cover;
+							  background-position: center 0;
+							}
+
+					</style>
+				</section>
+
+				<section style="top: 188px; display: block;" class="present">
+					<h2>Content</h2>
+					<ul>
+						<li>What is machine learning?</li>
+						<li>What business value does ML provide?</li>
+						<li>What the common challenges with ML?</li>
+					</ul>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section style="top: 32.5px; display: block;" class="" aria-hidden="true">
+						<style>
+	                        .container{
+	                            display: flex;
+	                            }
+	                        .col{
+	                            flex: 1;
+	                            }
+                    	</style>
+						<h3>What is machine learning?</h3>
+						<ul>
+							<li>Data analysis technology</li>
+							<li>Extracts knowledge without being explicitly programmed</li>
+							<li>Require large amounts of data</li> 
+						</ul>
+					</section>
+					<section class="future" aria-hidden="true" style="top: 215px; display: block;" hidden="">
+						<p>Learning From Data</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<img src="ml1.png" width="600" height="320">
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<ul>
+									<br>
+									<li>Supervised Learning</li>
+									<li>Unsupervised Learning</li>
+									<li>Reinforcement Learning</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+				    <section>
+				    	<p>The Basics of Machine Learning Technology</p>
+				    	<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+				    			<img src="ml2.png" width="600" height="320">
+				    		</div>
+				    		<div class="col" align="left" style="font-size: 24px">
+				    			<ul>
+				    				<br>
+				    				<li>Input data: wide variety of data</li>
+				    				<li>Learning:
+				    					<p>Eager learning</p>
+				    					<p>Lazy learning</p>
+				    				</li>
+				    				<li>Output data:
+				    					<p>Predictive</p>
+				    					<p>Prescriptive</p>
+				    				</li>
+				    			</ul>
+				    		</div>
+				    	</div>
+				    </section>
+				    <section>
+				    	<p>What the difference between Maching Learning and Statistics?</p>
+				    	<ul align="left" style="font-size: 30px">
+				    		<li>Statistics is not Machine Learning</li>
+				    		<li>The are interwinned and cannot be seprated</li>
+				    		<li>ML is more a hybrid field than statistics</li>
+				    	</ul>
+				    	<p align="left">Some answer?</p>
+				    	<ul style="font-size: 30px">
+				    		<li>Machine learning is essentially a form of applied statistics</li>
+				    		<li>Machine learning is glorified statistics</li>
+				    		<li>Machine learning is statistics scaled up to big data</li>
+				    	</ul>
+				    </section>
+					<section>
+						<p>AI, Data Mining, Machine Learning, What is what?</p>
+						<img src="ai_data-science-diagram.jpg" width="600" height="400">
+					</section>
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h3>Machine Learning and Business</h3>
+					<section>
+						<p> What impact will AI have on my organisation, and is our business model threatened by AI disruption? </p>
+					</section>
+					<section>
+						<p> Where should we target investment, and what kind of capabilities would enable us to perform better?</p>
+					</section>
+					<section>
+						<p>Forms of AI</p>
+						<ul>
+							<li>Automated intelligence</li>
+							<li>Assisted intelligence</li>
+							<li>Augmented intelligence</li>
+							<li>Autonomous intelligence</li>
+						</ul>
+					</section>
+					<section>
+						<p>From PwC</p>
+						<ul style="font-size: 30px">
+							<li>AI could contribute up to $15.7 trillion1 to the global economy in 2030</li>
+							<li>6.6 trillion is likely to come from increased productivity and 9.1 trillion is likely to come from consumption-side effects</li>
+						</ul>
+						<br>
+						<ol style="font-size: 30px">
+							<li>Productivity gains from businesses automating processes (including use of robots and autonomous vehicles).</li>
+							<li>Productivity gains from businesses augmenting their existing labour force with AI technologies (assisted and augmented intelligence).</li>
+							<li>Increased consumer demand resulting from the availability of personalised and/or higher-quality AI-enhanced products and services.</li>
+						</ol>
+					</section>
+					<section>
+						<img src="pwc1.png" width="800" height="400">
+					</section>
+					<section>
+						<img src="pwc2.png" width="800" height="480">
+					</section>
+					<section>
+						<img src="pwc3.png" width="800" height="300">
+					</section>
+					<section>
+						<img src="pwc4.png" width="800" height="480">
+					</section>
+					<section>
+						<img src="pwc5.png" width="800" height="480">
+					</section>
+					<section>
+						<p>Healthcare</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Supporting diagnosis in areas such as detecting small variations from the baseline in patients’ health data or comparison with similar patients</li>
+									<li>Early identification of potential pandemics and tracking incidence of the disease to help prevent and contain its spread</li>
+									<li>Imaging diagnostics (radiology, pathology)</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Concerns over the privacy and protection of sensitive health data</p>
+								<p>More advanced applications may take time to reach their potential and gain acceptance from patients, healthcare providers and regulator</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Medical insurance and smarter scheduling (e.g. appointments and operations</li>
+									<li>Medium-term potential: Data-driven diagnostics and virtual drug development</li>
+									<li>Longer-term potential: Robot doctors carrying out diagnosis and treatment</li>
+								</ul>
+								<p>High potential use case: Data-based diagnostic support</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Financial Services</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Personalised financial planning</li>
+									<li>Fraud detection and anti-money laundering</li>
+									<li>Process automation – not just back office functions, but customer facing operations as well</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Consumer trust and regulatory acceptance</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Robo-advice, automated insurance underwriting and robotic process automation in areas such as finance and compliance</li>
+									<li>Medium-term potential: Optimised product design based on consumer sentiment and preferences</li>
+									<li>Longer-term potential: Moving from anticipating what will happen and when in areas such as an insurable loss (predictive analytics) to proactively shaping the outcome (prescriptive analytics) in areas such as reduced accident rates or improved consumer outcomes</li>
+								</ul>
+								<p>High potential use case: Personalised financial planning</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Retail</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Personalised design and production</li>
+									<li>Anticipating customer demand – for example, retailers are beginning to use deep learning to predict customers’ orders in advance.</li>
+									<li>Inventory and delivery management</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Adapting design and production to this more agile and tailored approach. Businesses also need to strengthen trust over data usage and protection</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Product recommendation base on preferences</li>
+									<li>Medium-term potential: Fully customised products</li>
+									<li>Longer-term potential: Products that anticipate demand from market signals</li>
+								</ul>
+								<p>High potential use case: Personalised design and production </p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Automotive</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Autonomous fleets for ride sharing</li>
+									<li>Semi-autonomous features such as driver assist</li>
+									<li>Engine monitoring and predictive, autonomous maintenance.</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Technology still needs development</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Automated driver assistance systems (e.g. parking assist, lane centring, adaptive cruise control etc.)</li>
+									<li>Medium-term potential: On-demand parts manufacturing and maintenance</li>
+									<li>Longer-term potential: Engine monitoring and predictive, autonomous maintenance</li>
+								</ul>
+								<p>High potential use case: Autonomous fleets for ride sharing</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Technology, communications and entertainment</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Media archiving and search – bringing together diffuse content for recommendation</li>
+									<li>Customised content creation (marketing, film, music, etc.)</li>
+									<li>Personalised marketing and advertising</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Cutting through the noise when there is so much data, much of it unstructured</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Content recommendation for consumers</li>
+									<li>Medium-term potential: Automated telemarketing capable of holding a real conversation with the customer</li>
+									<li>Longer-term potential: Use-case specific and individualised AI-created content</li>
+								</ul>
+								<p>High potential use case: Media archiving and search</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Manufacturing</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Enhanced monitoring and auto-correction of manufacturing processes</li>
+									<li>Supply chain and production optimisation</li>
+									<li>On-demand production</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Making the most of supply chain and production opportunities requires all parties to have the necessary technology and be ready to collaborate. Only the biggest and best-resourced suppliers and manufacturers are up to speed at present</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Greater automation of a large number of production processes</li>
+									<li>Medium-term potential: Intelligent automation in areas ranging from supply chain optimisation to more predictive scheduling</li>
+									<li>Longer-term potential: Using prescriptive analytics in product design – solving problems and shaping outcomes, rather than simply predicting and responding to demand in product design</li>
+								</ul>
+								<p>High potential use case: Enhanced monitoring and auto-correction </p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Energy</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Smart metering – real-time information on energy usage, helping to reduce bills</li>
+									<li>More efficient grid operation and storage</li>
+									<li>Predictive infrastructure maintenance</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Technological development and high investment requirements in some of the more advanced areas</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Smart metering.</li>
+									<li>Medium-term potential: Optimised power management</li>
+									<li>Longer-term potential: More efficient and consistent renewable energy supply in areas such as improved prediction and optimisation of wind power.</li>
+								</ul>
+								<p>High potential use case: Smart meters </p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Transport and logistics</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+								<p>Three areas with the biggest AI potential</p>
+								<ul>
+									<li>Autonomous trucking and delivery</li>
+									<li>Traffic control and reduced congestion</li>
+									<li>Enhanced security</li>
+								</ul>
+								<p>Barriers to overcome:</p>
+								<p>Technology for autonomous fleets is still in development</p>
+							</div>
+							<div class="col" align="left" style="font-size: 24px">
+								<p>Timing</p>
+								<ul>
+									<li>Ready to go: Automated picking in warehouses</li>
+									<li>Medium-term potential: Traffic control</li>
+									<li>Longer-term potential: Autonomous trucking and delivery</li>
+								</ul>
+								<p>High potential use case: Traffic control and reduced congestion</p>
+							</div>
+						</div>
+					</section>
+					<section>			
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 30px">
+                            	<p>ML Can Deliver Value to Organizations</p>
+								<ul>
+									<li>Customer Relationship Management</li>
+									<li>Failure Prediction for Preventive Maintenance</li>
+									<li>Finance and Hedge Fund Portfolio Pricing</li>
+									<li>State Government and Litigation Case Management</li>
+									<li>Workforce Management</li>
+								</ul>
+							</div>
+							<div class="col" align="left" style="font-size: 30px">
+								<p>ML can benefit IT include</p>
+								<ul>
+									<li>Security Operations</li>
+									<li>IT Call Centers</li>
+									<li>DevOps</li>
+									<li>Project Management</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>Stages of the Machine Learning Process</p>
+						<img src="ml3.png" width="600" height="300">					
+					</section>
+					<section>
+						<p>Life Cycle for Developing Learning Systems</p>
+						<br>
+						<img src="ml4.png" width="600" height="260">
+					</section>
+					<section>
+						<p>Continuous ML Model and Control Framework</p>
+						<div class="container">
+                            <div class="col" align="left" style="font-size: 30px">
+                            	<ul>
+                            		<li>Collaboration for heterogeneous teams and technologies</li>
+                            		<li>Monitoring of ML models with statistical analysis capabilities</li>
+                            		<li>Reusability of ML models for rapid development</li>
+                            		<li>Interoperability between different analytic platforms and ML frameworks</li>
+                            	</ul>
+                            </div>
+                            <div class="col" align="left" style="font-size: 30px">
+                            	<img src="ml5.png" width="400" height="400">
+                            </div>
+                        </div>
+					</section>
+					<section>
+						<p>Challenges related to the use of ML in business</p>
+						<br>
+						<ul style="font-size: 30px">
+    						<li>It requires considerable data and compute power</li>
+    						<li>It requires knowledgeable data science specialists or teams</li>
+    						<li>It adds complexity to the organization's data integration strategy</li>
+    						<li>The context of data often changes</li>
+    						<li>Algorithmic bias, privacy and ethical concerns may be overlooked</li>
+						</ul>
+					</section>
+				</section>
+
+				<section style="top: 188px; display: block;" class="future" aria-hidden="true" hidden="">
+					<h3>Success story</h3>
+					<section>
+						<ul style="font-size: 30px">
+							<li><p>Healthcare Analytics: VeraData</p></li>
+							<li><p>Supply Chain Analytics: Shell</p></li>
+							<li><p>Tax and Audit Analytics</p></li>
+							<li><p>Government Analytics</p></li>
+							<li><p>Higher Education Analytics</p></li>
+						</ul>
+					</section>
+					<section>
+						<p>Releasing AI potentials</p>
+						<ol>
+							<li>Work out what AI means for your business</li>
+							<li>Prioritise your response</li>
+							<li>Make sure you have the right talent and culture, as well as technology</li>
+							<li>Build in appropriate governance and control</li>
+						</ol>
+					</section>
+				</section>
+					
+
+				<section data-markdown="" data-markdown-parsed="true" style="top: 108.5px; display: none;" class="future" aria-hidden="true" hidden=""><h2 id="markdown-support">Markdown support</h2>
+<p>Write content using inline or external Markdown.
+Instructions and more info available in the <a href="https://github.com/hakimel/reveal.js#markdown">readme</a>.</p>
+<pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">data-markdown</span>&gt;</span></span>
+  ## Markdown support
+
+  Write content using inline or external Markdown.
+  Instructions and more info available in the [<span class="hljs-string">readme</span>](<span class="hljs-link">https://github.com/hakimel/reveal.js#markdown</span>).
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+</code></pre></section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section id="fragments" style="top: 168px; display: none;" class="" aria-hidden="true">
+						<h2>Fragments</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment" data-fragment-index="0">... to step through ...</p>
+						<p><span class="fragment" data-fragment-index="1">... a</span> <span class="fragment" data-fragment-index="2">fragmented</span> <span class="fragment" data-fragment-index="3">slide.</span></p>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section class="future" aria-hidden="true" style="top: 18.5px; display: none;" hidden="">
+						<h2>Fragment Styles</h2>
+						<p>There's different types of fragments, like:</p>
+						<p class="fragment grow" data-fragment-index="0">grow</p>
+						<p class="fragment shrink" data-fragment-index="1">shrink</p>
+						<p class="fragment fade-out" data-fragment-index="2">fade-out</p>
+						<p class="fragment fade-up" data-fragment-index="3">fade-up (also down, left and right!)</p>
+						<p class="fragment current-visible" data-fragment-index="4">current-visible</p>
+						<p>Highlight <span class="fragment highlight-red" data-fragment-index="5">red</span> <span class="fragment highlight-blue" data-fragment-index="6">blue</span> <span class="fragment highlight-green" data-fragment-index="7">green</span></p>
+					</section>
+				</section>
+
+				<section id="transitions" style="top: 215px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="https://revealjs.com/?transition=none#/transitions">None</a> -
+						<a href="https://revealjs.com/?transition=fade#/transitions">Fade</a> -
+						<a href="https://revealjs.com/?transition=slide#/transitions">Slide</a> -
+						<a href="https://revealjs.com/?transition=convex#/transitions">Convex</a> -
+						<a href="https://revealjs.com/?transition=concave#/transitions">Concave</a> -
+						<a href="https://revealjs.com/?transition=zoom#/transitions">Zoom</a>
+					</p>
+				</section>
+
+				<section id="themes" style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Themes</h2>
+					<p>
+						reveal.js comes with a few themes built in: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					</p>
+				</section>
+
+				<section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+					<section data-background="#dddddd" style="top: 41.5px; display: none;" class="has-light-background" aria-hidden="true">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="navigate-down" disabled="disabled">
+							<img alt="Down arrow" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/arrow.png" data-lazy-loaded="" width="178" height="238">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" class="future" aria-hidden="true" style="top: 251px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Image Backgrounds</h2>
+						<pre><code class="hljs stylus">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>=<span class="hljs-string">"image.png"</span>&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px" class="future" aria-hidden="true" style="top: 242.5px; display: none;" data-background-image="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" hidden="">
+						<h2>Tiled Backgrounds</h2>
+						<pre><code class="hljs xl" style="word-wrap: break-word;">&lt;section <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>=<span class="hljs-string">"image.png"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-repeat=<span class="hljs-string">"repeat"</span> <span class="hljs-keyword">data</span>-<span class="hljs-built_in">background</span>-size=<span class="hljs-string">"100px"</span>&gt;</code></pre>
+					</section>
+					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000" class="has-dark-background future" aria-hidden="true" style="top: 350px; display: none;" hidden="">
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+							<h2>Video Backgrounds</h2>
+							<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-video=<span class="hljs-string">"video.mp4,video.webm"</span>&gt;</code></pre>
+						</div>
+					</section>
+					<section data-background="http://i.giphy.com/90F8aUepslB84.gif" class="future" aria-hidden="true" style="top: 350px; display: none;" data-background-image="http://i.giphy.com/90F8aUepslB84.gif" hidden="">
+						<h2>... and GIFs!</h2>
+					</section>
+				</section>
+
+				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom" style="top: 159px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
+					</p>
+					<pre><code class="hljs css"><span class="hljs-selector-tag">Reveal</span><span class="hljs-selector-class">.configure</span>({ <span class="hljs-attribute">backgroundTransition</span>: <span class="hljs-string">'zoom'</span> })</code></pre>
+				</section>
+
+				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom" style="top: 213.5px; display: none;" class="has-dark-background future" aria-hidden="true" hidden="">
+					<h2>Background Transitions</h2>
+					<p>
+						You can override background transitions per-slide.
+					</p>
+					<pre><code class="hljs stylus" style="word-wrap: break-word;">&lt;<span class="hljs-selector-tag">section</span> data-<span class="hljs-attribute">background</span>-transition=<span class="hljs-string">"zoom"</span>&gt;</code></pre>
+				</section>
+
+				<section style="top: 33.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Pretty Code</h2>
+					<pre><code class="hljs javascript" data-trim="" contenteditable=""><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">linkify</span>(<span class="hljs-params"> selector </span>) </span>{
+  <span class="hljs-keyword">if</span>( supports3DTransforms ) {
+
+    <span class="hljs-keyword">var</span> nodes = <span class="hljs-built_in">document</span>.querySelectorAll( selector );
+
+    <span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = nodes.length; i &lt; len; i++ ) {
+      <span class="hljs-keyword">var</span> node = nodes[i];
+
+      <span class="hljs-keyword">if</span>( !node.className ) {
+        node.className += <span class="hljs-string">' roll'</span>;
+      }
+    }
+  }
+}</code></pre>
+					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
+
+				<section style="top: 170.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Marvelous List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section style="top: 198px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section style="top: 135.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Tabular Tables</h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Value</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Apples</td>
+								<td>$1</td>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>Lemonade</td>
+								<td>$2</td>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>Bread</td>
+								<td>$3</td>
+								<td>2</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section style="top: 8px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The nice thing about standards is that there are so many to choose from</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						“For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.”
+					</blockquote>
+				</section>
+
+				<section style="top: 202px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section style="top: 177.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Speaker View</h2>
+					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
+					<p>Press the <em>S</em> key to try it out.</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your 
+presentation, but you can see them if you open the speaker notes window 
+(hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section style="top: 25px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
+					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen="" width="445" height="355" frameborder="0"> </iframe>
+				</section>
+
+				<section style="top: 131px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the page background.
+					</p>
+				</section>
+
+				<section data-state="customevent" style="top: 157.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>State Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code class="javascript hljs" data-trim="" style="font-size: 18px;" contenteditable="">Reveal.addEventListener( <span class="hljs-string">'customevent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'"customevent" has fired'</span> );
+} );</code></pre>
+				</section>
+
+				<section style="top: 188px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Take a Moment</h2>
+					<p>
+						Press B or . on your keyboard to pause the presentation. This is 
+helpful when you're on stage and want to take distracting slides off the
+ screen.
+					</p>
+				</section>
+
+				<section style="top: 143px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h2>Much more</h2>
+					<ul>
+						<li>Right-to-left support</li>
+						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
+					</ul>
+				</section>
+
+				<section style="text-align: left; top: 192.5px; display: none;" class="future" aria-hidden="true" hidden="">
+					<h1>THE END</h1>
+					<p>
+						- <a href="https://slides.com/">Try the online editor</a> <br>
+						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					</p>
+				</section>
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background past" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div><div class="slide-background present" style="background: rgb(221, 221, 221) none repeat scroll 0% 0%; display: none;" data-background-hash="#ddddddnullnullnullnullnullnullnullnullnull" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.pngnullnullnullnullnullnullnullnullnull" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png100pxnullnullnullnullrepeatnullnullnull" data-background-size="100px" style="display: none;" data-loaded="true"><div class="slide-background-content" style="background-size: 100px auto; background-repeat: repeat; background-image: url(&quot;https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png&quot;);"></div></div><div class="slide-background future" data-background-hash="0https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webmnull#000000nullnullnullnull" style="background-color: rgb(0, 0, 0); display: none;"><div class="slide-background-content"></div></div><div class="slide-background future" data-background-hash="http://i.giphy.com/90F8aUepslB84.gifnullnullnullnullnullnullnullnullnull" style="display: none;"><div class="slide-background-content"></div></div></div><div class="slide-background future" style="background: rgb(77, 126, 101) none repeat scroll 0% 0%; display: none;" data-background-hash="#4d7e65nullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="background: rgb(181, 83, 60) none repeat scroll 0% 0%; display: none;" data-background-hash="#b5533cnullnullnullnullnullnullnullzoomnull" data-background-transition="zoom" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="progress" style="display: block;"><span style="width: 52.5px;"></span></div><aside class="controls" style="display: block;" data-controls-layout="bottom-right" data-controls-back-arrows="faded"><button class="navigate-left enabled" aria-label="previous slide"><div class="controls-arrow"></div></button><button class="navigate-right enabled" aria-label="next slide"><div class="controls-arrow"></div></button><button class="navigate-up" aria-label="above slide" disabled="disabled"><div class="controls-arrow"></div></button><button class="navigate-down" aria-label="below slide" disabled="disabled"><div class="controls-arrow"></div></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe="" tabindex="0"></div><div class="pause-overlay"><button class="resume-button">Resume presentation</button></div><div style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);" id="aria-status-div" aria-live="polite" aria-atomic="true">
+					Hello There
+					
+						reveal.js enables you to create beautiful interactive slide decks 
+using HTML. This presentation will show you examples of what it can do.
+					
+				</div><div id="searchinputdiv" class="searchdiv" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: none;"><span><input type="search" id="searchinput" class="searchinput" style="vertical-align: top;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJiSURBVHjatFZNaxNBGH5md+Mmu92NVdKDRipSAyqCghgQD4L4cRe86UUtAQ+eFCxoa4/25EXBFi8eBE+eRPoDhB6KgiiixdAPCEkx2pjvTXadd9yNsflwuyUDD/O+u8PzzDPvzOwyx3EwyCZhwG3gAkp7MnpjgbopjsltcD4gjuXZZKeAR348MYLYTm3LzOs/y3j3JTfZxgXWXmTuwPHIc4VmoOmv5IrI53+AO2DdHLjkDWQ3GoEEVFXtXQOvkSnPWcyUceviLhwbDYv8/XIVj97kse7TodLvZXxYxrPUHkQ1ufXs3FEdybEIxucySOesoNvUgWU1cP3MkCBfTFdw9fGaAMVmRELq7LBw2Q3/FaAxxWIRpw+ZIr/7IouPqzUBiqmdHAv7EuhRAwf1er2Vy4x1jW3b2d5Jfvu5IPp7l2LYbcgCFFNb+FoJ7oBqEAqFMPNqFcmEgVMJDfMT+1tvN0pNjERlMS6QA5pFOKxiKVPFhakPeL3It+WGJUDxt2wFR+JhzI7v5ctkd8DXOZAkCYYxhO+lKm4+Xfqz/rIixBuNBl7eOYzkQQNzqX249mRl6zUgEcYkaJrGhUwBinVdh6IouPzwE6/DL5w4oLkH8y981aDf+uq6hlKpJESiUdNfDZi7/ehG9K6KfiA3pml0PLcsq+cSMTj2NL9ukc4UOmz7AZ3+crkC4mHujFvXNaMFB3bEr8xPS6p5O+jXxq4VZtaen7/PwzrntjcLUE0iHPS1Ud1cdiEJl/8WivZk0wXd7zWOMkeF8s0CcAmkNrC2nvXZDbbbN73ccYnZoH9bfgswAFzAe9/h3dbKAAAAAElFTkSuQmCC" id="searchbutton" class="searchicon" style="vertical-align: top; margin-top: -1px;"></span></div></div>
+
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/head.js"></script>
+		<script src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				width: 1290,
+				chalkboard: {
+        					},
+        		keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				math: {
+					mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0//MathJax.js',
+					config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/chalkboard/chalkboard.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+		<!-- Everything below this point is only used for the reveal.js demo page -->
+
+		<a class="fork-reveal" style="display: block;" href="https://github.com/hakimel/reveal.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="../reveal.js%20%E2%80%93%20The%20HTML%20Presentation%20Framework_files/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875.png" alt="Fork reveal.js on GitHub"></a>
+
+		<div class="share-reveal" style="display: block; position: absolute; bottom: 16px; left: 50%; margin-left: -139px; z-index: 20;">
+			<a class="share-reveal-editor" href="https://slides.com/">Enjoy Learning Thinking</a>
+		</div>
+
+		<style>
+			/* Social sharing */
+			.share-reveal a {
+				display: inline-block;
+				height: 34px;
+				line-height: 32px;
+				padding: 0 10px;
+				color: #fff;
+				font-family: Helvetica, sans-serif;
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 12px;
+				vertical-align: top;
+				text-transform: uppercase;
+				box-sizing: border-box;
+			}
+
+			.share-reveal .share-reveal-editor {
+				line-height: 30px;
+			}
+
+			.share-reveal svg {
+				vertical-align: middle;
+			}
+
+			.share-reveal a + a {
+				margin-left: 10px;
+			}
+
+			.share-reveal-editor {
+				border: 2px solid #fff;
+			}
+
+			.share-reveal-twitter,
+			.share-reveal-follow {
+				background-color: #00aced;
+			}
+
+			.share-reveal-facebook {
+				background-color: #4B71B8;
+			}
+
+			/* Advertising */
+			#carbonads {
+				width: 370px;
+				min-height: 100px;
+				font-size: 18px;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				padding: 10px;
+				margin: 40px auto 0 auto;
+				font-size: 16px;
+				z-index: 10;
+				text-align: left;
+			}
+
+			#carbonads .carbon-img img {
+				float: left;
+				margin: 0 10px 0 0;
+				border: 0;
+				box-shadow: none;
+			}
+
+			#carbonads .carbon-poweredby {
+				display: block;
+				margin-top: 10px;
+				color: #aaa;
+			}
+		</style>
+
+		<script>
+		var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+		(function(d, t) {
+		var g = d.createElement(t),
+			s = d.getElementsByTagName(t)[0];
+		g.async = true;
+		g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g, s);
+		})(document, 'script');
+		</script>
+
+		<script>
+			[].slice.call( document.querySelectorAll( '.share-reveal-facebook, .share-reveal-twitter' ) ).forEach( function( element ) {
+				element.addEventListener( 'click', function( event ) {
+					event.preventDefault();
+					var width = 500, height = 300;
+					var winTop = window.screenY + (window.screen.height / 2) - (height / 2);
+					var winLeft = window.screenX + (window.screen.width / 2) - (width / 2);
+					window.open(this.href, 'shre', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + width + ',height=' + height);
+				} );
+			} );
+
+			if( !navigator.userAgent.match( /(iphone|android)/gi ) && !!document.querySelector ) {
+				document.querySelector( '.share-reveal' ).style.display = 'block';
+				document.querySelector( '.fork-reveal' ).style.display = 'block';
+			}
+		</script>
+
+	
+
+</body></html>

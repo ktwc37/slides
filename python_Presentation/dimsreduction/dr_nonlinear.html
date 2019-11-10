@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./dr_linear_files/reveal.css">
+		<link rel="stylesheet" href="./dr_linear_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./dr_linear_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./dr_linear_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./dr_linear_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./dr_linear_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./dimsreduction.html">非线性降维</a></h2>
+                    <ul>
+                        <li>MDS</li>
+                        <li>Kernel PCA</li>
+                        <li>流形学习</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>MultiDimension Scaling</h3>
+                    <section>
+                        <img src="./dr_linear_files/mds_map.png" height="500" width="800">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/mds1.png" height="500" width="800">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/mds2.png" height="400" width="800">
+                        <p style="font-size: 24px"> MDS的目标是在降维的过程中将数据的dissimilarity(差异性)保持下来，也可以理解降维让高维空间中的距离关系与低维空间中距离关系保持不变.</p>
+                    </section>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>Kernel PCA</h4>
+                    <section>
+                        <style>
+                            .container{
+                                display: flex;
+                                }
+                            .col{
+                                flex: 1;
+                                }
+                        </style>
+
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/kernel1.png" height="400" width="400">
+                            </div>
+                
+                            <div class="col">
+                                <img src="./dr_linear_files/kernel2.png" height="400" width="400">
+                            </div>
+                        </div>
+                        <p style="font-size: 24px"> $K(x_i,x_j)=\phi(x_i)^T\phi(x_j)$</p>
+                        <p style="font-size: 24px"> $\Phi:R^2\rightarrow R^3$, $$(x_1,x_2)\rightarrow (x_1,x_2,x_1^2+x_2^2)$$</p>                    
+
+                    </section>
+                </section>
+
+                <section>
+                    <h4>流形学习</h4>
+                    <section>
+                        <img src="./dr_linear_files/manifold0.png" height="400" width="800">
+                    </section>
+                    <section>
+                        <ul>
+                            <li>ISOMAP</li>
+                            <li>LLE</li>
+                            <li>TSNE</li>
+                        </ul>
+                    </section>
+				</section>
+                <section>
+                    <h4>ISOMAP 等度量映射</h4>      
+                    <img src="./dr_linear_files/isomap.png" height="200" width="400">
+                    <ul>
+                        <li>Geodesic Distances</li>
+                        <li>Shortest Path</li>
+                        <li>高时间复杂度</li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>局部线性嵌入(LLE)</h4>
+                    <div class="container">
+                            <div class="col" align="left" style="font-size: 24px">
+                                <img src="./dr_linear_files/lle1.png" height="300" width="300">
+                            </div>
+                
+                            <div class="col">
+                                <img src="./dr_linear_files/lle2.png" height="300" width="300">
+                            </div>
+                    </div>
+                    <p>假设每个一样本都与其近邻组成一个线性子空间中</p>
+                    <p>把所有这些子空间连接在一起</p>
+                </section>
+                <section>
+                    <h4>t-Distributed Stochastic Neighbor Embedding (t-SNE)</h4>
+                    <section>
+                        <img src="./dr_linear_files/tsne0.png" height="400" width="600">
+                    </section>
+                    <section>
+                        <img src="./dr_linear_files/tsne1.gif" height="500" width="500">
+                    </section>
+                    <section>
+                        <div class="container">
+                            <div class="col" align="left" style="font-size: 18px">
+                                <ul>
+                                    <li>$p_{j|i} = \frac{\exp\left(-\left| x_i - x_j\right|^2 \big/ 2\sigma_i^2\right)}{\displaystyle\sum_{k \neq i} \exp\left(-\left| x_i - x_k\right|^2 \big/ 2\sigma_i^2\right)}$</li>
+                                    <li>$p_{ij} = \frac{p_{j|i} + p_{i|j}}{2N}$</li>
+                                    <li>$q_{ij} = \frac{f(\left| x_i - x_j\right|)}{\displaystyle\sum_{k \neq i} f(\left| x_i - x_k\right|)} \quad \textrm{with} \quad f(z) = \frac{1}{1+z^2}$</li>
+                                    <li>$KL(P||Q) = \sum_{i, j} p_{ij} \, \log \frac{p_{ij}}{q_{ij}}.$</li>
+                                    <li>$\frac{\partial \, KL(P || Q)}{\partial y_i} = 4 \sum_j (p_{ij} - q_{ij}) g\left( \left| x_i - x_j\right| \right) u_{ij} \quad \textrm{where} \, g(z) = \frac{z}{1+z^2}.$</li>
+                                </ul>
+                            </div>
+                            <div class="col" style="font-size: 20px">
+                                <ol>
+                                    <li>测量$x_j$到$x_i$的概率距离，认为$x_i$服从高斯分布</li>
+                                    <li>使其具备距离属性</li>
+                                    <li>定义其在映射空间的距离，认为服从自由度为1的$t$分布</li>
+                                    <li>损失函数为这两个距离矩阵的KL散度</li>
+                                    <li>采用梯度下降使损失函数最小</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Summary of web applications -->
+				
+                <!-- Model difficulties -->
+               
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./dr_linear_files/head.min.js.下载"></script>
+		<script src="./dr_linear_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./dr_linear_files/highlight.js.下载"></script><script type="text/javascript" src="./dr_linear_files/zoom.js.下载"></script><script type="text/javascript" src="./dr_linear_files/notes.js.下载"></script>
+
+	
+
+</body></html>

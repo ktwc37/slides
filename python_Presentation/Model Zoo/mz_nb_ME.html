@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://pieroit.github.io/machine-learning-open-course/applications.html#/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+
+		<title>Machine Learning - Applications</title>
+
+		<meta name="description" content="Machine learning applications and best practices">
+		<meta name="author" content="Piero Savastano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="icon" type="image/x-icon" href="http://pieroit.github.io/machine-learning-open-course/favicon.ico">
+
+		<link rel="stylesheet" href="./mz_overview_files/reveal.css">
+		<link rel="stylesheet" href="./mz_overview_files/moon.css" id="theme">
+        <link rel="stylesheet" href="./mz_overview_files/pieroit.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="./mz_overview_files/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                        inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+                     }
+            }
+        );
+        </script>
+        <script src="./mz_overview_files/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script><link rel="stylesheet" type="text/css" href="./mz_overview_files/paper.css">
+        
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.847286);">
+
+                <!-- Intro -->
+				<section class="present" style="top: 163.5px; display: block;">
+					<h2><a href="./model_zoo.html">Naive Bayes VS Maximum Entropy</a></h2>
+                    <ul>
+                        <li>Maximum Entropy Recap</li>
+                        <li>Model detail about ME</li>
+                        <li>Naive Bayes TO Maximum Entropy</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3>Maximum Entropy Recap</h3>
+                    <style>
+                        .container{
+                            display: flex;
+                            }
+                        .col{
+                            flex: 1;
+                            }
+                    </style>
+                    <div class="container">
+                        <div class="col" align="left" style="font-size: 24px">
+                            <p>Maximum Entropy Model:</p>
+                            <p>$H(y|x)=-\sum_{x,y\in\mathcal{Z}=\mathcal{X}\times\mathcal{Y}}p(y,x)log[p(y|x)]$</p>
+                            <p>$p^*(y|x)=argmax_{p(y|x)\in P}H(y|x)$</p>
+                            <p>$p(y|x)=\frac{1}{Z(x)}exp[\sum_{k=1}^K\theta_kf_k(y,x)]$</p>
+                            <img src="./mz_overview_files/lr.png" height="200" width="400">
+                        </div>
+                        <div class="col" style="font-size: 24px">
+                            <p>Maximum Entropy Markov Model</p>
+                            <p>$p_{MEMM}(y|x)=\prod_{t=1}^{T}p(y_t|y_{t-1},x)$</p>
+                            <p>$p(y_t|y_{t-1},X)=\frac{1}{Z_t(y_{t-1},X)}exp[\sum_{k=1}^{K}\theta_kf_k(y_t,y_{t-1},X)]$</p>
+                            <img src="./mz_overview_files/memm.png" height="200" width="400">
+                        </div>
+                    </div>
+                </section>
+
+				<!-- Business tips -->
+				<section hidden="" aria-hidden="true" class="future" style="top: 330px;">
+					<h4>HMM vs MEMM</h4>
+                    <section>
+                        <img src="./mz_overview_files/memm1.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <p> More on MEMM</p>
+                        <p style="font-size: 24px">In the Maximum Entropy Markov Models the transition and observation functions (i.e., the HMM matrices $A$ and $B$ ) are replaced by a single function:</p>
+                        <p style="font-size: 24px">$P(s_{t} \mid s_{t-1}, o_{t})$</p>
+                        <img src="./mz_overview_files/HMM_vs_MEMM.png" height="300" width="600">
+                    </section>
+                    <section>
+                        <ul>
+                            <li>HMM: current observation only depends on the current state</li>
+                            <li>MEMM: may also depend on the previous state, $P(s_{t} \mid s_{t-1}, o_{t})$</li>
+                            <li>HMM: distinct probability estimates for each transition and observation</li>
+                            <li>MEMM: one transition probability matrix which encapsulates all combinations of previous states $S_{t−1}$ and current observation $O_t$ pairs in the training data to the current state $S_t$</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h4>NB条件化就是逻辑回归</h4>
+                    <section>
+                        <div align="left" style="font-size: 24px">
+                            <p>对于随机变量$X = X_i,i = 1,2,…$,预测变量$Y$为Bernoulli分布，参数$\pi=P(Y=1)$</p>
+                            <p>对于每一个$X_i,P(X_i|Y_k)\sim N(\mu_{ik},\sigma_i^2)$</p>
+                            <p>对于$i\neq j,X_i与X_j$在给定$Y$的情况下条件无关</p>
+                            <p>在二分类的情况下，贝叶斯公式可以写成：
+                            $$P(Y=1|X)=\frac{P(Y=1)P(X|Y=1)}{P(Y=1)P(X|Y=1)+P(Y=0)P(X|Y=0)}$$
+                            $$P(Y=1|X)=\frac{1}{1+\frac{P(Y=0)P(X|Y=0)}{P(Y=1)P(X|Y=1)}}$$
+                            $$P(Y=1|X)=\frac{1}{1+exp(ln\frac{P(Y=0)P(X|Y=0)}{P(Y=1)P(X|Y=1)})}$$</p>
+                        </div>
+                    </section>
+                    <section>
+                        <div align="left" style="font-size: 24px">
+                            <p>$$P(Y=1|X)=\frac{1}{1+exp(ln\frac{P(Y=0)}{P(Y=1)}+\sum_i ln\frac{P(X_i|Y=0)}{P(X_i|Y=1)})}$$
+                            </p>
+                            <p>由于$P(X_i|Y=y_k)$成高斯分布，
+                               $$\sum_i ln\frac{P(X_i|Y=0)}{P(X_i|Y=1)}=\sum_i ln\frac{\frac{1}{\sqrt{2\pi\sigma_i^2}}exp(\frac{-(X_i-\mu_{i0})^2}{2\sigma_i^2})}{\frac{1}{\sqrt{2\pi\sigma_i^2}}exp(\frac{-(X_i-\mu_{i1})^2}{2\sigma_i^2})}$$
+                               $$=\sum_i ln[exp(\frac{(X_i-\mu_{i1})^2-(X_i-\mu_{i0})^2}{2\sigma_i^2})]$$
+                               $$=\sum_i (\frac{\mu_{i0}-\mu_{i1}}{\sigma_i^2}X_i+\frac{\mu_{i1}^2-\mu_{i0}^2}{2\sigma_i^2})$$</p>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="font-size: 26px">
+                            <p>最后得到，$$P(Y=1|X)=\frac{1}{1+exp(ln\frac{1-\pi}{\pi}+\sum_i (\frac{\mu_{i0}-\mu_{i1}}{\sigma_i^2}X_i+\frac{\mu_{i1}^2-\mu_{i0}^2}{2\sigma_i^2}))}$$</p>
+                            <p>进而，$$P(Y=1|X)=\frac{1}{1+exp(w_0+\sum_iw_iX_i)}$$</p>
+                            <p>其中，$$w_0=ln(\frac{1-\pi}{\pi})+\sum_i\frac{\mu_{i1}^2-\mu_{i0}^2}{2\sigma_i^2}$$
+                           $$w_i=\frac{\mu_{i0}-\mu_{i1}}{\sigma_i^2}$$</p>
+                        </div>
+                    </section>
+
+				</section>
+                
+                <section>
+                </section>
+
+                <!-- Summary of web applications -->
+				
+                <!-- Model difficulties -->
+               
+
+			</div>
+
+		<div class="backgrounds"><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" data-background-hash="img/facepalm.jpgnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background future" data-background-hash="img/wikidata.pngnullnullnullnullnullnullnullnull" style="display: none;"></div><div class="slide-background stack future" style="display: none;"><div class="slide-background present" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+					Machine Learning
+                    Applications and practices
+				</div></div>
+
+		<script src="./mz_overview_files/head.min.js.下载"></script>
+		<script src="./mz_overview_files/reveal.js.下载"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script><script type="text/javascript" src="./mz_overview_files/highlight.js.下载"></script><script type="text/javascript" src="./mz_overview_files/zoom.js.下载"></script><script type="text/javascript" src="./mz_overview_files/notes.js.下载"></script>
+
+	
+
+</body></html>
