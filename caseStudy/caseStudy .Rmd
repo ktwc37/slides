@@ -1,0 +1,344 @@
+---
+title       : "Data Analysis Case Study"
+subtitle    : "Statistics Foundation"
+author      : "MaMing"
+job         : "Big Data Platform Architecture and Data Scientist."
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : mathjax            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+url:
+  assets: ../assets
+  lib: ../librariesNew
+knit        : slidify::knit2slides
+---
+
+## Course Introduction 
+> - Prelimitary 
+> - Population and Sample  
+> - Random Variable  
+> - Probability distribution  
+> - Parameter Estimate  
+> - Hypothesis Test  
+> - Statistical Analysis  
+
+--- .class #id
+
+## What a good data analysis come from?  
+
+> - <q> A good data analysis come from a good __question__.</q>
+
+--- .bigger  
+
+## Basic Introduction on Data Analysis 
+
+> - Classical Method 
+> - Exploratory Data Analysis 
+> - Bayesian Analysis 
+
+--- .class #id
+
+## Prelimitary Knowledge  
+> - Data Basics  
+    - Observations,Variables and data matrics or data frame 
+    - Type of Variables  
+    - Relationships between Variables 
+> - Visualization 
+    - Scatterplot
+    - Histogram, Dotplot  
+    - Boxplot
+> - Probability Theory Basic
+    - Population and Sample  
+    - Random Variable  
+    - Probability distribution 
+
+--- .class #id  
+
+## Example 1 : Titanic dataset
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+titan <- read.csv("../Titanic.csv",header=TRUE)
+library('knitr')
+kable(head(titan), format = "markdown")
+```
+
+--- .class #id
+
+## Example 2 : iris dataset
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+data(iris)
+kable(head(iris), format = "markdown")
+```
+
+--- .class #id
+
+## Example 3 : mtcars dataset
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+data(mtcars)
+kable(head(mtcars), format = "markdown")
+```
+
+--- .class #id
+
+
+## Case 1 : What's the problem?  
+<img src="FDR.png" width="800px" height="500px" />
+
+--- .class #id 
+
+## Random variables
+
+- A **random variable** is a numerical outcome of an experiment.
+- The random variables that we study will come in two varieties,
+  **discrete** or **continuous**.
+- Discrete random variable are random variables that take on only a
+countable number of possibilities.
+  * $P(X = k)$
+- Continuous random variable can take any value on the real line or some subset of the real line.
+  * $P(X \in A)$
+
+---  
+## Examples of variables that can be thought of as random variables
+
+- The $(0-1)$ outcome of the flip of a coin
+- The outcome from the roll of a die
+- The BMI of a subject four years after a baseline measurement
+- The hypertension status of a subject randomly drawn from a population
+
+---
+## PMF
+
+A probability mass function evaluated at a value corresponds to the
+probability that a random variable takes that value. To be a valid
+pmf a function, $p$, must satisfy
+
+  1. $p(x) \geq 0$ for all $x$
+  2. $\sum_{x} p(x) = 1$
+
+The sum is taken over all of the possible values for $x$.
+
+---
+
+## Example
+
+Let $X$ be the result of a coin flip where $X=0$ represents
+tails and $X = 1$ represents heads.
+$$
+p(x) = (1/2)^{x} (1/2)^{1-x} ~~\mbox{ for }~~x = 0,1
+$$
+Suppose that we do not know whether or not the coin is fair; Let
+$\theta$ be the probability of a head expressed as a proportion
+(between 0 and 1).
+$$
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
+$$
+
+---
+
+## PDF
+
+A probability density function (pdf), is a function associated with
+a continuous random variable 
+
+  *Areas under pdfs correspond to probabilities for that random variable*
+
+To be a valid pdf, a function $f$ must satisfy
+
+1. $f(x) \geq 0$ for all $x$
+
+2. The area under $f(x)$ is one.
+
+---
+## Example
+
+Suppose that the proportion of help calls that get addressed in
+a random day by a help line is given by
+$$
+f(x) = \left\{\begin{array}{ll}
+    2 x & \mbox{ for } 1 > x > 0 \\
+    0                 & \mbox{ otherwise} 
+\end{array} \right. 
+$$
+
+Is this a mathematically valid density?
+
+---
+## CDF and survival function
+
+- The **cumulative distribution function** (CDF) of a random variable $X$ is defined as the function 
+$$
+F(x) = P(X \leq x)
+$$
+- This definition applies regardless of whether $X$ is discrete or continuous.
+- The **survival function** of a random variable $X$ is defined as
+$$
+S(x) = P(X > x)
+$$
+- Notice that $S(x) = 1 - F(x)$
+- For continuous random variables, the PDF is the derivative of the CDF
+
+---
+## Example
+
+What are the survival function and CDF from the density considered before?
+
+For $1 \geq x \geq 0$
+$$
+F(x) = P(X \leq x) = \frac{1}{2} Base \times Height = \frac{1}{2} (x) \times (2 x) = x^2
+$$
+
+$$
+S(x) = 1 - x^2
+$$
+
+```{r}
+pbeta(c(0.4, 0.5, 0.6), 2, 1)
+```
+
+---
+## Mean and Variance  
+> 1. Shape 
+> 2. Measure of Center  
+    - Mean
+    - Median 
+    - Mode 
+> 3. Measure of Spread  
+    - Range 
+    - Variance 
+    - IQR (Inter Quarter Range)
+
+--- .class #id  
+
+## Shape 
+<img src="shape.png" width="800px" height="500px" />
+
+--- .class #id  
+
+## The population mean
+- The **expected value** or **mean** of a random variable is the center of its distribution
+- For discrete random variable $X$ with PMF $p(x)$, it is defined as follows
+    $$
+    E[X] = \sum_x xp(x).
+    $$
+    where the sum is taken over the possible values of $x$
+- $E[X]$ represents the center of mass of a collection of locations and weights, $\{x, p(x)\}$  
+
+--- 
+
+## The sample mean
+- The sample mean estimates this population mean
+- The center of mass of the data is the empirical mean
+$$
+\bar X = \sum_{i=1}^n x_i p(x_i)
+$$
+where $p(x_i) = 1/n$
+
+--- 
+
+## The variance
+
+- The variance of a random variable is a measure of *spread*
+- If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
+
+$$
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+$$ 
+
+- The expected (squared) distance from the mean
+- Densities with a higher variance are more spread out than densities with a lower variance
+- The square root of the variance is called the **standard deviation**
+- The standard deviation has the same units as $X$
+
+---
+
+## The sample variance 
+- The sample variance is 
+$$
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+$$
+(almost, but not quite, the average squared deviation from
+the sample mean)
+- It is also a random variable
+  - It has an associate population distribution
+  - Its expected value is the population variance
+  - Its distribution gets more concentrated around the population variance with more data
+- Its square root is the sample standard deviation
+
+---
+## What we learn from case 1  
+> 1. Population and Sample  
+> 2. T-test  
+> 3. Confidence Interval 
+
+--- .class #id 
+  
+## Sampling Methods
+* simple random sampling (SRS)  
+* stratified sample  
+* cluster sample  
+* multistage sample  
+
+--- .class #id  
+
+## Simple Random Sampling
+<img src="./src.png" height="500" width="800" />
+
+--- .class #id  
+
+## Stratified Sampling
+<img src="./stratum_s.png" height="500" width="800" />
+
+--- .class #id
+
+## Cluster Sampling
+<img src="./cluster_s.png" height="500" width="800" />
+
+--- .class #id  
+
+## Multistage Sampling
+<img src="./multis_s.png" height="500" width="800" />
+
+--- .class #id  
+
+## Normal Distribution  
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+set.seed(4566)
+data <- rnorm(1000)
+# layout where the boxplot is at top 
+nf <- layout(mat = matrix(c(1,2),2,1, byrow=TRUE),  height = c(1,3))
+par(mar=c(3.1, 3.1, 1.1, 2.1))
+boxplot(data, horizontal=TRUE,  outline=TRUE,ylim=c(-4,4), frame=F, col = "green1")
+hist(data,xlim=c(-4,4), col = "steelblue")
+```
+
+--- .class #id 
+
+## 
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+ library(ggplot2)
+library(gridExtra)
+ x<-rnorm(300)
+ y<-rt(300,df=2)
+ hist_top <- ggplot()+geom_histogram(aes(rnorm(300)),fill="blue")
+empty <- ggplot()+geom_point(aes(1,1), colour="white")+
+         theme(axis.ticks=element_blank(), 
+               panel.background=element_blank(), 
+               axis.text.x=element_blank(), axis.text.y=element_blank(),           
+               axis.title.x=element_blank(), axis.title.y=element_blank())
+
+scatter <- ggplot()+geom_point(aes(rnorm(300), rnorm(300)))
+hist_right <- ggplot()+geom_histogram(aes(rnorm(300)),fill="steelblue")+coord_flip()
+grid.arrange(hist_top, empty, scatter, hist_right, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+```
+
+
+## Case 2 : Try to get something without data.  
+
+> - If employee works with low effiency, who will responsible for?  
+
+--- .class #id
+
+
+
+
+
