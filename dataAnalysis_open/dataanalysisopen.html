@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis Opening</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis Opening">
+  <meta name="author" content="马明">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis Opening</h1>
+    <h2>A case-based approach</h2>
+    <p>马明<br/>Big Data Platform Architect and Data Scientist.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Data Related Terms</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="ai_data-science-diagram.jpg" width="800px" height="600px" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="id" style="background:;">
+  <hgroup>
+    <h2>What a good data analysis come from?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li><q> A good data analysis come from a good <strong>question</strong>.</q></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="bigger" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Data Analysis Basic Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Classical Method </li>
+<li>Exploratory Data Analysis </li>
+<li>Bayesian Analysis </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>有趣的事：Paul,the psychic octopus</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="Paul_the_Octopus_picks_Spain_over_Germany_in_2010_World_Cup_semi-final_3.jpg" width="600px" height="400px" /></p>
+
+<ul class = "build incremental">
+<li>章鱼保罗，曾经连续预测正确世界杯足球比赛结果8次。</li>
+<li>你认为章鱼保罗具有某种神奇的预测能力吗？</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Case 1 : What&#39;s the problem?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="FDR.png" width="800px" height="400px" /></p>
+
+<ul class = "build incremental">
+<li>1936年美国总统大选，著名期刊Literary Digest采访其100万读者，得到有43%的人选择罗斯福。<br></li>
+<li>所以，判断罗斯福会输。 </li>
+<li>结果，罗斯福以62%的支持度赢得总统大学。因此该期刊在不久后停业。 </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>Question1 ：为什么认为兰登会获得大选胜利？</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>点估计 ( point estimate )<br></li>
+<li>正态分布( normal distribution )<br></li>
+<li>Z分数( Z score )<br></li>
+<li>P-value 和假设检验</li>
+<li>置信区间( confident interval )</li>
+<li>显著性水平(significent level)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>Question2 : 预测结果和实际情况的偏离是由什么原因引起的？</h3>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Case 2 : 泰坦尼克号</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Question ：泰坦尼克号上获救的人是否完全随机呢？    </p>
+
+<p>Titanic DataSet  </p>
+
+<table><thead>
+<tr>
+<th align="right">X</th>
+<th align="left">Name</th>
+<th align="left">PClass</th>
+<th align="right">Age</th>
+<th align="left">Sex</th>
+<th align="right">Survived</th>
+<th align="right">SexCode</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">1</td>
+<td align="left">Allen, Miss Elisabeth Walton</td>
+<td align="left">1st</td>
+<td align="right">29.00</td>
+<td align="left">female</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">Allison, Miss Helen Loraine</td>
+<td align="left">1st</td>
+<td align="right">2.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">Allison, Mr Hudson Joshua Creighton</td>
+<td align="left">1st</td>
+<td align="right">30.00</td>
+<td align="left">male</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">Allison, Mrs Hudson JC (Bessie Waldo Daniels)</td>
+<td align="left">1st</td>
+<td align="right">25.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="left">Allison, Master Hudson Trevor</td>
+<td align="left">1st</td>
+<td align="right">0.92</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="left">Anderson, Mr Harry</td>
+<td align="left">1st</td>
+<td align="right">47.00</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>舱位等级与年龄的boxplot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>获救的人和年龄或者舱位等级有关系吗？</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>获救的人和性别有关系吗？</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>T-test</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>H0: There is no significant difference in the chances of survival of upper and lower class<br>
+H1: There is a better chance of survival for upper class passengers  </p>
+
+<pre><code>## [1] 9.699754
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Chi-Square Test</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  titan$Survived and titan$Sex
+## X-squared = 329.84, df = 1, p-value &lt; 2.2e-16
+</code></pre>
+
+<pre><code>## Number of cases in table: 1313 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 173.1, df = 3, p-value = 2.72e-37
+##  Chi-squared approximation may be incorrect
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>回归问题(Regression Analysis)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>问题：如何通过父母的身高预测孩子的身高？<br>
+<img src="assets/fig/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>原始的回归问题</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>聚类分析( Clustering Analysis )</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>调查一个大型金融组织的30个部门，每个部门35人。<br>
+Chatterjee-Price Attitude Data   </p>
+
+<table><thead>
+<tr>
+<th align="right">rating</th>
+<th align="right">complaints</th>
+<th align="right">privileges</th>
+<th align="right">learning</th>
+<th align="right">raises</th>
+<th align="right">critical</th>
+<th align="right">advance</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">43</td>
+<td align="right">51</td>
+<td align="right">30</td>
+<td align="right">39</td>
+<td align="right">61</td>
+<td align="right">92</td>
+<td align="right">45</td>
+</tr>
+<tr>
+<td align="right">63</td>
+<td align="right">64</td>
+<td align="right">51</td>
+<td align="right">54</td>
+<td align="right">63</td>
+<td align="right">73</td>
+<td align="right">47</td>
+</tr>
+<tr>
+<td align="right">71</td>
+<td align="right">70</td>
+<td align="right">68</td>
+<td align="right">69</td>
+<td align="right">76</td>
+<td align="right">86</td>
+<td align="right">48</td>
+</tr>
+<tr>
+<td align="right">61</td>
+<td align="right">63</td>
+<td align="right">45</td>
+<td align="right">47</td>
+<td align="right">54</td>
+<td align="right">84</td>
+<td align="right">35</td>
+</tr>
+<tr>
+<td align="right">81</td>
+<td align="right">78</td>
+<td align="right">56</td>
+<td align="right">66</td>
+<td align="right">71</td>
+<td align="right">83</td>
+<td align="right">47</td>
+</tr>
+<tr>
+<td align="right">43</td>
+<td align="right">55</td>
+<td align="right">49</td>
+<td align="right">44</td>
+<td align="right">54</td>
+<td align="right">49</td>
+<td align="right">34</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Kmeans algorithm</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The Result of Kmean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Special Case 1 : Why Big Data?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Chebyshev Inequality<br>
+随机变量$X$的分布为 $P$，其均值为 $\mu$，那么
+\[P(|X-\mu|\geq b) \leq \frac{Var(X)}{b^2}\]<br></li>
+<li>Insight, Efficiency, Cost Reduction</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Special Case 2 : Try to get something without data.</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>If employee works with low effiency, who will responsible for?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>End</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li><q>  <strong>Questions?</strong></q></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="bigger center" id="slide-22" style="background:;">
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Data Related Terms'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What a good data analysis come from?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Data Analysis Basic Introduction'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='有趣的事：Paul,the psychic octopus'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Case 1 : What&#39;s the problem?'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Question1 ：为什么认为兰登会获得大选胜利？'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Question2 : 预测结果和实际情况的偏离是由什么原因引起的？'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Case 2 : 泰坦尼克号'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='舱位等级与年龄的boxplot'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='获救的人和年龄或者舱位等级有关系吗？'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='获救的人和性别有关系吗？'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='T-test'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Chi-Square Test'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='回归问题(Regression Analysis)'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='原始的回归问题'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='聚类分析( Clustering Analysis )'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Kmeans algorithm'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='The Result of Kmean'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Special Case 1 : Why Big Data?'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Special Case 2 : Try to get something without data.'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='End'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='NA'>
+         22
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
