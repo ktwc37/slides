@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis Case Study</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis Case Study">
+  <meta name="author" content="MaMing">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../librariesNew/frameworks/io2012/js/slides" 
+    src="../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis Case Study</h1>
+    <h2>Statistics Foundation</h2>
+    <p>MaMing<br/>Anomaly analysis,Time Series Analysis,Machine Learning Big Data Platform Architecture and Data Model.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Course Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Prelimitary </li>
+<li>Population and Sample<br></li>
+<li>Random Variable<br></li>
+<li>Probability distribution<br></li>
+<li>Parameter Estimate<br></li>
+<li>Hypothesis Test<br></li>
+<li>Statistical Analysis<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>What a good data analysis come from?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li><q> A good data analysis come from a good <strong>question</strong>.</q></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="bigger" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Basic Introduction on Data Analysis</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Classical Method </li>
+<li>Exploratory Data Analysis </li>
+<li>Bayesian Analysis </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Prelimitary Knowledge</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Data Basics<br>
+
+<ul>
+<li>Observations,Variables and data matrics or data frame </li>
+<li>Type of Variables<br></li>
+<li>Relationships between Variables </li>
+</ul></li>
+<li>Visualization 
+
+<ul>
+<li>Scatter plot</li>
+<li>Histogram </li>
+<li>Dotplot<br></li>
+<li>Boxplot</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example 1 : Titanic dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th align="right">X</th>
+<th align="left">Name</th>
+<th align="left">PClass</th>
+<th align="right">Age</th>
+<th align="left">Sex</th>
+<th align="right">Survived</th>
+<th align="right">SexCode</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">1</td>
+<td align="left">Allen, Miss Elisabeth Walton</td>
+<td align="left">1st</td>
+<td align="right">29.00</td>
+<td align="left">female</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">Allison, Miss Helen Loraine</td>
+<td align="left">1st</td>
+<td align="right">2.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">Allison, Mr Hudson Joshua Creighton</td>
+<td align="left">1st</td>
+<td align="right">30.00</td>
+<td align="left">male</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">Allison, Mrs Hudson JC (Bessie Waldo Daniels)</td>
+<td align="left">1st</td>
+<td align="right">25.00</td>
+<td align="left">female</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="left">Allison, Master Hudson Trevor</td>
+<td align="left">1st</td>
+<td align="right">0.92</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="left">Anderson, Mr Harry</td>
+<td align="left">1st</td>
+<td align="right">47.00</td>
+<td align="left">male</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example 2 : iris dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr>
+<td align="right">5.4</td>
+<td align="right">3.9</td>
+<td align="right">1.7</td>
+<td align="right">0.4</td>
+<td align="left">setosa</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example 3 : mtcars dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Case 1 : What&#39;s the problem?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="FDR.png" width="800px" height="500px" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Mean and Variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol class = "build incremental">
+<li>Shape </li>
+<li>Measure of Center<br>
+
+<ul>
+<li>Mean</li>
+<li>Median </li>
+<li>Mode </li>
+</ul></li>
+<li>Measure of Spread<br>
+
+<ul>
+<li>Range </li>
+<li>Variance </li>
+<li>IQR (Inter Quarter Range)</li>
+</ul></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Shape</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="shape.png" width="800px" height="500px" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The population mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>expected value</strong> or <strong>mean</strong> of a random variable is the center of its distribution</li>
+<li>For discrete random variable \(X\) with PMF \(p(x)\), it is defined as follows
+\[
+E[X] = \sum_x xp(x).
+\]
+where the sum is taken over the possible values of \(x\)</li>
+<li>\(E[X]\) represents the center of mass of a collection of locations and weights, \(\{x, p(x)\}\)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>The sample mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample mean estimates this population mean</li>
+<li>The center of mass of the data is the empirical mean
+\[
+\bar X = \sum_{i=1}^n x_i p(x_i)
+\]
+where \(p(x_i) = 1/n\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>The variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The variance of a random variable is a measure of <em>spread</em></li>
+<li>If \(X\) is a random variable with mean \(\mu\), the variance of \(X\) is defined as</li>
+</ul>
+
+<p>\[
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+\] </p>
+
+<ul>
+<li>The expected (squared) distance from the mean</li>
+<li>Densities with a higher variance are more spread out than densities with a lower variance</li>
+<li>The square root of the variance is called the <strong>standard deviation</strong></li>
+<li>The standard deviation has the same units as \(X\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>The sample variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample variance is 
+\[
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+\]
+(almost, but not quite, the average squared deviation from
+the sample mean)</li>
+<li>It is also a random variable
+
+<ul>
+<li>It has an associate population distribution</li>
+<li>Its expected value is the population variance</li>
+<li>Its distribution gets more concentrated around the population variance with more data</li>
+</ul></li>
+<li>Its square root is the sample standard deviation</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>What we learn from case 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol class = "build incremental">
+<li>Population and Sample<br></li>
+<li>T-test<br></li>
+<li>Confidence Interval </li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Sampling Methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>simple random sampling (SRS)<br></li>
+<li>stratified sample<br></li>
+<li>cluster sample<br></li>
+<li>multistage sample<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Simple Random Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./src.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Stratified Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./stratum_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Cluster Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./cluster_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Multistage Sampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./multis_s.png" height="500" width="800" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Normal Distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></p>
+
+<h2>Case 2 : Try to get something without data.</h2>
+
+<ul class = "build incremental">
+<li>If employee works with low effiency, who will responsible for?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Course Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What a good data analysis come from?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Basic Introduction on Data Analysis'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Prelimitary Knowledge'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Example 1 : Titanic dataset'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example 2 : iris dataset'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example 3 : mtcars dataset'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Case 1 : What&#39;s the problem?'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Mean and Variance'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Shape'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='The population mean'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='The sample mean'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='The variance'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='The sample variance'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='What we learn from case 1'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Sampling Methods'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Simple Random Sampling'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Stratified Sampling'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Cluster Sampling'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Multistage Sampling'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Normal Distribution'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='NA'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='NA'>
+         23
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
