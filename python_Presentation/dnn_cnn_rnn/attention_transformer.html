@@ -108,7 +108,7 @@
                     	<p>Context Vector</p>
                     	<div class="container">
                             <div class="col" align="left" style="font-size: 24px">
-                            	<img src="./nn_introduction_files/encoder_decoder.png" height="240" width="450">
+                            	<img src="./nn_introduction_files/encoder_decoder.PNG" height="240" width="450">
                             	<ul>
                             		<li><p>The encoder compiles and compress the information it captures into a <strong>context vector</strong></p></li>
                             		<li><p>This representation is expected to be a good summary of the meaning of the whole source sequence</p></li>
@@ -135,7 +135,7 @@
                         <p>Context Vector TO Attention</p>
                         <div class="container">
                             <div class="col" align="left" style="font-size: 24px">
-                                <img src="./nn_introduction_files/additive_attention.png" height="350" width="600">
+                                <img src="./nn_introduction_files/additive_attention.PNG" height="350" width="600">
                                 <p>Essentially the context vector consumes three pieces of information:</p>
                                 <ul>
                                     <li>encoder state</li>
@@ -165,7 +165,7 @@
                 	<p>Summary of Attention Mechanisms</p>
                 	<div class="container">
                         <div class="col" align="left" style="font-size: 24px">
-                			<img src="./nn_introduction_files/attention_summary.png" height="400" width="700">
+                			<img src="./nn_introduction_files/attention_summary.PNG" height="400" width="700">
                 		</div>
                 		<div class="col" align="left" style="font-size: 24px">
                 			<br>
@@ -199,7 +199,7 @@
                     <h3>Attention</h3>
                     <section>
                     	<p>What is Attention</p>
-                    	<img src="./nn_introduction_files/attention_example.png" height="120" width="400">
+                    	<img src="./nn_introduction_files/attention_example.PNG" height="120" width="400">
                     	<p style="font-size: 24px" align="left">An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key</p>
                     	<p style="font-size: 24px" align="left">$\begin{eqnarray} A(q, \{(k,v)\} ) \xrightarrow[\text{output}]{\text{maps as}} \sum_{i=1}^k{\overbrace{f_c(q,k_i)}^{\theta_i}}v_i, q \in Q, k \in K, v \in V \end{eqnarray}$</p>
                     	<p style="font-size: 24px" align="left">Q, K, V – vector space, f_c- compatibility function</p>

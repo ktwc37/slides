@@ -83,7 +83,7 @@
                     	<div class="container">
                             <div class="col" align="left" style="font-size: 24px">
                             	<p>Bag of Words</p>
-                            	<img src="queen_bag.png" width="400" height="300">
+                            	<img src="queen_bag.PNG" width="400" height="300">
                             </div>
                             <div class="col" align="left" style="font-size: 24px">
                             	<p>Word Embedding</p>
@@ -114,10 +114,10 @@
 				    	<h4>CBOW vs Skip-Gram</h4>
 				    	<div class="container">
                             <div class="col" align="left" style="font-size: 24px">
-                            	<img src="cbow.png" width="400" height="400">
+                            	<img src="cbow.PNG" width="400" height="400">
                             </div>
                             <div class="col" align="left" style="font-size: 24px">
-                            	<img src="skipgram.png" width="400" height="400">
+                            	<img src="skipgram.PNG" width="400" height="400">
                             </div>
                         </div>
 				    </section>
@@ -139,7 +139,7 @@
 					</section>
 					<section>
 						<h4>Output Layer</h4>
-						<img src="wordvec_math.png" width="600" height="200">
+						<img src="wordvec_math.PNG" width="600" height="200">
 					</section>
 					<section>
 						<h4> Contextual Similarity Visuliazation </h4>
@@ -170,7 +170,7 @@
 										<p>$P(w_i) = (\sqrt{\frac{z(w_i)}{0.001}} + 1) \cdot \frac{0.001}{z(w_i)}$</p>
 									</li>
 								</ul>
-								<img src="sampling_rate.png" width="600" height="300">
+								<img src="sampling_rate.PNG" width="600" height="300">
 							</div>
 							<div class="col" align="left" style="font-size: 24px">
 								<br>
@@ -243,7 +243,7 @@
 						<div class="container">							
                             <div class="col" align="left" style="font-size: 24px">
 								<p class="fragment" data-fragment-index="0">Matrix factorization</p>
-								<img src="matrix_factor.png" width="450" height="400">
+								<img src="matrix_factor.PNG" width="450" height="400">
 							</div>
 							<div class="col" align="left" style="font-size: 24px">
 								<ul>
@@ -268,7 +268,7 @@
 							<li><p class="fragment" data-fragment-index="0">Suppose we wish to study the relationship between two words, $i = ice$ and $j = steam$</p></li>
 							<li><p class="fragment" data-fragment-index="1">We’ll do this by examining the co-occurrence probabilities of these words with various “probe” words $k$.</p></li>
 						</ul>
-						<img class="fragment" data-fragment-index="2" src="co_prob.png" width="600" height="150">
+						<img class="fragment" data-fragment-index="2" src="co_prob.PNG" width="600" height="150">
 						<p style="font-size: 24px" class="fragment" data-fragment-index="3"> The ratio between co-occurrence probabilities helps filter out noise points</p>
 					</section>
 					<section>
@@ -284,13 +284,13 @@
 					<section>
 						<p>Finally</p>
 						<p style="font-size: 24px" class="fragment" data-fragment-index="0">$$J=\sum_{i,j=1}^Vf(X_{ij})(w_i^T\tilde{w_k}+b_i+\tilde{b_k}-log X_{ik})^2$$</p>
-								<img class="fragment" data-fragment-index="1" src="weighting_function.png" width="400" height="220">
+								<img class="fragment" data-fragment-index="1" src="weighting_function.PNG" width="400" height="220">
 								<p style="font-size: 24px" class="fragment" data-fragment-index="2">Weighting function $f$ with $\alpha=3/4$</p>
 					</section>
 					<section>
 						<p>Summary</p>
 						<p style="font-size: 24px" class="fragment" data-fragment-index="0">The training objective of GloVe is to learn word vectors such that their dot product equals the logarithm of the words’ probability of co-occurrence</p>
-						<img class="fragment" data-fragment-index="1" src="glove_sum.png" width="800" height="300">
+						<img class="fragment" data-fragment-index="1" src="glove_sum.PNG" width="800" height="300">
 					</section>
 				</section>
 
