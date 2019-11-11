@@ -12,3 +12,5 @@
   7. [数据分析基础习题](prob_theory_basic/exercise.html)
 
 - 机器学习
+  1. [Category Encoding](python_Presentation/Categorycoding/catgory_encoding.html)
+  2. [Clustering](python_Presentation/Clustering/Clustering.html)
