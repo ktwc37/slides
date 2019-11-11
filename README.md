@@ -22,7 +22,7 @@
     7. [Learning Theory](python_Presentation/learningTheory/learningtheory.html)
     8. [Logistic Regression](python_Presentation/logisticregression/逻辑回归.html)
     9. [Model Metrics](python_Presentation/ml_metrics/ml_metrics.html)
-    10. [Model Zoo](python_Presentation/Model Zoo/model_zoo.html)
+    10. [Model Zoo](python_Presentation/Model%20Zoo/model_zoo.html)
     11. [Model Explanation](python_Presentation/model_explanation/model_explaination.html)
     12. [NLP - Topic Modeling](python_Presentation/NLP/LSA.html)
     13. [NLP - Word Embedding](python_Presentation/NLP/word2vec.html)
