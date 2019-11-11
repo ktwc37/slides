@@ -1,0 +1,2495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Analysis Foundation Course</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Analysis Foundation Course">
+  <meta name="author" content="Ma Ming">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="assets/img/logo.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Data Analysis Foundation Course</h1>
+    <h2>Statistics Inference</h2>
+    <p>Ma Ming<br/>Big Data Platform Architect and Data Scientist.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Course Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Prelimitary<br></li>
+<li>参数估计 (Parameter Estimate)<br>
+
+<ul>
+<li>点估计 (Point Estimate)<br></li>
+<li>置信区间 (Confidentce Interval)<br></li>
+<li>样本均值和方差 (Sample Mean and Variance)<br></li>
+</ul></li>
+<li>假设检验 (Hypothesis Test)<br>
+
+<ul>
+<li>\(z\) Test<br></li>
+<li>\(t\) Test (One sample，two samples，paired samples)<br></li>
+</ul></li>
+<li>统计分析 (Statistical Analysis)<br>
+
+<ul>
+<li>方差分析 (ANOVA)<br></li>
+<li>回归分析 (Regression Analysis)<br></li>
+<li>卡方检验 (Chi-Square Test)<br></li>
+<li>秩和检验 (Rank Sum Test)<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Prelimitary Knowledge</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>中心极限定律 (Central Limit Theory)<br></li>
+<li>采样分布 (Sampling Distribution)<br>
+
+<ul>
+<li>\(\chi^2\) Distribution<br></li>
+<li>\(t\) Distribution<br></li>
+<li>\(F\) Distribution<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="bigger center" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Question?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol class = "build incremental">
+<li>如果你突然来到了小人国，让你预测小人国里的人的身高，你将怎么做呢？</li>
+<li><p>请预测下一个走出地铁站的人的年龄。 </p></li>
+<li><p>你会发现，我们经常用样本的均值来预测总体的均值。那为什么这么做是合理的呢？因为中心极限定律告诉我们样本均值的分布是正态分布，其均值就是总体均值，其方差和总体方差成正比且和样本点的个数成反比。  </p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>抽样分布</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>让我们来看一下什么是抽样分布 (Sampling Distribution)  </p>
+
+<p><img src="./sampling1.png" height="350" width="600" />  </p>
+
+<p>抽样分布不是样本分布，抽样分布是指从总体中抽取一批样本，计算一个统计量例如均值，然后重复此过程得到该统计量的分布。</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Central Limit Theory</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>中心极限定律可以认为是数理统计中最重要的定律<br></li>
+<li>针对本课程内容来说，中心极限定律告诉我们：\(iid (Identical\ Independent\ Distribution)\) 变量，其规范化（Normalized）均值，当样本数量足够多的情况下服从标准正态分布。 
+
+<ul>
+<li>\(iid : X_1,X_2,...X_n\)<br></li>
+<li>\(\bar X = \frac{\sum_{i=1}^n x_i}{n}\)<br></li>
+<li>\(\frac{\bar X - \mu}{\sigma / \sqrt{n}} \sim N(0,1)\) </li>
+<li>\(\sigma / \sqrt{n}\) 称为标准误差 (Standard Error)</li>
+<li>\(\bar X_n \sim N(\mu, \sigma^2 / n)\)<br></li>
+</ul></li>
+<li><a href="https://gallery.shinyapps.io/CLT_mean/">https://gallery.shinyapps.io/CLT_mean/</a> </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Example for CLT</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>在一个高犯罪率地区，长期统计显示平均每天抓到20个罪犯，标准差为3，现地区政府最高长官把作为警察局长的你叫来质问：一个月抓660个以上罪犯的可能性是多少？<br></li>
+<li>由于监狱人满为患，典狱长私下问你：半年抓不超过3420个罪犯的可能性？</li>
+<li>解 1 ：根据题意，\(总体均值 \mu=20，\sigma=3\) 。要求一个月抓660个罪犯以上，也就是说平均每天抓22个罪犯以上，如果我们把这个认为是随机采样的话，30个样本点的均值应符合正态分布 \(N(20,9/30)\) (注意：这里的n=30是指30天).<br>
+        那么，\(\frac{(22-20)}{3/\sqrt{30}}=3.65\) ,这意味着22偏离均值3.65个标准差以上，根据正态分布经验法则99.7%的变量值是在3个标准差以内，显然这个可能性是小于0.003。<br></li>
+<li>解 2 ：半年抓不超过3420个罪犯，也就是说平均每天少于等于19个罪犯<br>
+        \(\frac{(19-20)}{3/\sqrt{180}}=-4.47\)<br>
+        说明，即便只要求每天少一个，在180天的时间，这也几乎是不可能发生的事。<br></li>
+<li>注意 ： 严格来讲，由于是连续取一个月的数据，并非真正随机采样，所以不符合中心极限定律条件。<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Chi-Square Distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>如果  \((Z_1,Z_2,…,Z_k)\) 是一系列独立无关的标准正态分布随机变量，其平方和<br>
+\(V = \sum_{i=1}^k Z_i^2\) 符合自由度为 \(k\) 的卡方分布<br>
+\[V\thicksim \chi^2(k)\]<br>
+\(k\) 称为自由度 (degree of freedom)</li>
+<li>抽样定理1 : \(X_1,X_2,...,X_n是总体N(\mu,\sigma^2)的样本,那么 (n-1)s^2/\sigma^2\sim\chi^2(n-1)\)<br>
+            其中 \(s^2\) 是样本方差</li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>概率密度函数<br></li>
+<li><img src="./Chi-square_pdf.svg.png" alt=""> </li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>累积分布函数<br></li>
+<li><img src="./Chi-square_cdf.svg.png" alt=""> </li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Student&#39;s t-distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>如果随机变量 $X \sim N(0, 1)$，\(Y \sim \chi^2(n)\) 且独立无关,那么随机变量:<br>
+\(T=\dfrac{X}{\sqrt{Y/n}}\) 符合自由度为 \(n\) 的 \(T\thicksim t(n)\)  </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <p>概率密度函数<br>
+<img src="./488px-Student_t_pdf.svg.png" alt=""> </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>累积分布函数<br>
+<img src="./Student_t_cdf.svg.png" alt=""> </p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Deep in T distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>抽样定理2<br>
+如果 $ X_1,X_2,...,X_n $ 是总体 \(N(\mu,\sigma^2)\) 的样本
+\[ \frac{\bar X - \mu}{S/\sqrt{n}} \sim t(n-1) \]</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>F Distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>如果 \(U\) 和 \(V\) 是独立无关的符合分别以 \(r_1\) 和 \(r_2\) 为自由度的卡方随机变量, 那么 : $ F=\dfrac{U/r_1}{V/r_2}$<br>
+   符合参数为$r_1,r_2的F$分布， 
+\[F\thicksim F(r_1,r_2)\]  </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <p>概率密度函数<br>
+<img src="./F_pdf.svg.png" alt="">  </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>累积分布函数<br>
+<img src="./F_dist_cdf.svg.png" alt=""></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Parameter Estimate</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>参数估计 (Parameter   Estimation) 是指用样本指标 (称为统计量) 估计总体指标 (称为参数)   </p>
+
+<ul>
+<li>Point Estimate (点估计)<br></li>
+<li>Confidence Interval (置信区间)<br></li>
+<li>参数估计方法<br>
+
+<ul>
+<li>矩估计法<br></li>
+<li>极大似然估计法<br></li>
+<li>最小二乘法<br></li>
+<li>贝叶斯估计法<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>总体均值和方差   参数估计</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>样本均值<br>
+
+<ul>
+<li>\(\bar X = \sum_{i=1}^n x_i p(x_i)\)<br></li>
+</ul></li>
+<li>样本方差<br>
+
+<ul>
+<li>\(S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}\)<br></li>
+</ul></li>
+<li>假设我们从经管之家CDA课程各期的报名人数记录中随机抽取8个，得到<br>
+{65，70，54，56，72，46，56，58}，请你猜测下一期报名人数及其波动性。<br></li>
+<li>请你推测经管之家所有CDA课程各期报名人数的平均值。<br></li>
+<li>可以看出来，我们经常用样本的均值来估算总体的均值（数学期望）。  因为随着样本数量的增加，样本统计量会越来越逼近于所对应的总体参数。</li>
+<li>Question: 如果我们得到均值为60，预测下一期报名人数就是60，你认为它是绝对准确的吗？<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Example first : confidence interval for mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>你是一名体育比赛战术开发者，你正在制定一种新的橄榄球战术，新战术依赖于对手四分卫的身高，你采样55支橄榄球队四分卫身高得到平均值为185公分，标准差为1公分(标准差可认为是总体标准差)。你需要尽可能确认四分卫身高。</p>
+
+<ul class = "build incremental">
+<li>你估计四分卫平均身高是多少？<br>
+点估计：\(\bar{X}=185，\mu=185，\sigma=1\)</li>
+<li>你真的知道就是这个值吗？<br>
+区间估计：根据CLT，我们知道 \(\bar{X} \sim N(185,\frac{1}{55})\)<br>
+根据正态分布的特性，我们知道95%的值出现在其均值距离2倍标准差之内。所以我们95%相信四分卫平均身高应该在:<br>
+\([185-2*1/\sqrt{55}\ ,\ 185+2*1/\sqrt{55}]\)<br>
+当然，我们有5%的可能由于采样误差而犯错误，也就是说四分卫平均身高不在这个区间。<br></li>
+<li>我们99.7%相信四分卫平均身高在：<br>
+\([185-3*1/\sqrt{55}\ ,\ 185+3*1/\sqrt{55}]\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>总体均值的置信区间</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>置信区间是指由样本统计量所构造的总体参数的估计区间，它有两部分组成： 
+
+<ul>
+<li>置信区间（Confidence Interval）：区间范围<br></li>
+<li>置信水平（Confidence Level）：总体参数落在这个区间内的频率<br></li>
+</ul></li>
+<li>置信区间 $ CI = Est \pm CV \times SE $, \(SE\) 是Standard Error, \(CV\) 是临界值<br></li>
+<li>边缘误差 Margin Error : \(ME = CV \times SE\)</li>
+<li>根据CLT, 样本均值 \(\bar X \sim N(\mu, \sigma^2 / n)\), 对 \(\mu\) 的估计的置信区间为 \(CI_\mu=\bar{X} \pm z^* \times \frac{\sigma}{\sqrt{n}}\)</li>
+<li>定义置信水平(Confidence Level) = \(1-\alpha,\ \alpha\) 表示我们的错误率</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li><img src="Empirical_Rule.PNG" alt=""></li>
+<li>均值正态分布置信区间 $ CI=\bar X\pm Z_{\alpha/2}\times SE$</li>
+<li>均值T分布置信区间 \(CI=\bar X\pm T_{\alpha/2}\times SE\)</li>
+<li>常用置信水平: 90%，95%，99%</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Hypothesis Testing (假设检验)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>假设检验是关于用数据进行决策的理论。<br></li>
+<li>一般会比较两个假设<br>
+
+<ul>
+<li>$ H_0 $ : 空假设    nothing happened<br></li>
+<li>$ H_1 $ : 备选假设  something happened </li>
+</ul></li>
+<li>我们给定显著性水平 \(\alpha\) ，即犯错误的可能性。<br></li>
+<li>我们假定$ H_0 $为真的情况下，出现数据所呈现的情况或更极端情况的概率 (P-Value)，如果该概率非常小（$p&lt;\alpha$），认为数据提供了足够证据支持$H_1$，我们就选择$H_1$，否则我们选择$H_0$。<br></li>
+<li>\(H_0:\ \mu\ =\mu_0\)<br>
+\(H_1:\ \mu\ \ne\mu_0\)    (two-tailed)<br>
+\(H_1:\ \mu\ >\mu_0\)    (upper-tailed)<br>
+\(H_1:\ \mu\ <\mu_0\)    (lower-tailed)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>P Value</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="./P-value_in_statistical_significance_testing.svg.png" height="500" width="500" /></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>P value就是在 \(H_0\) 的情况下，得到所观察到的值和更为极端的值的概率。<br>
+\[
+Pvalue=P\{观察值或更为极端的值出现|H_0为真\}
+\]
+Right Tail:
+\[
+Pvalue=P(X\ge x|H)
+\]
+Left Tail:
+\[
+Pvalue=P(X\le x|H)
+\]
+Pvalue越小，说明越具有统计显著性。</p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>$z$检验 ($U$检验)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Question:<br>
+  一学校校长声称其学校学生具有较高的智商。从其学校随机采样30个学生得IQ均值为106。(总体成正态分布，均值为100，标准差为15)。你认为他是否在吹牛？  </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>Step 1 : 给出假设<br>
+
+<ul>
+<li>$ H_0 : u = 100 $<br></li>
+<li>$ H_1 : u &gt; 100 $<br></li>
+</ul></li>
+<li>Step 2 ：构造统计量<br>
+
+<ul>
+<li>\(Z^*=\frac{\bar X - \mu}{\sigma /\sqrt{n}} = \frac{106 - 100}{15/\sqrt{30}}=2.19\)<br></li>
+</ul></li>
+<li>Step 3 : 确定显著性水平并得到p-value<br>
+
+<ul>
+<li>$ \alpha = 0.05 $ </li>
+<li>P-Value = 0.014</li>
+</ul></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>Step 4 : 比较 P-Value 与 \(\alpha\) 而得出结论<br>
+
+<ul>
+<li>p value &lt; \(\alpha\)</li>
+<li>拒绝0假设，而选择备选假设。 </li>
+</ul></li>
+<li>P Value  = 随机采样30个学生平均IQ \(\ge\) 106的概率，如果该学校学生智商和总体没有差别。
+<img src="./p-value.png" height="250" width="500" /></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>$t$检验 One Sample</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>一个产品经理刚刚为其产品上线了新功能，他想通过用户滞留时间来判断是否对用户体验有影响(需要98%肯定），该产品用户平均滞留时间为15.5秒，小范围用户测试后采样36个用户得到新的平均滞留时间为13.5秒，方差为25秒。你能帮助他吗？</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ol class = "build incremental">
+<li>$ H_0 : \mu = 15.5 $<br>
+ $ H_1 : \mu \neq 15.5 $<br></li>
+<li>$\frac{\bar X - \mu}{S/\sqrt{n}} = \frac{13.5 - 15.5}{5/\sqrt{36}} = -2.4 $<br>
+ \(df = 36-1\)<br></li>
+<li>$ P\ value = 0.011*2 $<br></li>
+<li>$ \alpha = 0.02 &lt; P $<br></li>
+<li>我们接受$H_0$假设 : 新功能对用户体验没有显著影响（在0.02的显著性水平下）。<br></li>
+</ol>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>P Value<br>
+<img src="./pvalue1.png" height="400" width="450" /></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>\(t\) test Paired Sample</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>采样200名学生，分别测试其阅读能力和写作能力<br></li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li><img src="paired0.png" alt=""><br></li>
+<li>学生的阅读能力和写作能力是否有显著差异呢？ </li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> <img src="./paired.png" height="400" width="450" /></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h3>(接上例)</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>\(H_0 : \mu_{diff} = 0\)<br>
+\(H_1 : \mu_{diff} \neq 0\)  </p>
+
+<ol class = "build incremental">
+<li>\(\bar x_{diff} = -0.545\)<br>
+\(s_{diff} = 8.887\)<br>
+\(n_{diff} = 200\)<br></li>
+<li>\(t^*=\frac{-0.545-0}{8.887/\sqrt{200}}=-0.867\)<br>
+\(df=200-1=199，\alpha=0.05\)</li>
+<li>P value = \(0.193*2> \alpha\)<br></li>
+<li>所以我们接受\(H_0\) : 没有足够的证据说明学生阅读和写作能力有显著差异。</li>
+</ol>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>P Value<br>
+<img src="./pvalue2.png" height="400" width="450" /></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>Think of P value again</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>下面哪一个是P value的正确解释  </p>
+
+<ol class = "build incremental">
+<li>写作和阅读的平均成绩相同的概率<br></li>
+<li>写作和阅读的平均成绩不同的概率<br></li>
+<li>如果实际上写作和阅读平均成绩没有不同，那么采样200的学生，得到其阅读和写作成绩差至少为0.545（两个方向）的概率。<br></li>
+<li>如果$H_0$为真，错误拒绝$H_0$的概率。<br></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>抽样定理 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\(\{X_1,X_2,...,X_{n_1}\}与\{Y_1,Y_2,...Y_{n_2}\}\) 分别是具有相同方差的两正态分布\(N(\mu_1,\sigma^2)\) , \(N(\mu_2,\sigma^2)\) 的样本，且这两个样本相互独立，则有<br>
+\[
+ \frac{(\bar X - \bar Y)-(\mu_1-\mu_2)}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t(n_1+n_2-2)
+\]
+其中
+\[
+  S_p^2 = \frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2} 
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Example \(t\) 检验 two samples</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>某公司新采购了一批打包机器，希望检测一下新机器是否比旧机器的打包速度更快，数据如下，你是否可以帮助他们得出结论？</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th align="right">New.machine</th>
+<th align="right">Old.machine</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">42.1</td>
+<td align="right">42.7</td>
+</tr>
+<tr>
+<td align="right">41.0</td>
+<td align="right">43.6</td>
+</tr>
+<tr>
+<td align="right">41.3</td>
+<td align="right">43.8</td>
+</tr>
+<tr>
+<td align="right">41.8</td>
+<td align="right">43.3</td>
+</tr>
+<tr>
+<td align="right">42.4</td>
+<td align="right">42.5</td>
+</tr>
+<tr>
+<td align="right">42.8</td>
+<td align="right">43.5</td>
+</tr>
+<tr>
+<td align="right">43.2</td>
+<td align="right">43.1</td>
+</tr>
+<tr>
+<td align="right">42.3</td>
+<td align="right">41.7</td>
+</tr>
+<tr>
+<td align="right">41.8</td>
+<td align="right">44.0</td>
+</tr>
+<tr>
+<td align="right">42.7</td>
+<td align="right">44.1</td>
+</tr>
+</tbody></table>
+
+<p>\(\hat{X_1} = 42.14, s_1 = 0.683\)<br>
+\(\hat{X_2} = 43.23, s_2 = 0.750\)  </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>Step 1 :<br>
+
+<ul>
+<li>\(H_0 : \mu_1=\mu_2\)<br></li>
+<li>\(H_1 : \mu_1 < \mu_2\)<br></li>
+</ul></li>
+<li>Step 2 :<br>
+
+<ul>
+<li>\(s_p= \sqrt{\frac{9\cdot (0.683)^2+9\cdot (0.750)^2}{10+10-2}}=0.717\)<br></li>
+</ul></li>
+<li>Step 3 :<br>
+
+<ul>
+<li>\(df = 10 + 10 - 2=18\)<br></li>
+</ul></li>
+<li>Step 4 :<br>
+
+<ul>
+<li>\(t^{*}=\frac{({\bar{x}}_1-{\bar{x}}_2)-0}{s_p \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}=\frac{42.14-43.23}{0.717\cdot \sqrt{\frac{1}{10}+\frac{1}{10}}}=-3.40\) </li>
+</ul></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>(接上例)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li><img src="rej_reg.gif" alt=""></li>
+<li>Step 5 : 
+
+<ul>
+<li>\(-t_{\alpha} = -1.734\)</li>
+<li>P-value \(=0.0016\)<br></li>
+</ul></li>
+<li>Step 6 :<br>
+
+<ul>
+<li>在 \(\alpha\) 为0.05的显著性水平下，我们拒绝\(H_0\) 而接受 \(H_1\)<br></li>
+</ul></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>Confidence Interval<br>
+
+<ul>
+<li>CI : \({\bar{x}}_1-{\bar{x}}_2\pm t_{\alpha/2}\cdot s_p\cdot \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\)<br></li>
+</ul></li>
+<li>\(\alpha = 0.05\) :<br>
+
+<ul>
+<li>\(-t_{0.05/2} = -2.1\)</li>
+<li>\(CI=(-1.76,-0.41)\)<br></li>
+</ul></li>
+<li>\(\alpha = 0.01\) :<br>
+
+<ul>
+<li>\(-t_{0.01/2} = -2.878\)</li>
+<li>\(CI=(-2.013, -0.167)\)<br></li>
+</ul></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Decision errors</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li><img src="./decision1.png" height="350" width="1000" /><br></li>
+<li>Type 1 error &amp; Type 2 error<br>
+
+<ul>
+<li>Type 1 error : $H_0$为真，但我们拒绝了\(H_0\)<br></li>
+<li>Type 2 error : $H_1$为真，但我们接受了\(H_0\)<br></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Blancing error rates</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li><img src="decision2.png" alt="Decision Error"><br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>法庭审判<br>
+
+<ul>
+<li>\(H_0\): 嫌疑人是无辜的<br></li>
+<li>\(H_1\): 嫌疑人是有罪的<br></li>
+</ul></li>
+<li>Question : Type 1 or 2 error, Which one is worse?</li>
+<li>Question: 为什么我们不一直采用99%的置信水平？<br></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Question?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>到现在为止，我们已经知道了如何构造置信区间和进行假设检验以辅助决策。可我们基本上都是围绕着均值的，如果我们想了解中位数的置信区间又该如何呢？  </p>
+
+<ul class = "build incremental">
+<li>Bootstrapping !</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Question?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>考虑<br>
+\(Significant Level+Confidence Level =?\)<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>其他条件都一样，一个样本集大小为100，另一个为10000.<br></li>
+<li>哪一个得出的P-value更小呢？<br></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Anova ( 方差分析 )</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Basic Conception<br></li>
+<li>F-statistics and F-test<br></li>
+<li>Condition<br></li>
+<li>Example<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Example First</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <table><thead>
+<tr>
+<th align="left">Subtype</th>
+<th align="left">Gender</th>
+<th align="right">Expression</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">A</td>
+<td align="left">m</td>
+<td align="right">-0.54</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">m</td>
+<td align="right">-0.80</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">m</td>
+<td align="right">-1.03</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">m</td>
+<td align="right">-0.41</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">m</td>
+<td align="right">-1.31</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">f</td>
+<td align="right">-0.66</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>我们想知道不同的Subtype对Expression有影响吗？你的看法呢？<br></li>
+</ul>
+
+<table><thead>
+<tr>
+<th align="left">Subtype</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">A</td>
+<td align="right">-0.1820979</td>
+<td align="right">0.6038746</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="right">-0.3881333</td>
+<td align="right">0.7788621</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="right">-0.4865079</td>
+<td align="right">1.0542956</td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Basic conception of Anova</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>方差分析可以用来衡量多个均值是否一致。
+
+<ul>
+<li>比较多个组的均值，看它们是否相差很远，且不能完全由采样误差来解释。<br></li>
+<li>可用来衡量某个因素对实验结果的影响。 </li>
+<li>衡量分类变量和数值变量的关系<br></li>
+</ul></li>
+<li>F statistics = \(\frac{Variability\ Between\ Groups}{Variability\ within\ groups}\)<br>
+
+<ul>
+<li>条件：方差齐性<br></li>
+</ul></li>
+<li>单因素和多因素方差分析<br></li>
+<li>Variability Partitioning<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>ANOVA Explain</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <blockquote>
+<p>总离差平方和 ( Sum of Squares Total )
+测量总的变异 ( Variability )<br>
+\(y_i\): 响应变量的值<br>
+\(\bar{y}\): 响应变量总均值<br>
+\[ SST =  \sum_{i=1}^{n}{(\bar{y}-y_i)^2} \]</p>
+
+<p>组间离差平方和 ( Sum of Squares Group )<br>
+测量组间变异 ( Variability )<br>
+\(n_j\): number of observations in group j<br>
+\(\bar{y_j}\): mean of response variable for group j
+\[ SSG =  \sum_{j=1}^{k}{n_j(\bar{y_j}-\bar{y})^2} \] </p>
+</blockquote>
+
+</div>
+<div style='float:right;width:48%;'>
+  <blockquote>
+<p>组内离差平方和 （ Sum of Squares Error )<br>
+测量组内变异
+\[ SSE = SST - SSG \]  </p>
+
+<p>组内/组间平均波动性<br>
+组间平均：\(MSG = \frac{SSG}{df_G},df_G = k-1\)<br>
+组内平均: \(MSE = \frac{SSE}{df_E},df_E = df_T-df_G\)<br>
+\(df_T=n-1\)  </p>
+</blockquote>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>方差分析表</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## Subtype       2   4.75  2.3769   3.991 0.0196 *
+## Residuals   278 165.59  0.5956                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<table><thead>
+<tr>
+<th>table</th>
+<th>df</th>
+<th>Sum Sq</th>
+<th>Mean Sq</th>
+<th>F Value</th>
+<th>Pr(&gt;F)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Subtype</td>
+<td>2</td>
+<td>4.75</td>
+<td>2.3769</td>
+<td>3.991</td>
+<td>0.0196</td>
+</tr>
+<tr>
+<td>Residuals</td>
+<td>278</td>
+<td>165.59</td>
+<td>0.5965</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>\[
+\frac{MSG}{MSE} \sim F(k-1,n-k)
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Condition for Anova</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol class = "build incremental">
+<li>无关性<br>
+
+<ul>
+<li>within groups<br></li>
+<li>between groups<br></li>
+</ul></li>
+<li>各组内数值成正态分布或接近正态分布<br></li>
+<li>方差齐性 ：各组的方差一致<br></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Question?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>我们通过方差分析判断出至少一对均值差距显著，那么是哪一对呢？</p>
+
+<ul class = "build incremental">
+<li>Multiple comparisions<br></li>
+<li>Type 1 Error inflating<br></li>
+<li>Bonferroni Correction<br>
+
+<ul>
+<li>Adjusted $\alpha = \alpha / K $<br></li>
+<li>\(K=\frac{k(k-1)}{2}\) </li>
+</ul></li>
+<li>Tukey&#39;s Test<br>
+\(q_s=\frac{\hat{y}_{max}-\hat{y}_{min}}{SE}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>分类变量统计检验</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>One Category Variable<br>
+
+<ul>
+<li>2 levels<br></li>
+<li>More than 2 levels<br></li>
+</ul></li>
+<li>two Category Variables<br>
+
+<ul>
+<li>2 levels<br></li>
+<li>More than 2 levels<br></li>
+</ul></li>
+<li>CLT on Proportion</li>
+<li>Chi-Squared Test</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example for Sampling Distribution on Proportion</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./sampling2.png" height="500" width="1000" />  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>CLT for Proportions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[
+\widehat{p} \sim N(mean=p,SE=\sqrt{\frac{p(1- p)}{n}})
+\]</p>
+
+<ul class = "build incremental">
+<li>Conditions<br>
+
+<ol>
+<li>Independence<br></li>
+<li>Sample size/skew: \(np > 10\) and \(n(1-p) > 10\)<br></li>
+</ol></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Examples for CLT on Proportions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>某电影学院女生90%都是美女，如果你随便采样200个，其中超过190人是美女的概率是多少？  </p>
+
+<ul class = "build incremental">
+<li>\(p = 0.9,n=200\)<br></li>
+<li>\(P(\widehat{p}>0.95)=？\)<br></li>
+<li>\(\widehat{p} \sim N(mean=0.9,SE=\sqrt{\frac{0.9(1- 0.9)}{200}}=0.0212)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>Examples for CI and HT on proportion</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>2013年，调查1983个人得出60%的美国人相信进化论。   </p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>这个数据是否提供了令人信服的证据说：60%的美国人相信进化论。<br></li>
+<li>\(H_0 : p = 0.5\)<br>
+\(H_1 : p > 0.5\)<br></li>
+<li>\(\widehat{p}=0.6\)<br>
+\(n=1983\)<br></li>
+<li>\(SE=\sqrt{\frac{0.5*0.5}{1983}}=0.0112\)
+\(Z=\frac{0.6-0.5}{0.0112}=8.92\)<br>
+P value is almost 0<br></li>
+<li>我们拒绝$H_0$，而接受\(H_1\)<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>对于60%这个比例，95%的置信区间是什么？</li>
+<li>\(\alpha=0.05\)<br>
+\(CI=\widehat{p} \pm z^* \times SE_{\widehat{p}}\)<br>
+  $=0.6 \pm 1.96 \times \sqrt{\frac{\widehat{p}(1- \widehat{p})}{n}} $<br></li>
+<li>\(CI = (0.578,0.622)\)<br></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Two Proportions</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>假如民意调查显示1028个人中，257个人认为应该对研发人员退税。而调查经管之家的学员83人中，59个认为应该退税。我们希望知道两组人的比例的区别是什么？  </p>
+
+<table><thead>
+<tr>
+<th>Suc</th>
+<th>n</th>
+<th>p</th>
+<th>g</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>257</td>
+<td>1028</td>
+<td>0.25</td>
+<td>Nation</td>
+</tr>
+<tr>
+<td>59</td>
+<td>83</td>
+<td>0.71</td>
+<td>Jing</td>
+</tr>
+</tbody></table>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>Prameter of interest: \(p_{nation}-p_{jing}\)<br></li>
+<li>Point estimate: \({\hat{p}}_{nation}-{\hat{p}}_{jing}\)<br></li>
+<li><p>Confidence interval:<br>
+Point estimate \(\pm Margin\ errors\)<br>
+\(=(\hat{p_1}-\hat{p_2}) \pm Z^* \times SE_{(\hat{p_1}-\hat{p_2})}\)  </p></li>
+<li><p>\(SE_{(\hat{p_1}-\hat{p_2})} = \sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_1})}{n_2}}\)  </p></li>
+<li><p>在 \(\alpha=0.05\) 的条件下<br>
+\(CI = 0.46 \pm 0.1\)</p></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Chi-Square GOF test</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>陪审员的选择应该是随机的，一个国家的民间组织质疑这一点，认为有种族歧视存在，你作为一个数据分析专家介入调查，你将怎么做呢?  </p>
+
+<table><thead>
+<tr>
+<th>ethnicity</th>
+<th>white</th>
+<th>black</th>
+<th>nat.amer.</th>
+<th>asia</th>
+<th>others</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>%in population</td>
+<td>80.29%</td>
+<td>12.06%</td>
+<td>0.79%</td>
+<td>2.92%</td>
+<td>3.94%</td>
+</tr>
+<tr>
+<td>observed#</td>
+<td>1920</td>
+<td>347</td>
+<td>19</td>
+<td>84</td>
+<td>130</td>
+</tr>
+</tbody></table>
+
+<ul class = "build incremental">
+<li>\(H_0\) : 没有种族歧视，陪审员的各种族比例和各种族在人口总数的比例是一致的。<br>
+\(H_1\) : 存在种族歧视，陪审员的分布和各种族的分布是不一致的。<br>
+Good of Fit Test<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>（接上例）</h3>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th>ethnicity</th>
+<th>white</th>
+<th>black</th>
+<th>nat.amer.</th>
+<th>asia</th>
+<th>others</th>
+<th>total</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>%in population</td>
+<td>80.29%</td>
+<td>12.06%</td>
+<td>0.79%</td>
+<td>2.92%</td>
+<td>3.94%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>expected #</td>
+<td>2007</td>
+<td>302</td>
+<td>20</td>
+<td>73</td>
+<td>98</td>
+<td>2500</td>
+</tr>
+<tr>
+<td>observed #</td>
+<td>1920</td>
+<td>347</td>
+<td>19</td>
+<td>84</td>
+<td>130</td>
+<td>2500</td>
+</tr>
+</tbody></table>
+
+<ul class = "build incremental">
+<li>我们需要检查实际的观察计数和期望的计数是否相差很多。<br></li>
+<li>这里我们引入卡方检验<br>
+\[ \chi^{2*}=\sum_{i=1}^k (O_i-E_i)^2/E_i,df = k -1, k = 5\]<br></li>
+<li> 
+\(\chi^{2*}=\frac{(1920-2007)^2}{2007}+\frac{(302-347)^2}{347}+\frac{(20-19)^2}{19}+\frac{(73-84)^2}{84}+\frac{(98-130)^2}{130}=22.63\)<br></li>
+<li>p-value = 0.0002 &lt; \(\alpha\), \(\alpha = 0.05\)<br></li>
+<li>我们拒绝原假设，得出结论：数据提供了足够证据说明人口种族分布和陪审员在各种族的分布是不一致的。<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Chi-Square Independent Test</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>我们来检查一下共和党和民主党和受支持程度分类的关系.  </p>
+
+<p>\(H_0 : 共和党和民主党与受支持程度的分类没有关系\)<br>
+\(H_1 : 共和党和民主党与受支持程度的分类存在关系\)  </p>
+
+<table><thead>
+<tr>
+<th>groups</th>
+<th>favor</th>
+<th>indifferent</th>
+<th>opposed</th>
+<th>total</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>democrat</td>
+<td>138</td>
+<td>83</td>
+<td>64</td>
+<td>285</td>
+</tr>
+<tr>
+<td>republican</td>
+<td>64</td>
+<td>67</td>
+<td>84</td>
+<td>215</td>
+</tr>
+<tr>
+<td>total</td>
+<td>202</td>
+<td>150</td>
+<td>148</td>
+<td>500</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>(接上例)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>计算期望计数  </p>
+
+<table><thead>
+<tr>
+<th>groups</th>
+<th>favor</th>
+<th>indifferent</th>
+<th>opposed</th>
+<th>total</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>democrat</td>
+<td>\(\frac{285*202}{500}=115.14\)</td>
+<td>\(\frac{285*150}{500}=85.5\)</td>
+<td>\(\frac{285*148}{500}=84.36\)</td>
+<td>285</td>
+</tr>
+<tr>
+<td>republican</td>
+<td>\(\frac{215*202}{500}=86.86\)</td>
+<td>\(\frac{215*150}{500}=64.5\)</td>
+<td>\(\frac{215*148}{500}=63.64\)</td>
+<td>215</td>
+</tr>
+<tr>
+<td>total</td>
+<td>202</td>
+<td>150</td>
+<td>148</td>
+<td>500</td>
+</tr>
+</tbody></table>
+
+<p>\(\chi^{2*}=\frac{(138-115.14)^2}{115.14}+\frac{(83-85.50)^2}{85.50}+\frac{(64-84.36)^2}{84.36}+\frac{(64-86.86)^2}{86.86}+\frac{(67-64.50)^2}{64.50}+\frac{(84-63.64)^2}{63.64}=22.152\)  </p>
+
+<p>\(df=(ncols-1)(nrows -1)=2\)<br>
+p-values = 0.000<br>
+我们的结论是？  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Regression Analysis</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Basic Conception<br></li>
+<li>Correlation<br></li>
+<li>Modeling Diagnostics<br></li>
+<li>Inference<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>回归分析基本概念</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>一般来说，回归分析通常用来分析两个数值变量的线性关系。<br></li>
+<li>线性回归和非线性回归<br></li>
+<li>单变量回归和多变量回归<br></li>
+<li>Question: 回归分析是否可以用来分析分类变量和数值变量的关系？<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-48" style="background:;">
+  <hgroup>
+    <h3>原始的回归问题</h3>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>A famous motivating example<br></li>
+<li><img src="galton.jpg" alt=""><br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>The Galton Data<br></li>
+</ul>
+
+<table><thead>
+<tr>
+<th align="right">child</th>
+<th align="right">parent</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">61.7</td>
+<td align="right">70.5</td>
+</tr>
+<tr>
+<td align="right">61.7</td>
+<td align="right">68.5</td>
+</tr>
+<tr>
+<td align="right">61.7</td>
+<td align="right">65.5</td>
+</tr>
+<tr>
+<td align="right">61.7</td>
+<td align="right">64.5</td>
+</tr>
+</tbody></table>
+
+<ul class = "build incremental">
+<li>用父母的身高来预测孩子的身高<br></li>
+<li>用一种稳定，易于描述的模型来表示父母身高的均值和孩子身高均值的关系<br></li>
+<li>调查孩子身高的波动性不能由父母身高波动性来解释的部分。<br></li>
+<li>为什么非常高的父母孩子也会非常高，但一般会比父母矮一点；而非常矮的父母的孩子也会比较矮，但会比其父母要高一点。<br></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Comparing the Histogram</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-50" style="background:;">
+  <hgroup>
+    <h2>Regression</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <blockquote>
+<h2></h2>
+
+<p><img src="assets/fig/freqGalton-1.png" alt="plot of chunk freqGalton"></p>
+</blockquote>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Correlation Coefficient</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Pearson Correlation Coefficient<br>
+\[ Cor(x,y)=R=\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2\sum_{i=1}^{n}(y_i-\bar{y})^2}} \]</p>
+
+<ul>
+<li>描述两个变量线性相关的强度<br></li>
+<li>正负代表相关的方向<br></li>
+<li>区间[-1,1]，0代表不相关<br></li>
+<li>无单位，不随变量中心化或尺度变换而改变<br></li>
+<li>\(Cor(x,y) = Cor(y,x)\)<br></li>
+<li>受异常值影响较大<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Correlation of determination</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>total sum of squares<br>
+\(SS_{tot} =  \sum_{i}{(y_i-\bar{y})^2}\)<br></li>
+<li>explained sum of squares<br>
+\(SS_{reg} =  \sum_{i}{(f_i-\bar{y})^2}\) </li>
+<li> residual sum of squares<br>
+\(SS_{res} =  \sum_{i}{(y_i-f_i)^2}\)</li>
+<li> The most general definition of the coefficient of determination<br>
+\(R^2  = 1- \frac{SS_{res}}{SS_{tot}}\) </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-53" style="background:;">
+  <hgroup>
+    <h2>R squared</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+\]</p>
+
+<ul class = "build incremental">
+<li>Between (0,1)<br></li>
+<li>描述了有百分之多少的响应变量的波动性可以由这个模型解释。</li>
+<li>删除数据总会膨胀 \(R^2\)</li>
+<li>增加预测变量总会增大 \(R^2\) </li>
+<li>Adjusted \(R^2\)</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Fitting the best line</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>令\(Y_i\) 是第 \(i^{th}\) 孩子的身高，且 \(X_i\) 是第 \(i^{th}\) 父母的身高. </li>
+<li>考虑如何找到最佳匹配线<br>
+
+<ul>
+<li>Child&#39;s Height = \(\beta_0\) + Parent&#39;s Height \(\beta_1\)</li>
+</ul></li>
+<li>最小二乘法 least squares
+\[
+\sum_{i=1}^n \{Y_i - (\beta_0 + \beta_1 X_i)\}^2
+\]<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>OLS solution for regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>采用最小二乘法匹配 \(Y = \beta_0 + \beta_1\) 得到<br>
+\(Y = \hat \beta_0 + \hat \beta_1 X\) ，这里<br>
+\[\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)} ~~~ \hat \beta_0 = \bar Y - \hat \beta_1 \bar X\]</li>
+<li>\(\hat \beta_1\) 的单位是 \(Y / X\), \(\hat \beta_0\) 的单位是 \(Y\).</li>
+<li>这条直线通过点 \((\bar X, \bar Y\))</li>
+<li>如果经过数据规范化, \(\{ \frac{X_i - \bar X}{Sd(X)}, \frac{Y_i - \bar Y}{Sd(Y)}\}\), 斜率为 \(Cor(Y, X)\).<br></li>
+<li>就Galton Data而言，<br>
+斜率 = 0.6434<br>
+截距 = 23.94<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The Linear Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>基本线性模型<br>
+\[
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_{i}
+\]</li>
+<li>这里 \(\epsilon_{i}\) 被认为是 iid \(N(0, \sigma^2)\). </li>
+<li>\(E[Y_i ~|~ X_i = x_i] = \mu_i = \beta_0 + \beta_1 x_i\)</li>
+<li>\(Var(Y_i ~|~ X_i = x_i) = \sigma^2\). </li>
+<li>Residual : \(e_i=y_i-\hat{y}_i\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>A little bit deeper into linear model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>1966年，Cyrit Burt发表了一篇论文题为：基因决定智商。根据对27对双胞胎分别由养父母和亲生父母抚养的研究数据。<br>
+<img src="regression1.png" alt="">  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-58" style="background:;">
+  <hgroup>
+    <h2>（接上例)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>回归分析结果  </p>
+
+<table><thead>
+<tr>
+<th>None</th>
+<th>Estimate</th>
+<th>Std.Error</th>
+<th>t value</th>
+<th>Pr</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>(Intercept)</td>
+<td>9.2076</td>
+<td>9.2999</td>
+<td>0.99</td>
+<td>0.3316</td>
+</tr>
+<tr>
+<td>bioIQ</td>
+<td>0.9014</td>
+<td>0.0963</td>
+<td>9.36</td>
+<td>0.0000</td>
+</tr>
+</tbody></table>
+
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>$\widehat{fosterIO}=9.2076+0.9014\times bioIQ $<br></li>
+<li>\(R^2=0.78\)<br></li>
+<li>对斜率进行统计检验<br>
+
+<ul>
+<li>\(H_0 : \beta_1 = 0\)<br></li>
+<li>\(H_1 : \beta_1 \ne 0\)<br></li>
+</ul></li>
+<li>\(t=\frac{\hat{\beta_1}-0}{SE_{\hat{\beta_1}}} = \frac{0.9014-0}{0.0963} = 9.36\)</li>
+<li>\(df=27-2=25\)</li>
+<li>P value = 0.000<br></li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li>计算95%置信区间:\(\hat{\beta_1}\)<br>
+
+<ul>
+<li>\({t^*}_{25} = 2.06\) </li>
+</ul></li>
+<li>\(CI=0.9014 \pm 2.06 \times 0.093 = (0.7,1.1)\)<br></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Conditions for linear regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Linearity<br></li>
+<li>Near normal residuals<br></li>
+<li>Constant variability<br></li>
+<li>Model diagnostic<br>
+<a href="https://gallery.shinyapps.io/slr_diag">https://gallery.shinyapps.io/slr_diag</a><br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Regression with categorial variable</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>例如，我们用地域来预测贫穷百分比    </p>
+
+<ul class = "build incremental">
+<li>解释变量是region<br>
+
+<ul>
+<li>east ：0 （Reference Level）<br></li>
+<li>west : 1<br></li>
+</ul></li>
+<li>\(\widehat{poverty}=11.17+0.38\times region:west\)<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-61" style="background:;">
+  <hgroup>
+    <h2>统计检验总结</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>\(z\) 检验用来检验单样本均值与总体均值的距离是否具有统计显著性（总体方差已知）<br></li>
+<li>单样本 \(t\) 检验如同 \(z\) 检验，只是总体方差未知<br></li>
+<li>双样本 \(t\) 检验用来检查样本均值差与总体均值差的距离<br></li>
+<li>成对 \(t\) 检验用来检查成对数据均值差与总体均值差的距离<br></li>
+<li>方差分析用来检验按照因素划分的多个样本的均值是否相等</li>
+<li>卡方检验用来检查分类变量之间的关系<br></li>
+<li>回归分析用来检查多个变量与一数值变量之间的线性关系<br></li>
+<li>CLT on Mean 给出了样本均值的抽样分布。</li>
+<li>CLT on Proportion 给出了二分类变量的某一分类所占比例的抽样分布。 </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Option 1 : Rank Sum test</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>现在我们接触的假设检验大部分都要求变量成正态分布或近似正态分布，如果这个条件不能满足或样本数非常小，又如何呢？<br>
+考虑如下问题：<br>
+   有两个球队，我们想要检验其年平均的进球数是否近似。<br>
+Team A : 6, 8, 2, 4, 4, 5<br>
+Team B : 7, 10, 4, 3, 5, 6</p>
+
+<pre><code class="r">a = c(6, 8, 2, 4, 4, 5)
+b = c(7, 10, 4, 3, 5, 6)  
+wilcox.test(b,a, correct=FALSE)
+</code></pre>
+
+<pre><code>## 
+##  Wilcoxon rank sum test
+## 
+## data:  b and a
+## W = 22, p-value = 0.5174
+## alternative hypothesis: true location shift is not equal to 0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Option 2 : Homogeneity of variance test</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Levene&#39;s test   </p>
+
+<ul class = "build incremental">
+<li>\(H_0:\sigma_{1}^{2} = \sigma_{2}^{2} = \ldots = \sigma_{k}^{2}\)<br>
+\(H_1:\sigma_{i}^{2} \ne \sigma_{j}^{2}\)<br></li>
+<li>\(Z_{ij} = |Y_{ij} - \bar{Y}_{i.}|\),where \(\bar{Y}_{i.}\) is the mean of the i-th subgroup.<br>
+\(Z_{ij} = |Y_{ij} - \tilde{Y}_{i.}|\),where \(\tilde{Y}_{i.}\) is the median of the i-th subgroup.<br>
+\(Z_{ij} = |Y_{ij} - \bar{Y}_{i.}'|\),where \(\bar{Y}_{i.}'\) is the 10% trimmed mean of the i-th subgroup.<br></li>
+<li><p>\(W = \frac{(N-k)} {(k-1)}\frac{\sum_{i=1}^{k}N_{i}(\bar{Z}_{i.}-\bar{Z}_{..})^{2} }{\sum_{i=1}^{k}\sum_{j=1}^{N_i}(Z_{ij}-\bar{Z}_{i.})^{2} }\)  </p></li>
+<li><p>拒绝域： \(W>F_{\alpha,k-1,N-k}\)  </p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Option 3 : Why \(R^2\) is the Square of \(r\)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[
+\begin{align}
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+& = \sum_{i=1}^n (Y_i - \hat Y_i + \hat Y_i - \bar Y)^2 \\
+& = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + 
+2 \sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) + 
+\sum_{i=1}^n  (\hat Y_i - \bar Y)^2 \\
+\end{align}
+\]  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p>Recall that \((\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)\)
+so that
+\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= Cor(Y, X)^2
+\]
+Since, recall, 
+\[
+\hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
+\]
+So, \(R^2\) is literally \(r\) squared.  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-66" style="background:;">
+  <hgroup>
+    <h2>Option 4 : Permutation Test</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>如果我们需要比较两组数据的均值，但采样样本非常小，又或是比较其他统计量。也就是说不能直接使用中心极限定律，如何解决呢？  </p>
+
+<p>A = {24,43,58,67,61,44,67,49,59,52,62,50}<br>
+B = {42,43,65,26,33,41,19,54,42,20,17,60,<br>
+    37,42,55,28}  </p>
+
+<p>\(\hat{X}_A-\hat{X}_B = 14\)</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15"></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-67" style="background:;">
+  <hgroup>
+    <h2>Option 5 : Power</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul class = "build incremental">
+<li>Power is the probability of rejecting the null hypothesis when it is false</li>
+<li>A type II error rate is \(\beta\)</li>
+<li>\(Power = 1 - \beta\) </li>
+<li>\(P\left(\frac{\bar X - \mu}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)\)</li>
+<li>Power doesn&#39;t need \(\mu_a\), \(\sigma\) and \(n\), instead only \(\frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma}\)</li>
+<li>The quantity \(\frac{\mu_a - \mu_0}{\sigma}\) is called the effect size<br></li>
+<li>Cohen&#39;s d</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul class = "build incremental">
+<li> 
+<img src="assets/fig/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16"></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-68" style="background:;">
+  <hgroup>
+    <h2>Option 6.1 : Spearman Rank of Coefficient</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>Spearman相关系数定义为变量的秩(Rank)的Pearson相关系数。<br>
+\(\rho_{rg_X,rg_Y} = \frac{cov(rg_X,rg_Y)}{\sigma_{rg_X}\sigma_{rg_Y}}\)<br>
+<img src="450px-Spearman_fig1.svg.png" alt=""></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="450px-Spearman_fig3.svg.png" alt="">
+\(r_s=1-\frac{6\sum{d_i^2}}{n(n^2-1)}\)<br>
+\(d_i=rg(X_i)-rg(Y_i)\)</p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-69" style="background:;">
+  <hgroup>
+    <h2>Option 6.2 : Kendall Rank Coefficient</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>Kendall \(\tau\) 相关系数用来评价两个顺序变量的相关程度。<br>
+\[
+\tau_A=\frac{n_c-n_d}{n_0}
+\]</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Options 7 : 抽样定理2的证明</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>因为<br>
+\[
+\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1),\   \frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
+\]
+根据t分布定义：<br>
+\[
+\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}/\sqrt{\frac{(n-1)S^2}{(n-1)\sigma^2}}\sim t(n-1)
+\]
+化简左边可得抽样定理 2 </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Course Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Prelimitary Knowledge'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Question?'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='抽样分布'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Central Limit Theory'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example for CLT'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Chi-Square Distribution'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Student&#39;s t-distribution'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Deep in T distribution'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='F Distribution'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Parameter Estimate'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='总体均值和方差   参数估计'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Example first : confidence interval for mean'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='总体均值的置信区间'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Hypothesis Testing (假设检验)'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='P Value'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='$z$检验 ($U$检验)'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='$t$检验 One Sample'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='\(t\) test Paired Sample'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='(接上例)'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Think of P value again'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='抽样定理 3'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Example \(t\) 检验 two samples'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='(接上例)'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Decision errors'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Blancing error rates'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Question?'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Question?'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Anova ( 方差分析 )'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Example First'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='Basic conception of Anova'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='ANOVA Explain'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='方差分析表'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Condition for Anova'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='Question?'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='分类变量统计检验'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Example for Sampling Distribution on Proportion'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='CLT for Proportions'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Examples for CLT on Proportions'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='Examples for CI and HT on proportion'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Two Proportions'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='Chi-Square GOF test'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='（接上例）'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Chi-Square Independent Test'>
+         44
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=45 title='(接上例)'>
+         45
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=46 title='Regression Analysis'>
+         46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='回归分析基本概念'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='原始的回归问题'>
+         48
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=49 title='Comparing the Histogram'>
+         49
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=50 title='Regression'>
+         50
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=51 title='Correlation Coefficient'>
+         51
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=52 title='Correlation of determination'>
+         52
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=53 title='R squared'>
+         53
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=54 title='Fitting the best line'>
+         54
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=55 title='OLS solution for regression'>
+         55
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=56 title='The Linear Model'>
+         56
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=57 title='A little bit deeper into linear model'>
+         57
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=58 title='（接上例)'>
+         58
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=59 title='Conditions for linear regression'>
+         59
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=60 title='Regression with categorial variable'>
+         60
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=61 title='统计检验总结'>
+         61
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=62 title='Option 1 : Rank Sum test'>
+         62
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=63 title='Option 2 : Homogeneity of variance test'>
+         63
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=64 title='Option 3 : Why \(R^2\) is the Square of \(r\)'>
+         64
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=65 title='NA'>
+         65
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=66 title='Option 4 : Permutation Test'>
+         66
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=67 title='Option 5 : Power'>
+         67
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=68 title='Option 6.1 : Spearman Rank of Coefficient'>
+         68
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=69 title='Option 6.2 : Kendall Rank Coefficient'>
+         69
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=70 title='Options 7 : 抽样定理2的证明'>
+         70
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
