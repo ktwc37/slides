@@ -9,5 +9,6 @@
   4. [数据分析概率论基础](prob_theory_basic/ptb.html)
   5. [数据分析统计推断](statistics_inference/si.html)
   6. [数据分析案例](caseStudy/caseStudy.html)
+  7. [数据分析基础习题](prob_theory_basic/exercise.html)
 
 - 机器学习
