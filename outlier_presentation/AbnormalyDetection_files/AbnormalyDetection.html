@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ma Ming" />
+  <title>Outlier Detection</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="AbnormalyDetection_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="AbnormalyDetection_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="AbnormalyDetection_files/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Outlier Detection --- Basic</h1>
+    <h2 class="author">Ma Ming</h2>
+    <h3 class="date">Apr 7, 2017</h3>
+</section>
+
+<section id="what-the-definition-of-outlier" class="slide level2">
+	<h2>What the definition of Outlier</h2>
+	<div style="font-family: italic;font-weight:bold;font-size:50px;">
+		<p>“An outlier is an observation which deviates so much from the other observations as to arouse suspicions that it was generated by a different mechanism.”</p>
+		<pre><code>                    -- Hawkins  </code></pre>
+	</div>
+	<ul>
+		<li class="fragment">abnormalities, discordants, eviants<br /></li>
+		<li class="fragment"><strong>Extreme value</strong>, <strong>Change point</strong><br />
+
+		<style type="text/css">
+  		.reveal p {
+		text-align: left;
+  		}
+  		.reveal ul {
+		display: block;
+  		}
+  		.reveal ol {
+		display: block;
+  		}  
+		</style></li>
+	</ul>
+</section>
+
+<section id="why-outliers-treatment-is-important" class="slide level2">
+	<h2>Why outliers treatment is important?</h2>
+	<section>
+		<p><img src="Outliers.jpeg" width="768" /></p>
+	</section>
+	<section>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-1-1.png" width="768" /></p>
+	</section>
+</section>
+
+<section id="can-you-get-outliers" class="slide level2">
+	<h2>Can you get outliers?</h2>
+	<ul>
+		<li class="fragment">2,3,4,4,3,4,5,2,6,3,16,3,6,5</li>
+		<li class="fragment">1,2,3,50,97,98,99</li>
+		<li class="fragment">1,2,3,4,5,6,7,8,10,10,12,13,14</li>
+	</ul>
+</section>
+
+<section id="Three-major-types-of-abnormalies" class="slide level2">
+	<h2>Three Major Types Of Abnormalies</h2>
+	<ul>
+		<li class="fragment">Point anomalies</li>
+		<li class="fragment">Contextual anomalies</li>
+		<li class="fragment">Collective anomalies</li>
+	</ul>
+</section>
+
+<section id="Famous-applications-of-anomaly-detection" class="slide level2">
+	<h2>Famous applications of Anomaly Detection</h2>
+	<ul>
+		<li class="fragment">Intrusion Detection System</li>
+		<li class="fragment">Credit Card Fraud</li>
+		<li class="fragment">Medical Diagnosis</li>
+		<li class="fragment">Interesting Sensor Events</li>
+	</ul>
+</section>
+
+<section id="data-model-is-everything" class="slide level2">
+	<h2><em>Data Model</em> is Everything</h2>
+	<ul>
+		<li class="fragment">Generative model</li>
+		<li class="fragment">Regression-based model</li>
+		<li class="fragment">Proximity-based model</li>
+		<li class="fragment">Information theoretic</li>
+	</ul>
+</section>
+
+<section id="how-to-measure-the-performance" class="slide level2">
+	<h2>How to measure the performance</h2>
+	<ul>
+		<li class="fragment">Precision<br /></li>
+		<li class="fragment">Recall<br /></li>
+		<li class="fragment">F1 score<br /></li>
+		<li class="fragment"><span class="math inline">\(Precision = \frac{tp}{tp+fp}\)</span><br /></li>
+		<li class="fragment"><span class="math inline">\(Recall = \frac{tp}{tp+fn}\)</span><br /></li>
+		<li class="fragment"><span class="math inline">\(F_1 = 2\frac{Precision*Recall}{Precision + Recall}\)</span></li>
+	</ul>
+</section>
+
+<section id="algorithms" class="slide level2">
+	<h2>Basic Outlier Detection Algorithms</h2>
+	<p>Simple Generative Model</p>
+	<ul>
+		<li class="fragment">IQR<br /></li>
+		<li class="fragment">Gaussian empirical rule<br /></li>
+	</ul>
+	<p>Clustered Based Outlier Detection.</p>
+	<ul>
+		<li class="fragment">DBSCAN<br /></li>
+		<li class="fragment">OPTICS<br /></li>
+	</ul>
+	<p>Density Based Outlier Detection.</p>
+	<ul>
+		<li class="fragment"><em>LOF</em></li>
+		<li class="fragment">KNN</li>
+	</ul>
+</section>
+
+<section id="Basic-generative" class="slide level2">
+	<h2>Basic Generative Outlier Detection</h2>
+	<section id="iqr" class="slide level2">
+		<h3>IQR</h3>
+		<p>IQR Means Inter Quartile Range<br />
+		<span class="math inline">\(IQR = Q_3 - Q_1\)</span><br />
+		<img src="330px-Boxplot_vs_PDF_svg.png" width="600px" height="400px" /></p>
+	</section>
+</section>
+
+<section id="clustered-based" class="slide level2">
+	<h2>Clustered Based Outlier Detection</h2>
+	<section id="how-to-detect-outliers-in-this" class="slide level2">
+		<h3>How to detect outliers in this</h3>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-3-1.png" width="768px" height="500px" /></p>
+	</section>
+
+	<section id="dbscan" class="slide level2">
+		<h3>DBSCAN</h3>
+		<div style="width=600px;height=400px">
+			<p><img src="400px-DBSCAN-Illustration_svg.png" alt="DBscan core conception" /></p>
+		</div>
+		<ul>
+			<li class="fragment">Core point<br /></li>
+			<li class="fragment">Density-Reachability<br /></li>
+			<li class="fragment">Density-Connectedness<br /></li>
+			<li class="fragment">2 parameters : MinPts,eps</li>
+		</ul>
+	</section>
+
+	<section id="dbscan-visualize" class="slide level2">
+		<h3>DBSCAN visualize</h3>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-4-1.png" width="768" height="500"/></p>
+	</section>
+
+	<section id="method-for-determining-the-optimal-minpts-and-eps-values" class="slide level2">
+		<h4>Method for determining the optimal minPts and eps values</h4>
+		<ul>
+			<li class="fragment"><span class="math inline">\(MinPts &gt;= D + 1\)</span><br /></li>
+			<li class="fragment">Knn-graph for <span class="math inline">\(eps\)</span> <img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-5-1.png" width="600px" height="400px" /></li>
+		</ul>
+	</section>
+
+	<section id="detail-about-dbscan" class="slide level2">
+		<h2>Detail about DBSCAN</h2>
+		<div style="font-size:30px;align:left;">
+		<ul>
+			<li class="fragment">Advantages
+			<ol type="1">
+				<li class="fragment">Do not require define the number of clusters, as opposed to kmean<br /></li>
+				<li class="fragment">Can find arbitrarily shape<br /></li>
+				<li class="fragment">Outliers is robust<br /></li>
+			</ol></li>
+			<li class="fragment">Disadvantages
+			<ol type="1">
+				<li class="fragment">Not entirely deterministic<br /></li>
+				<li class="fragment">Suffered from “Curse of dimensionality”<br /></li>
+				<li class="fragment">Cannot cluster data sets well with large differences in densities<br /></li>
+			</ol></li>
+			<li class="fragment">Complexity
+			<ul>
+				<li class="fragment">Neighbour query with a index structure : <span class="math inline">\(O(n\log(n))\)</span></li>
+				<li class="fragment">Worst case <span class="math inline">\(O(n^2)\)</span></li>
+				<li class="fragment">Materialized distance matrix need <span class="math inline">\(O((n^2-n)/2)\)</span> memory size</li>
+			</ul></li>
+		</ul>
+		</div>
+	</section>
+</section>
+
+<section id="optics-algorithm" class="slide level2">
+	<h2>OPTICS algorithm</h2>
+	<section id="optics-overview" class="slide level2">
+		<ul>
+			<li class="fragment">Ordering points to identify the clustering structure (OPTICS)<br /></li>
+			<li class="fragment">Basic idea is similar to DBSCAN<br /></li>
+			<li class="fragment">Addresses one of DBSCAN’s major weaknesses: the problem of detecting meaningful clusters in data of varying density<br /></li>
+			<li class="fragment">Spatially closest become neighbors in the ordering<br /></li>
+			<li class="fragment">2 Params : <span class="math inline">\(\epsilon\)</span>, <span class="math inline">\(MinPts\)</span></li>
+		</ul>
+	</section>
+
+	<section id="optics-visualization" class="slide level2">
+		<h3>OPTICS Visualization</h3>
+		<p><img src="OPTICS.svg.png" alt="OPTICS core conception"  height="500"/></p>
+	</section>
+</section>
+
+
+<section id="lof" class="slide level2">
+	<h2>LOF</h2>
+	<section>
+		<ul>
+			<li class="fragment">LOF (Local Outlier Factor) is an algorithm for identifying density-based local outliers.<br /></li>
+			<li class="fragment">With LOF, the local density of a point is compared with that of its neighbors.<br /></li>
+			<li class="fragment">If the former is signi.cantly lower than the latter (with an LOF value greater than one), the point is in a sparser region than its neighbors, which suggests it be an outlier.</li>
+		</ul>
+	</section>
+	<section id="lof-conception" class="slide level2">
+		<h3>LOF Conception</h3>
+		<div style="font-size:30px;align:left;">
+			<ul>
+				<li class="fragment">k-distance(A) be the distance of the object A to the k-th nearest neighbor<br /></li>
+				<li class="fragment"><span class="math display">\[\mbox{reachability-distance}_k(A,B)=\max\{{\mbox{k-distance}}(B),d(A,B)\}\]</span></li>
+				<li class="fragment"><span class="math display">\[{\mbox{lrd}}(A):=1/({\frac {\sum _{B\in N_{k}(A)}{\mbox{reachability-distance}}_{k}(A,B)}{|N_{k}(A)|}})\]</span><br /></li>
+				<li class="fragment"><span class="math display">\[{\mbox{LOF}}_{k}(A):={\frac {\sum _{B\in N_{k}(A)}{\frac {{\mbox{lrd}}(B)}{{\mbox{lrd}}(A)}}}{|N_{k}(A)|}}\]</span></li>
+			</ul>
+		</div>
+	</section>
+	<section id="lof-detail" class="slide level2">
+		<h4>LOF Detail</h4>
+		<p><img src="375px-LOF-idea.svg.png" /> <img src="Reachability-distance.svg.png" /></p>
+	</section>
+
+	<section id="lof-example" class="slide level2">
+		<h4>LOF Example</h4>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" height="550" /></p>
+	</section>
+
+</section>
+
+<section id="parallel-computation-of-lof-scores" class="slide level2">
+	<h2>Parallel Computation of LOF Scores</h2>
+</section>
+
+<section id="print-top-5-outliers" class="slide level2">
+	<h2>Print Top 5 outliers</h2>
+	<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outliers &lt;-<span class="st"> </span><span class="kw">order</span>(outlier.scores, <span class="dt">decreasing=</span>T)[<span class="dv">1</span>:<span class="dv">5</span>]
+	<span class="kw">print</span>(outliers)</code></pre></div>
+	<pre><code>## [1]  42 107  23 110  63</code></pre>
+</section>
+
+<section id="visualize-outliers-with-plot" class="slide level2">
+	<h4>Visualize Outliers with Plot</h4>
+	<p>Show outliers with a biplot of the first two principal components.<br />
+	<img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" height="550" /></p>
+</section>
+
+<section id="Compare" class="slide level2">
+	<section id="iris-dataset-in-3d" class="slide level2">
+		<h3>Iris Dataset in 3d</h3>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-6-1.png" width="768" height="550"/></p>
+	</section>
+
+	<section id="pairs-plot" class="slide level2">
+		<h3>Pairs Plot with DBSCAN Clustering</h3>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-7-1.png" width="768" height="550" /></p>
+	</section>
+
+	<section id="larger-bubbles-in-the-visualization-have-a-larger-lof" class="slide level2">
+		<h3>Larger bubbles in the visualization have a larger LOF</h3>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-8-1.png" width="768" height="550" /></p>
+	</section>
+
+	<section id="section" class="slide level2">
+		<h3></h3>
+		<pre><code>## OPTICS ordering/clustering for 150 objects.
+	## Parameters: minPts = 4, eps = 1, eps_cl = 0.04, xi = NA
+	## The clustering contains 0 cluster(s) and 150 noise points.
+	## 
+	##   0 
+	## 150 
+	## 
+	## Available fields: order, reachdist, coredist, predecessor, minPts,
+	##                   eps, eps_cl, xi, cluster</code></pre>
+	</section>
+
+	<section id="create-a-reachability-plot-extracted-dbscan-clusters-at-eps_cl.4-are-colored" class="slide level2">
+		<h4>Create a reachability plot (extracted DBSCAN clusters at eps_cl=.4 are colored)</h4>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-10-1.png" width="672" height="520" /></p>
+	</section>
+
+	<section id="plot-the-extracted-dbscan-clustering" class="slide level2">
+		<h4>Plot the extracted DBSCAN clustering</h4>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-11-1.png" width="672" /></p>
+	</section>
+
+	<section id="extract-a-hierarchical-clustering-using-the-xi-method-captures-clusters-of-varying-density" class="slide level2">
+		<h2>Extract a hierarchical clustering using the Xi method (captures clusters of varying density)</h2>
+	</section>
+
+	<section id="section-1" class="slide level2">
+		<h2></h2>
+		<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-13-1.png" width="672" /></p>
+	</section>
+</section>
+
+<section id="pairs-plot-1" class="slide level2">
+	<h2>Pairs Plot</h2>
+	<p><img src="AbnormalyDetection_files/figure-revealjs/unnamed-chunk-17-1.png" width="768" /></p>
+</section>
+
+
+    </div>
+  </div>
+
+  <script src="AbnormalyDetection_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="AbnormalyDetection_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'AbnormalyDetection_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'AbnormalyDetection_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
